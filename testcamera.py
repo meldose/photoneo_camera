@@ -1,6 +1,7 @@
+# import phoXi
 import logging
 import keyboard  # Library for detecting keypresses
-from phoXi import PhoXiControl, PhoXiError
+from phoXi import PhoXiControl, PhoXiError, Frame
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -8,25 +9,25 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 def capture_image(phoXi_device):
     """Function to capture an image and process the point cloud."""
     logging.info("Capturing image...")
-    frame = phoXi_device.TriggerFrame()
-
+    frame = Frame()
+    phoXi_device.TriggerFrame(frame)
+    
     if frame:
-        logging.info("Image captured successfully.")
+            logging.info("Image captured successfully.")
 
-        # Access point cloud data from the captured frame
-        point_cloud = frame.GetPointCloud()
-        logging.info(f"Point cloud has {len(point_cloud)} points.")
+            # Access point cloud data from the captured frame
+            point_cloud = frame.GetPointCloud()
+            logging.info(f"Point cloud has {len(point_cloud)} points.")
 
-        # Example: Save point cloud to a PLY file
-        save_path = "captured_point_cloud.ply"
-        success = frame.SaveAsPLY(save_path)
-        if success:
-            logging.info(f"Point cloud saved to {save_path}.")
-        else:
-            logging.error("Failed to save point cloud.")
+            # Example: Save point cloud to a PLY file
+            save_path = "captured_point_cloud.ply"
+            success = frame.SaveAsPLY(save_path)
+            if success:
+                logging.info(f"Point cloud saved to {save_path}.")
+            else:
+                logging.error("Failed to save point cloud.")
     else:
-        logging.error("Failed to capture image.")
-
+            logging.error("Failed to capture image.")
 
 def main():
     try:
@@ -67,7 +68,7 @@ def main():
 
         logging.info("Device connected successfully.")
 
-        # Ensure acquisition is stopped before starting
+        # Stop any existing acquisition
         if phoXi_device.isAcquiring():
             phoXi_device.StopAcquisition()
             logging.info("Existing acquisition stopped.")
@@ -80,34 +81,33 @@ def main():
         phoXi_device.StartAcquisition()
         logging.info("Acquisition started.")
 
-        logging.info("Press 't' to trigger the camera capture, or 'q' to quit.")
+        
 
         # Main loop to wait for key presses
-        while True:
-            if keyboard.is_pressed('t'):  # Trigger capture on 't' key press
-                logging.info("'t' key pressed. Triggering camera...")
-                capture_image(phoXi_device)
-
-            if keyboard.is_pressed('q'):  # Quit loop on 'q' key press
-                logging.info("'q' key pressed. Exiting...")
-                break
-
-    except PhoXiError as e:
-        logging.exception(f"PhoXiError encountered: {e}")
-    except Exception as e:
-        logging.exception(f"An unexpected error occurred: {e}")
-    finally:
-        # Stop acquisition and disconnect device if connected
         try:
-            if 'phoXi_device' in locals():
-                if phoXi_device.isAcquiring():
-                    phoXi_device.StopAcquisition()
-                    logging.info("Acquisition stopped.")
-                phoXi_device.Disconnect()
-                logging.info("Device disconnected.")
-        except Exception as e:
-            logging.exception(f"Error during cleanup: {e}")
+            while True:
+                if keyboard.is_pressed('t'):  # Trigger capture on 't' key press
+                    logging.info("'t' key pressed. Triggering camera...")
+                    capture_image(phoXi_device)
+
+                if keyboard.is_pressed('q'):  # Quit loop on 'q' key press
+                    logging.info("'q' key pressed. Exiting...")
+                    break
+        except KeyboardInterrupt:
+            logging.info("Ctrl+C pressed. Exiting...")
+        finally:
+            # Stop acquisition and disconnect device if connected
+            try:
+                if 'phoXi_device' in locals():
+                    if phoXi_device.isAcquiring():
+                        phoXi_device.StopAcquisition()
+                        logging.info("Acquisition stopped.")
+                    phoXi_device.Disconnect()
+                    logging.info("Device disconnected.")
+            except Exception as e:
+                logging.exception(f"Error during cleanup: {e}")
 
 
 if __name__ == "__main__":
     main()
+
