@@ -5,6 +5,22 @@ import os
 import sys
 from sys import platform
 from harvesters.core import Harvester
+import matplotlib.pyplot as plt
+
+
+# Create a simple image
+image = np.zeros((100, 100, 3), dtype=np.uint8)
+cv2.imshow("Test Image", image)
+cv2.waitKey(0)  # Wait for a key press
+cv2.destroyAllWindows()
+
+def display_with_matplotlib(image, title="Image"):
+    # Assuming image is in range 0-65535, normalize to 0-1 for matplotlib
+    image = image / 65535.0
+    plt.imshow(image, cmap='gray')
+    plt.title(title)
+    plt.axis('off')
+    plt.show()
 
 def display_texture_if_available(texture_component):
     if texture_component.width == 0 or texture_component.height == 0:
@@ -17,6 +33,40 @@ def display_texture_if_available(texture_component):
     # Show image
     cv2.imshow("Texture", texture_screen)
     return
+
+def display_texture_if_available(texture_component):
+    if texture_component.width == 0 or texture_component.height == 0:
+        print("Texture is empty!")
+        return
+    
+    # Reshape 1D array to 2D array with image size
+    texture = texture_component.data.reshape(texture_component.height, texture_component.width, 1).copy()
+    
+    # Alternative normalization method
+    texture_screen = (texture - texture.min()) / (texture.max() - texture.min()) * 65535
+    texture_screen = texture_screen.astype(np.uint16)  # Convert back to the desired type
+    
+    # Use matplotlib instead of cv2 for displaying the image
+    display_with_matplotlib(texture_screen, title="Texture")
+    return
+
+
+def display_texture_if_available(texture_component):
+    if texture_component.width == 0 or texture_component.height == 0:
+        print("Texture is empty!")
+        return
+    
+    # Reshape 1D array to 2D array with image size
+    texture = texture_component.data.reshape(texture_component.height, texture_component.width, 1).copy()
+    
+    # Alternative normalization method
+    texture_screen = (texture - texture.min()) / (texture.max() - texture.min()) * 65535
+    texture_screen = texture_screen.astype(np.uint16)  # Convert back to the desired type
+    
+    # Show image
+    cv2.imshow("Texture", texture_screen)
+    return
+
 
 def display_color_image_if_available(color_component, name):
     if color_component.width == 0 or color_component.height == 0:
