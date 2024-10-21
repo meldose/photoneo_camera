@@ -243,7 +243,7 @@ class Gvcp:
 
         def local_addresses() -> List[str]:
             """Get ip addresses of local interfaces, one per interface."""
-            if sys.platform == "win32":
+            if sys.platform == "linux":
                 return local_addresses_windows()
             elif sys.platform == "linux":
                 return local_addresses_linux()

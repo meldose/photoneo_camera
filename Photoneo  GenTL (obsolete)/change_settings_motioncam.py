@@ -10,7 +10,7 @@ if len(sys.argv) == 2:
     device_id = "PhotoneoTL_DEV_" + sys.argv[1]
 print("--> device_id: ", device_id)
 
-if platform == "win32":
+if platform == "linux":
     cti_file_path_suffix = "/API/bin/photoneo.cti"
 else:
     cti_file_path_suffix = "/API/lib/photoneo.cti"

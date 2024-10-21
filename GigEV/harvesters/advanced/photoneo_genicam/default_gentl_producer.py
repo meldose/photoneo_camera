@@ -6,7 +6,7 @@ GENTL_PATHS = os.getenv("GENICAM_GENTL64_PATH").split(os.pathsep)
 
 
 default_gentl_producer_file = "libmvGenTLProducer.so"
-if platform == "win32":
+if platform == "linux":
     default_gentl_producer_file = "mvGenTLProducer.cti"
 
 
