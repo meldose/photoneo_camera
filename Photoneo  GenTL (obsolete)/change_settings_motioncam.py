@@ -5,7 +5,7 @@ from harvesters.core import Harvester
 import struct
 
 # PhotoneoTL_DEV_<ID>
-device_id = "TER-008"
+device_id = "DVD-002"
 if len(sys.argv) == 2:
     device_id = "PhotoneoTL_DEV_" + sys.argv[1]
 print("--> device_id: ", device_id)
