@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-import sys
-from pathlib import Path
+import sys # imported sys module
+from pathlib import Path # imported Path module
 
-import cv2
-import numpy as np
-from genicam.genapi import NodeMap
+import cv2 # imported cv2 module
+import numpy as np # imported numpy as np
+from genicam.genapi import NodeMap # imported module NodeMap
 from harvesters.core import Component2DImage, Harvester
 
 from photoneo_genicam.components import (enable_components, enabled_components,
@@ -19,18 +19,18 @@ def process_component(component_name: str, component: Component2DImage):
     pixel_format = component.data_format
     if component_name in ("Intensity", "ColorCamera"):
         component_data = component.data.copy()
-        if pixel_format == "Mono10":
+        if pixel_format == "Mono10": # if pixel format is Mono10
             data = ((component_data.astype(np.uint16) << 6).reshape(component.height, component.width, 1))
-        elif pixel_format == "Mono12":
+        elif pixel_format == "Mono12": # if pixel format is Mono12
             data = ((component_data.astype(np.uint16) << 4).reshape(component.height, component.width, 1))
-        elif pixel_format == "Mono16":
+        elif pixel_format == "Mono16":# if pixel format is Mono16
             data = component.data.reshape(component.height, component.width, 1)
-        elif pixel_format == "RGB8":
+        elif pixel_format == "RGB8": # if pixel format is RGB8
             data = cv2.cvtColor(component.data.reshape((component.height, component.width, 3)), cv2.COLOR_RGB2BGR)
         else:
             raise Exception(f"Unknown pixel format option for component: {component_name}")
         cv2.imwrite(f"{component_name}_{pixel_format}.png", data)
-    elif component_name == "Confidence":
+    elif component_name == "Confidence": # if component is Confidence
         data = component.data.reshape(component.height, component.width, 1)
         cv2.imwrite(f"{component_name}_{pixel_format}.png", data)
     else:
@@ -39,16 +39,16 @@ def process_component(component_name: str, component: Component2DImage):
 
 def main(device_sn: str, *components: str):
 
-    if len(components) == 0:
+    if len(components) == 0: # if length of components is 0
         print("Warning: No component specified, using default: Range.")
         components = ["Range"]
 
-    with Harvester() as h:
+    with Harvester() as h: # considet h as Harvester
         h.add_file(str(producer_path), check_existence=True, check_validity=True)
-        h.update()
+        h.update() # update harvester
 
-        print(f"Connecting to: {device_sn}")
-        with h.create({"serial_number": device_sn}) as ia:
+        print(f"Connecting to: {device_sn}") # connect to device
+        with h.create({"serial_number": device_sn}) as ia: # create ia with device_sn
             features: NodeMap = ia.remote_device.node_map
 
             load_default_user_set(features)
