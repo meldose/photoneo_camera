@@ -1,12 +1,12 @@
-import numpy as np
-import open3d as o3d
-from genicam.genapi import NodeMap
+import numpy as np # imported numpy as np
+import open3d as o3d # imported module o3d
+from genicam.genapi import NodeMap # imported module NodeMap
 from harvesters.core import Component2DImage, ImageAcquirer
 
-from .components import enable_components
-from .features import enable_software_trigger
-from .user_set import load_default_user_set
-from .utils import measure_time
+from .components import enable_components # imported function enable_components
+from .features import enable_software_trigger # imported function enable_software_trigger
+from .user_set import load_default_user_set # imported function load_default_user_set
+from .utils import measure_time # imported function measure_time
 
 
 def calculate_point_cloud_from_projc(depth_map: np.ndarray, coordinate_map: np.ndarray) -> np.array:
@@ -33,36 +33,36 @@ def create_3d_vector(input_array_as_np: np.ndarray):
 
 
 def map_texture(texture: Component2DImage) -> o3d.utility.Vector3dVector:
-    # o3d point colors property expect (num_points, 3), range [0, 1] format
-    if texture.data_format == "RGB8":
+    o3d point colors property expect (num_points, 3), range [0, 1] format
+    if texture.data_format == "RGB8": # consider texture.data_format == "BGR8"
         return o3d.utility.Vector3dVector(texture.data.reshape(-1, 3).astype(np.float64) / 255.0)
-    if texture.data_format == "Mono10":
+    if texture.data_format == "Mono10": # consider texture.data_format == "Mono12"
         normalized = texture.data.reshape(-1, 1).astype(np.float64) / 1024.0
         return o3d.utility.Vector3dVector(np.repeat(normalized, 3, axis=-1))
-    if texture.data_format == "Mono12":
+    if texture.data_format == "Mono12":# consider texture.data_format == "Mono16"
         normalized = texture.data.reshape(-1, 1).astype(np.float64) / 4096.0
         return o3d.utility.Vector3dVector(np.repeat(normalized, 3, axis=-1))
-    if texture.data_format == "Mono16":
+    if texture.data_format == "Mono16": # consider texture.data_format == "Mono20"
         normalized = texture.data.reshape(-1, 1).astype(np.float64) / 65536.0
         return o3d.utility.Vector3dVector(np.repeat(normalized, 3, axis=-1))
 
 
 @measure_time
-def pre_fetch_coordinate_maps(ia: ImageAcquirer) -> np.ndarray:
+def pre_fetch_coordinate_maps(ia: ImageAcquirer) -> np.ndarray: # defined the function having ImageAcquirer
     assert not ia.is_acquiring(), "Acquisition is not stopped"
 
-    features: NodeMap = ia.remote_device.node_map
+    features: NodeMap = ia.remote_device.node_map # cosnider the features as NodeMap
 
-    trigger_mode_before_pre_fetch = features.TriggerMode.value
-    trigger_source_before_pre_fetch = features.TriggerSource.value
+    trigger_mode_before_pre_fetch = features.TriggerMode.value # consider the trigger_mode_before_pre_fetch as the trigger_mode
+    trigger_source_before_pre_fetch = features.TriggerSource.value # consider the trigger_source_before_pre_fetch as the trigger_source
 
-    enable_software_trigger(features)
+    enable_software_trigger(features) # enabling the software trigger
     enable_components(features, ["CoordinateMapA", "CoordinateMapB"])
 
-    focal_length: float = features.Scan3dFocalLength.value
-    aspect_ratio: float = features.Scan3dAspectRatio.value
-    ppu: float = features.Scan3dPrincipalPointU.value
-    ppv: float = features.Scan3dPrincipalPointV.value
+    focal_length: float = features.Scan3dFocalLength.value # consider the focal length as float
+    aspect_ratio: float = features.Scan3dAspectRatio.value # consider the aspect ratio as float
+    ppu: float = features.Scan3dPrincipalPointU.value # consider the ppu as float
+    ppv: float = features.Scan3dPrincipalPointV.value # consider the ppv as float
 
     ia.start()
     features.TriggerSoftware.execute()
