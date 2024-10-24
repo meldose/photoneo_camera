@@ -1,11 +1,11 @@
-import numpy as np
-from genicam.genapi import NodeMap
+import numpy as np # imported numpy as np
+from genicam.genapi import NodeMap # imported module NodeMap 
 
 
 def parse_chunk_selector(features: NodeMap, chunk_feature_name: str) -> dict:
     selector_alias: str = f"Chunk{chunk_feature_name}Selector"
     value_alias: str = f"Chunk{chunk_feature_name}Value"
-    chunk_data = {}
+    chunk_data = {} # chunk_data contains empty dictionaries 
     for s_opts in features.get_node(selector_alias).symbolics:
         features.get_node(selector_alias).value = s_opts
         chunk_data[s_opts] = features.get_node(value_alias).value
