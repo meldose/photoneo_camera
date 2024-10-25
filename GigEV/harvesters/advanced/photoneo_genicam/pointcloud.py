@@ -12,7 +12,7 @@ from .utils import measure_time # imported function measure_time
 def calculate_point_cloud_from_projc(depth_map: np.ndarray, coordinate_map: np.ndarray) -> np.array:
     return depth_map[:, np.newaxis] * coordinate_map
 
-
+# defining an function for constructing the coordinate map
 def construct_coordinate_map(
     coordinate_a: np.ndarray,
     coordinate_b: np.ndarray,
@@ -21,14 +21,14 @@ def construct_coordinate_map(
     principal_point_u: float,
     principal_point_v: float,
 ) -> np.array:
-    x = (coordinate_a - principal_point_u) / focal_length
-    y = (coordinate_b - principal_point_v) / (focal_length * aspect_ratio)
-    z = np.ones_like(x)
+    x = (coordinate_a - principal_point_u) / focal_length # define the x coordinate
+    y = (coordinate_b - principal_point_v) / (focal_length * aspect_ratio) # define the y coordinate
+    z = np.ones_like(x) # define the z coordinate
     return np.stack([x, y, z], axis=-1)
 
 
 # The astype(np.float64) operation is required to make this operation fast
-def create_3d_vector(input_array_as_np: np.ndarray):
+def create_3d_vector(input_array_as_np: np.ndarray): # define the function for 3d vector 
     return o3d.utility.Vector3dVector(input_array_as_np.reshape(-1, 3).astype(np.float64))
 
 
@@ -64,18 +64,18 @@ def pre_fetch_coordinate_maps(ia: ImageAcquirer) -> np.ndarray: # defined the fu
     ppu: float = features.Scan3dPrincipalPointU.value # consider the ppu as float
     ppv: float = features.Scan3dPrincipalPointV.value # consider the ppv as float
 
-    ia.start()
-    features.TriggerSoftware.execute()
+    ia.start() # start acquisition
+    features.TriggerSoftware.execute() # execute and trigger the software 
 
     coord_map: np.ndarray = None
-    with ia.fetch(timeout=3) as buffer:
+    with ia.fetch(timeout=3) as buffer: 
         coordinate_map_a: Component2DImage = buffer.payload.components[0]
         coordinate_map_b: Component2DImage = buffer.payload.components[1]
         coord_map = construct_coordinate_map(
             coordinate_map_a.data, coordinate_map_b.data, focal_length, aspect_ratio, ppu, ppv
         )
-    ia.stop()
+    ia.stop() # stop the acquisition 
 
-    features.TriggerMode.value = trigger_mode_before_pre_fetch
-    features.TriggerSource.value = trigger_source_before_pre_fetch
+    features.TriggerMode.value = trigger_mode_before_pre_fetch # setting the TriggerMode value 
+    features.TriggerSource.value = trigger_source_before_pre_fetch # setting the TriggerSource value
     return coord_map
