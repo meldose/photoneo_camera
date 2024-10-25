@@ -135,7 +135,7 @@ def software_trigger(iterations=100): # defining the number of time it take the 
                 # The buffer object will automatically call its dto once it goes
                 # out of scope and releases internal buffer object.
             
-            for i in range(iterations):
+            for i in range(iterations=100):
                 print(f"\n-- Capturing frame {i+1}/{iterations} --")
 
             features.TriggerFrame.execute() # trigger second frame
