@@ -20,7 +20,8 @@ def main(device_sn: str):
     with Harvester() as h:
         np.set_printoptions(suppress=True)
         h.add_file(str(producer_path), check_existence=True, check_validity=True)
-        h.update()
+        h.update() # update harvester
+        
 
         with h.create({"serial_number": device_sn}) as ia:
             features: NodeMap = ia.remote_device.node_map
