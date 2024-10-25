@@ -74,7 +74,7 @@ def software_trigger():
     print("--> device_id: ", device_id)
 
     if platform == "linux":
-        cti_file_path_suffix = "/API/bin/photoneo.cti"
+        cti_file_path_suffix = "/API/lib/photoneo.cti"
     else:
         cti_file_path_suffix = "/API/lib/photoneo.cti"
     cti_file_path = os.getenv('PHOXI_CONTROL_PATH') + cti_file_path_suffix
