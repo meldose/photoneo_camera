@@ -34,16 +34,16 @@ def create_3d_vector(input_array_as_np: np.ndarray):
 
 def map_texture(texture: Component2DImage) -> o3d.utility.Vector3dVector:
     o3d point colors property expect (num_points, 3), range [0, 1] format
-    if texture.data_format == "RGB8": # consider texture.data_format == "BGR8"
+    if texture.data_format == "BGR8": # consider texture.data_format == "BGR8"
         return o3d.utility.Vector3dVector(texture.data.reshape(-1, 3).astype(np.float64) / 255.0)
-    if texture.data_format == "Mono10": # consider texture.data_format == "Mono12"
-        normalized = texture.data.reshape(-1, 1).astype(np.float64) / 1024.0
-        return o3d.utility.Vector3dVector(np.repeat(normalized, 3, axis=-1))
-    if texture.data_format == "Mono12":# consider texture.data_format == "Mono16"
+    if texture.data_format == "Mono12": # consider texture.data_format == "Mono12"
         normalized = texture.data.reshape(-1, 1).astype(np.float64) / 4096.0
         return o3d.utility.Vector3dVector(np.repeat(normalized, 3, axis=-1))
-    if texture.data_format == "Mono16": # consider texture.data_format == "Mono20"
+    if texture.data_format == "Mono16":# consider texture.data_format == "Mono16"
         normalized = texture.data.reshape(-1, 1).astype(np.float64) / 65536.0
+        return o3d.utility.Vector3dVector(np.repeat(normalized, 3, axis=-1))
+    if texture.data_format == "Mono20": # consider texture.data_format == "Mono20"
+        normalized = texture.data.reshape(-1, 1).astype(np.float64) / 1048576.0
         return o3d.utility.Vector3dVector(np.repeat(normalized, 3, axis=-1))
 
 
