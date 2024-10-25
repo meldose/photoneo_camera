@@ -1,21 +1,21 @@
-import numpy as np
-import open3d as o3d
-import cv2
-import os
-import sys
-from sys import platform
+import numpy as np # imported numpy module
+import open3d as o3d # imported open 3d module
+import cv2 # imported cv2 module
+import os # imported os 
+import sys # imported sys 
+from sys import platform # imported platform module from sys class
 from harvesters.core import Harvester
 
-def display_texture_if_available(texture_component):
-    if texture_component.width == 0 or texture_component.height == 0:
+def display_texture_if_available(texture_component): # defined the function for texture component.
+    if texture_component.width == 0 or texture_component.height == 0: # if the texture is zero then
         print("Texture is empty!")
         return
     
     # Reshape 1D array to 2D array with image size
-    texture = texture_component.data.reshape(texture_component.height, texture_component.width, 1).copy()
-    texture_screen = cv2.normalize(texture, dst=None, alpha=0, beta=65535, norm_type=cv2.NORM_MINMAX)
-    # Show image
-    cv2.imshow("Texture", texture_screen)
+    texture = texture_component.data.reshape(texture_component.height, texture_component.width, 1).copy() # reshaped the texture component from 1D to 2D array with image size 
+    texture_screen = cv2.normalize(texture, dst=None, alpha=0, beta=65535, norm_type=cv2.NORM_MINMAX) # converted image of 2d array
+
+    cv2.imshow("Texture", texture_screen) # Show image
     return
 
 def display_color_image_if_available(color_component, name):

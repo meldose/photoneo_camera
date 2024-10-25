@@ -1,5 +1,5 @@
 import time # imported time module
-from functools import wraps # imorted functools module
+from functools import wraps # imported functools module
 
 
 def measure_time(func): # defined the fucnction measure_time
