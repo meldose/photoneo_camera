@@ -90,27 +90,27 @@ def software_trigger():  # Continuous mode, removed 'iterations' parameter
             features.PhotoneoTriggerMode.value = "Software" # assigning the Photoneo_TriggerMode as Software
             print("TriggerMode AFTER: ", features.PhotoneoTriggerMode.value)
 
-            features.SendTexture.value = True
-            features.SendPointCloud.value = True
-            features.SendNormalMap.value = True
-            features.SendDepthMap.value = True
-            features.SendConfidenceMap.value = True
+            features.SendTexture.value = True # setting the texture value as True
+            features.SendPointCloud.value = True # setting the pointcloud as True
+            features.SendNormalMap.value = True # setting the NoramlMap value as True
+            features.SendDepthMap.value = True # setting the Depth Map value as True
+            features.SendConfidenceMap.value = True # setting the confidence Map value as True 
 
-            ia.start()
+            ia.start() # acquisition started
 
             while True:  # Run indefinitely
                 print("\n-- Capturing frame --")
                 features.TriggerFrame.execute()  # trigger frame
-                with ia.fetch(timeout=10.0) as buffer:
+                with ia.fetch(timeout=10.0) as buffer: # fetching the acquisition in specific timeout
                     payload = buffer.payload
 
                     texture_component = payload.components[0]
                     display_texture_if_available(texture_component)
 
                     texture_rgb_component = payload.components[1]
-                    display_color_image_if_available(texture_rgb_component, "TextureRGB")
+                    display_color_image_if_available(texture_rgb_component, "TextureRGB") # considering the display color image as TextureRGB
                     color_image_component = payload.components[7]
-                    display_color_image_if_available(color_image_component, "ColorCameraImage")
+                    display_color_image_if_available(color_image_component, "ColorCameraImage") # considering the color image component as ColorCameraImage
 
                     point_cloud_component = payload.components[2]
                     norm_component = payload.components[3]
