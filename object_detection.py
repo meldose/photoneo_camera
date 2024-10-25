@@ -14,13 +14,13 @@
 # cap.release()
 # cv2.destroyAllWindows()
 
+from ultralytics import YOLO # imported YOLO from ultralytics
+import cv2 # imported cv2 module
+import math #  imported the math module
 from ultralytics import YOLO
-import cv2
-import math 
-from ultralytics import YOLO
-model = YOLO("yolo-Weights/yolov8n.pt")
-# start webcam
-cap = cv2.VideoCapture(0)
+model = YOLO("yolo-Weights/yolov8n.pt") # assigning the model variable as YOLO path having the image.
+
+cap = cv2.VideoCapture(0) # starting the Webcamera
 cap.set(3, 640)
 cap.set(4, 480)
 
@@ -39,9 +39,9 @@ classNames = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "trai
               ]
 
 
-while True:
-    success, img = cap.read()
-    results = model(img, stream=True)
+while True: # checking the condition
+    success, img = cap.read() # if success then read the captured image
+    results = model(img, stream=True) # assigning the results as model having image and stream
 
     # coordinates
     for r in results:
@@ -72,9 +72,9 @@ while True:
 
             cv2.putText(img, classNames[cls], org, font, fontScale, color, thickness)
 
-    cv2.imshow('Webcam', img)
-    if cv2.waitKey(1) == ord('q'):
+    cv2.imshow('Webcam', img) # show the webcam image
+    if cv2.waitKey(1) == ord('q'): # by pressing the Wait-key as q it will close
         break
 
-cap.release()
-cv2.destroyAllWindows()
+cap.release() # release the camera
+cv2.destroyAllWindows() # destroy all the windows created while capturing 
