@@ -1,8 +1,8 @@
-import os
-import sys
-from sys import platform
-from harvesters.core import Harvester
-import struct
+import os # imported os
+import sys # imported sys module
+from sys import platform # imported platform module
+from harvesters.core import Harvester # imported harvesters module
+import struct # imported struct module
 
 # PhotoneoTL_DEV_<ID>
 device_id = "TER-008"
