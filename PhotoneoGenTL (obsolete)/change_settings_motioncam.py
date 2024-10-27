@@ -1,36 +1,36 @@
-import os
-import sys
-from sys import platform
-from harvesters.core import Harvester
-import struct
+import os # imported os
+import sys # imported sys module
+from sys import platform #  imported platform module from sys
+from harvesters.core import Harvester # imported module Harvester from harvesters
+import struct # imported struct module
 
 # PhotoneoTL_DEV_<ID>
-device_id = "TER-008"
-if len(sys.argv) == 2:
+device_id = "TER-008" # set device id
+if len(sys.argv) == 2: #setting the length of the argument to 2
     device_id = "PhotoneoTL_DEV_" + sys.argv[1]
-print("--> device_id: ", device_id)
+print("--> device_id: ", device_id) # printing the device id
 
-if platform == "linux":
-    cti_file_path_suffix = "/API/bin/photoneo.cti"
+if platform == "linux": # if the platform is linux
+    cti_file_path_suffix = "/API/bin/photoneo.cti" # assign the cti file path suffix as follows
 else:
     cti_file_path_suffix = "/API/lib/photoneo.cti"
 cti_file_path = os.getenv('PHOXI_CONTROL_PATH') + cti_file_path_suffix
 print("--> cti_file_path: ", cti_file_path)
 
-with Harvester() as h:
-    h.add_file(cti_file_path, True, True)
-    h.update()
+with Harvester() as h: # consider h as Harvester
+    h.add_file(cti_file_path, True, True) # adding the file path
+    h.update() # updating the harvester
 
     # Print out available devices
     print()
     print("Name : ID")
     print("---------")
-    for item in h.device_info_list:
-        print(item.property_dict['serial_number'], ' : ', item.property_dict['id_'])
+    for item in h.device_info_list: # checking if the item is in the info list or not
+        print(item.property_dict['serial_number'], ' : ', item.property_dict['id_']) #  printing the serial_number with item property dict
     print()
 
-    with h.create({'id_': device_id}) as ia:
-        features = ia.remote_device.node_map
+    with h.create({'id_': device_id}) as ia: # creating the device id
+        features = ia.remote_device.node_map # assigning the features as ia.remote_device.node_map
 
         ## General settings
         # ReadOnly
