@@ -1,46 +1,45 @@
 #!/usr/bin/env python3
-import sys
-from pathlib import Path
+import sys # imported sys module
+from pathlib import Path # imported Path module 
 
-import cv2
-import numpy as np
-from genicam.genapi import NodeMap
-from harvesters.core import Component2DImage, Harvester
-from numba import jit
+import cv2 # imported cv2 module
+import numpy as np # imported numpy as np
+from genicam.genapi import NodeMap # imported module NodeMap
+from harvesters.core import Component2DImage, Harvester # imported module Harvester and Component2DImage from harvesters.core
+from numba import jit # imported module jit
 
-from photoneo_genicam.components import enable_components
-from photoneo_genicam.default_gentl_producer import producer_path
-from photoneo_genicam.features import enable_software_trigger
-from photoneo_genicam.user_set import load_default_user_set
-from photoneo_genicam.utils import measure_time
+from photoneo_genicam.components import enable_components # imported function enable_components from photoneo_genicam.components
+from photoneo_genicam.default_gentl_producer import producer_path # imported module producer_path from photoneo_genicam.default_gentl_producer
+from photoneo_genicam.features import enable_software_trigger # imported function enable_software_trigger from photoneo_genicam.features
+from photoneo_genicam.user_set import load_default_user_set # imported function load_default_user_set from photoneo_genicam.user_set
+from photoneo_genicam.utils import measure_time # imported function measure_time from photoneo_genicam.utils
 
 
 @jit(nopython=True)
-def pixel_rgb(y: int, co: int, cg: int) -> np.ndarray:
-    pixel_depth = 10
+def pixel_rgb(y: int, co: int, cg: int) -> np.ndarray: # pylint: disable=unused-argument
+    pixel_depth = 10 # set pixel depth to 10 bits
 
-    if y == 0:
-        return np.array((0, 0, 0)).reshape((1, 1, 3))
+    if y == 0: # if y is 0
+        return np.array((0, 0, 0)).reshape((1, 1, 3)) # return array (0, 0, 0)
 
-    delta: int = 1 << (pixel_depth - 1)
+    delta: int = 1 << (pixel_depth - 1) # set delta to 1 << (pixel_depth - 1)
     max_value: int = 2 * delta - 1
 
-    r1: int = 2 * y + co
+    r1: int = 2 * y + co # set r1 to 2 * y + co
     r: int = (r1 - cg) // 2 if r1 > cg else 0
 
-    g1: int = y + cg // 2
+    g1: int = y + cg // 2 # set g1 to y + cg // 2
     g: int = g1 - delta if g1 > delta else 0
 
-    b1: int = y + 2 * delta
-    b2: int = (co + cg) // 2
-    b: int = b1 - b2 if b1 > b2 else 0
+    b1: int = y + 2 * delta # set b1 to y + 2 * delta
+    b: int = b1 - b2 if b1 > b2 else 0 # set b to b1 - b2
 
-    return np.array((min(r, max_value), min(g, max_value), min(b, max_value))).reshape((1, 1, 3))
+    return np.array((min(r, max_value), min(g, max_value), min(b, max_value))).reshape((1, 1, 3)) 
 
 
 @measure_time
 @jit(nopython=True)
-def convert_to_rgb(ycocg_img) -> np.ndarray:
+def convert_to_rgb(ycocg_img) -> np.ndarray: 
     pixel_depth: int = 10
     y_shift: int = np.iinfo(ycocg_img.dtype).bits - pixel_depth
     mask: int = (1 << y_shift) - 1
