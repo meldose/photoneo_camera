@@ -18,8 +18,8 @@ def display_texture_if_available(texture_component): # defined the function for 
     cv2.imshow("Texture", texture_screen) # Show image
     return
 
-def display_color_image_if_available(color_component, name):
-    if color_component.width == 0 or color_component.height == 0:
+def display_color_image_if_available(color_component, name): # defined function display_color_image_if_available
+    if color_component.width == 0 or color_component.height == 0: # if the texture is zero then
         print(name + " is empty!")
         return
     
@@ -34,7 +34,7 @@ def display_color_image_if_available(color_component, name):
 
 def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, texture_rgb_comp):
     if pointcloud_comp.width == 0 or pointcloud_comp.height == 0:
-        print("PointCloud is empty!")
+        print("PointCloud is empty!") # print the pointcloud is empty
         return
     
     # Reshape for Open3D visualization to N x 3 arrays
