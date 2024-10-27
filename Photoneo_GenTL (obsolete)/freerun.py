@@ -1,9 +1,9 @@
-import numpy as np
-import open3d as o3d
-import cv2
-import os
-import sys
-from sys import platform
+import numpy as np # imported numpy module
+import open3d as o3d # imported open 3d module
+import cv2 # imported cv2 module
+import os # imported os
+import sys # imported sys
+from sys import platform # imported platform module from sys class
 from harvesters.core import Harvester
 import matplotlib.pyplot as plt
 
