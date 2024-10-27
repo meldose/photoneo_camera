@@ -32,8 +32,8 @@ def display_color_image_if_available(color_component, name): # defined function 
     cv2.imshow(name, color_image)
     return
 
-def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, texture_rgb_comp):
-    if pointcloud_comp.width == 0 or pointcloud_comp.height == 0:
+def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, texture_rgb_comp): # deined the function display_pointcloud_if_available
+    if pointcloud_comp.width == 0 or pointcloud_comp.height == 0: # if the texture is zero then
         print("PointCloud is empty!") # print the pointcloud is empty
         return
     
@@ -42,24 +42,24 @@ def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, 
     pcd = o3d.geometry.PointCloud()
     pcd.points = o3d.utility.Vector3dVector(pointcloud)
 
-    if normal_comp.width > 0 and normal_comp.height > 0:
+    if normal_comp.width > 0 and normal_comp.height > 0: # if the normal component is not empty
         norm_map = normal_comp.data.reshape(normal_comp.height * normal_comp.width, 3).copy()
         pcd.normals = o3d.utility.Vector3dVector(norm_map)
 
     # Reshape 1D array to 2D (3 channel) array with image size
     texture_rgb = np.zeros((pointcloud_comp.height * pointcloud_comp.width, 3))
-    if texture_comp.width > 0 and texture_comp.height > 0:
+    if texture_comp.width > 0 and texture_comp.height > 0: # if the texture component is not empty
         texture = texture_comp.data.reshape(texture_comp.height, texture_comp.width, 1).copy()
-        texture_rgb[:, 0] = np.reshape(1/65536 * texture, -1)
-        texture_rgb[:, 1] = np.reshape(1/65536 * texture, -1)
-        texture_rgb[:, 2] = np.reshape(1/65536 * texture, -1)        
+        texture_rgb[:, 0] = np.reshape(1/65536 * texture, -1) # reshaped the texture component from 1D to 2D array with image size
+        texture_rgb[:, 1] = np.reshape(1/65536 * texture, -1) # reshaped the texture component from 1D to 2D array with image size
+        texture_rgb[:, 2] = np.reshape(1/65536 * texture, -1) # reshaped the texture component from 1D to 2D array with image size    
     elif texture_rgb_comp.width > 0 and texture_rgb_comp.height > 0:
         texture = texture_rgb_comp.data.reshape(texture_rgb_comp.height, texture_rgb_comp.width, 3).copy()
-        texture_rgb[:, 0] = np.reshape(1/65536 * texture[:, :, 0], -1)
-        texture_rgb[:, 1] = np.reshape(1/65536 * texture[:, :, 1], -1)
-        texture_rgb[:, 2] = np.reshape(1/65536 * texture[:, :, 2], -1)
+        texture_rgb[:, 0] = np.reshape(1/65536 * texture[:, :, 0], -1) # reshaped the texture component from 1D to 2D array with image size
+        texture_rgb[:, 1] = np.reshape(1/65536 * texture[:, :, 1], -1) # reshaped the texture component from 1D to 2D array with image size
+        texture_rgb[:, 2] = np.reshape(1/65536 * texture[:, :, 2], -1) # reshaped the texture component from 1D to 2D array with image size
     else:
-        print("Texture and TextureRGB are empty!")
+        print("Texture and TextureRGB are empty!") # print the texture is empty
         return
     texture_rgb = cv2.normalize(texture_rgb, dst=None, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX)
     pcd.colors = o3d.utility.Vector3dVector(texture_rgb)
@@ -68,19 +68,19 @@ def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, 
 
 def software_trigger(iterations=100): # defining the number of time it take the pictures
     # PhotoneoTL_DEV_<ID>
-    device_id = "TER-008"
-    if len(sys.argv) == 2:
+    device_id = "TER-008" # defining the device id name
+    if len(sys.argv) == 2: # if the lenght of the argument is 2
         device_id = "PhotoneoTL_DEV_" + sys.argv[1]
     print("--> device_id: ", device_id)
 
-    if platform == "linux":
-        cti_file_path_suffix = "/API/lib/photoneo.cti"
+    if platform == "linux": # if the platform is linux
+        cti_file_path_suffix = "/API/lib/photoneo.cti" # provide the cti file path
     else:
         cti_file_path_suffix = "/API/lib/photoneo.cti"
     cti_file_path = os.getenv('PHOXI_CONTROL_PATH') + cti_file_path_suffix
     print("--> cti_file_path: ", cti_file_path)
 
-    with Harvester() as h:
+    with Harvester() as h: # conidering the harvester
         h.add_file(cti_file_path, True, True)
         h.update()
 
@@ -88,7 +88,7 @@ def software_trigger(iterations=100): # defining the number of time it take the 
         print()
         print("Name : ID")
         print("---------")
-        for item in h.device_info_list:
+        for item in h.device_info_list: # check the available devices
             print(item.property_dict['serial_number'], ' : ', item.property_dict['id_'])
         print()
 
@@ -135,11 +135,11 @@ def software_trigger(iterations=100): # defining the number of time it take the 
                 # The buffer object will automatically call its dto once it goes
                 # out of scope and releases internal buffer object.
             
-            for i in range(iterations=100):
+            for i in range(iterations=100): # defining the number of time it take the pictures
                 print(f"\n-- Capturing frame {i+1}/{iterations} --")
 
             features.TriggerFrame.execute() # trigger second frame
-            with ia.fetch(timeout=10.0) as buffer:
+            with ia.fetch(timeout=10.0) as buffer: # defining the timeout as 10
                 # grab second frame
                 # do something with second frame
                 payload = buffer.payload
@@ -181,5 +181,4 @@ def software_trigger(iterations=100): # defining the number of time it take the 
         # The h object will automatically call its dtor
         # once it goes out of scope.
 
-# Call the main function
-software_trigger(iterations=100)
+software_trigger(iterations=100) # calling the function with 100 iterations
