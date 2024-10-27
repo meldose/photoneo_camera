@@ -44,33 +44,33 @@ while True: # checking the condition
     results = model(img, stream=True) # assigning the results as model having image and stream
 
     # coordinates
-    for r in results:
-        boxes = r.boxes
+    for r in results: # checking the condition for r in results
+        boxes = r.boxes # assigning the boxes as r.boxes
 
-        for box in boxes:
+        for box in boxes: # checking the condition for box in boxes
             # bounding box
-            x1, y1, x2, y2 = box.xyxy[0]
+            x1, y1, x2, y2 = box.xyxy[0] # assigning the x1, y1, x2, y2 to the box
             x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2) # convert to int values
 
             # put box in cam
-            cv2.rectangle(img, (x1, y1), (x2, y2), (255, 0, 255), 3)
+            cv2.rectangle(img, (x1, y1), (x2, y2), (255, 0, 255), 3) # draw the rectangle
 
             # confidence
-            confidence = math.ceil((box.conf[0]*100))/100
-            print("Confidence --->",confidence)
+            confidence = math.ceil((box.conf[0]*100))/100 # assign the confidence as math.ceil((box.conf[0]*100))/100
+            print("Confidence --->",confidence) # print the confidence
 
             # class name
-            cls = int(box.cls[0])
-            print("Class name -->", classNames[cls])
+            cls = int(box.cls[0]) # assign the cls as int(box.cls[0])
+            print("Class name -->", classNames[cls]) # print the class name
 
             # object details
-            org = [x1, y1]
-            font = cv2.FONT_HERSHEY_SIMPLEX
-            fontScale = 1
-            color = (255, 0, 0)
-            thickness = 2
+            org = [x1, y1] # assigning the org as x1, y1
+            font = cv2.FONT_HERSHEY_SIMPLEX # assigning the font as cv2.FONT_HERSHEY_SIMPLEX
+            fontScale = 1 # assigning the fontScale as 1
+            color = (255, 0, 0) # assigning the color as (255, 0, 0)
+            thickness = 2 # assigning the thickness as 2
 
-            cv2.putText(img, classNames[cls], org, font, fontScale, color, thickness)
+            cv2.putText(img, classNames[cls], org, font, fontScale, color, thickness) # put text in the image
 
     cv2.imshow('Webcam', img) # show the webcam image
     if cv2.waitKey(1) == ord('q'): # by pressing the Wait-key as q it will close
