@@ -4,7 +4,7 @@ import cv2  # imported cv2 module
 import os  # imported os 
 import sys  # imported sys 
 from sys import platform  # imported platform module from sys class
-from harvesters.core import Harvester
+from harvesters.core import Harvester # imported harvester from harvester.core class
 
 def display_texture_if_available(texture_component): # defining an function for display texture if available
     if texture_component.width == 0 or texture_component.height == 0: # checking if the texture is empty or not
