@@ -12,18 +12,10 @@ import math
 # Load the YOLO model
 model = YOLO("yolo-Weights/yolov8n.pt")
 
-# Object classes
-classNames = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", "truck", "boat",
-              "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", "bird", "cat",
-              "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe", "backpack", "umbrella",
-              "handbag", "tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball", "kite", "baseball bat",
-              "baseball glove", "skateboard", "surfboard", "tennis racket", "bottle", "wine glass", "cup",
-              "fork", "knife", "spoon", "bowl", "banana", "apple", "sandwich", "orange", "broccoli",
-              "carrot", "hot dog", "pizza", "donut", "cake", "chair", "sofa", "pottedplant", "bed",
-              "diningtable", "toilet", "tvmonitor", "laptop", "mouse", "remote", "keyboard", "cell phone",
-              "microwave", "oven", "toaster", "sink", "refrigerator", "book", "clock", "vase", "scissors",
-              "teddy bear", "hair drier", "toothbrush"
-              ]
+
+# Object classes for specific shapes
+classNames = ["rectangle", "square", "circle", "oval"]
+
 # Define display functions
 
 def display_texture_if_available(texture_component): # defining an function for display texture if available
@@ -53,18 +45,20 @@ def display_color_image_with_detection(color_component, name):
     for r in results:
         boxes = r.boxes
         for box in boxes:
-            x1, y1, x2, y2 = box.xyxy[0]
-            x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
-            confidence = math.ceil((box.conf[0] * 100)) / 100
             cls = int(box.cls[0])
+            if classNames[cls] in ["rectangle", "square", "circle", "oval"]:  # Filter for specified shapes
+                x1, y1, x2, y2 = box.xyxy[0]
+                x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
+                confidence = math.ceil((box.conf[0] * 100)) / 100
 
-            # Draw bounding box and label
-            cv2.rectangle(color_image, (x1, y1), (x2, y2), (255, 0, 255), 3)
-            cv2.putText(color_image, f"{classNames[cls]} {confidence}", (x1, y1 - 10),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                # Draw bounding box and label
+                cv2.rectangle(color_image, (x1, y1), (x2, y2), (255, 0, 255), 3)
+                cv2.putText(color_image, f"{classNames[cls]} {confidence}", (x1, y1 - 10),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
     # Display the color image with detections
     cv2.imshow(name, color_image)
+
 
 def software_trigger():
     device_id = "TER-008"
