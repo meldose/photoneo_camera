@@ -30,38 +30,35 @@ def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, 
         return
     
     
-def display_color_image_with_detection(color_component, name): # defining an function for setting an color image with detection 
-    if color_component.width == 0 or color_component.height == 0: # check if the color_component is empty or not
+def display_color_image_with_detection(color_component, name):
+    if color_component.width == 0 or color_component.height == 0:
         print(name + " is empty!")  
         return
 
-    color_image = color_component.data.reshape(color_component.height, color_component.width, 3).copy() # convert the image from 1D to 2D array
-    color_image = cv2.normalize(color_image, dst=None, alpha=0, beta=65535, norm_type=cv2.NORM_MINMAX) # convert it to 3D array
+    color_image = color_component.data.reshape(color_component.height, color_component.width, 3).copy()
+    color_image = cv2.normalize(color_image, dst=None, alpha=0, beta=65535, norm_type=cv2.NORM_MINMAX)
     color_image = cv2.cvtColor(color_image, cv2.COLOR_RGB2BGR)
 
-    results = model(color_image, stream=True) 
-    for r in results: 
-        boxes = r.boxes 
-        if boxes: 
-            for box in boxes: 
-                cls = int(box.cls[0]) 
+    results = model(color_image, stream=True)
+    for r in results:
+        boxes = r.boxes
+        if boxes:
+            for box in boxes:
+                cls = int(box.cls[0])
                 confidence = box.conf[0]
 
-                print(f"Detected class index: {cls}, Confidence: {confidence}")
-
-                # Check if the detected class is in your specified class names
-                if confidence > 0.5 and cls < len(classNames): 
+                # Only process if the detected class is in your specified class names
+                if confidence > 0.5 and cls < len(classNames):
                     detected_class = classNames[cls]
-                    print(f"Detected class: {detected_class}") 
-
-                    # Optional: Check for specific objects
-                    if detected_class in classNames:  # or use specific condition
+                    if detected_class in classNames:
+                        print(f"Detected class: {detected_class}, Confidence: {confidence}")
                         x1, y1, x2, y2 = box.xyxy[0].astype(int)
-                        cv2.rectangle(color_image, (x1, y1), (x2, y2), (255, 0, 255), 3) 
-                        cv2.putText(color_image, f"{detected_class} {confidence:.2f}", (x1, y1 - 10), 
-                                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2) 
+                        cv2.rectangle(color_image, (x1, y1), (x2, y2), (255, 0, 255), 3)
+                        cv2.putText(color_image, f"{detected_class} {confidence:.2f}", (x1, y1 - 10),
+                                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
-    cv2.imshow(name, color_image) 
+    cv2.imshow(name, color_image)
+
 
 
 
