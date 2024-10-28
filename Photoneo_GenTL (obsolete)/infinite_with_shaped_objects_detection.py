@@ -6,13 +6,12 @@ import sys
 from sys import platform
 from harvesters.core import Harvester
 from ultralytics import YOLO
-import math
 
 # Load YOLO model
 model = YOLO("yolo-Weights/yolov8n.pt")
 
 # Object classes for specific shapes
-classNames = ["rectangle", "square", "circle", "oval"]
+classNames = ["rectangle", "square", "circle", "oval", "triangle", "polygon"]
 
 def display_texture_if_available(texture_component):
     if texture_component.width == 0 or texture_component.height == 0:
@@ -20,7 +19,14 @@ def display_texture_if_available(texture_component):
         return
 
 def detect_shapes_with_opencv(color_image):
+    # Ensure the image is an 8-bit grayscale image
     gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
+    
+    # Check the data type of the grayscale image
+    if gray.dtype != np.uint8:
+        # Normalize to [0, 255] and convert to uint8
+        gray = cv2.normalize(gray, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+
     blurred = cv2.GaussianBlur(gray, (5, 5), 0)
     edged = cv2.Canny(blurred, 50, 150)
     contours, _ = cv2.findContours(edged, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -45,18 +51,18 @@ def detect_shapes_with_opencv(color_image):
 
     cv2.imshow("Detected Shapes", color_image)
 
-def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, texture_rgb_comp):
-    if pointcloud_comp.width == 0 or pointcloud_comp.height == 0:
-        print("PointCloud is empty!")
-        return
-
 def display_color_image_with_detection(color_component, name):
     if color_component.width == 0 or color_component.height == 0:
         print(name + " is empty!")
         return
 
+    # Reshape the image data
     color_image = color_component.data.reshape(color_component.height, color_component.width, 3).copy()
-    color_image = cv2.normalize(color_image, dst=None, alpha=0, beta=65535, norm_type=cv2.NORM_MINMAX)
+
+    # Normalize the image to [0, 255] and convert to uint8
+    color_image = cv2.normalize(color_image, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+    
+    # Convert RGB to BGR
     color_image = cv2.cvtColor(color_image, cv2.COLOR_RGB2BGR)
 
     results = model(color_image, stream=True)
@@ -69,14 +75,15 @@ def display_color_image_with_detection(color_component, name):
 
                 if confidence > 0 and cls < len(classNames):
                     detected_class = classNames[cls]
-                    if detected_class not in classNames:
-                        continue
+                    if detected_class in classNames:  # Only process specified classes
+                        print(f"Detected class: {detected_class}, Confidence: {confidence}")
+                        x1, y1, x2, y2 = box.xyxy[0].astype(int)
+                        cv2.rectangle(color_image, (x1, y1), (x2, y2), (255, 0, 255), 3)
+                        cv2.putText(color_image, f"{detected_class} {confidence:.2f}", (x1, y1 - 10),
+                                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
-                    print(f"Detected class: {detected_class}, Confidence: {confidence}")
-                    x1, y1, x2, y2 = box.xyxy[0].astype(int)
-                    cv2.rectangle(color_image, (x1, y1), (x2, y2), (255, 0, 255), 3)
-                    cv2.putText(color_image, f"{detected_class} {confidence:.2f}", (x1, y1 - 10),
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+    # Call shape detection as well
+    detect_shapes_with_opencv(color_image)
 
     cv2.imshow(name, color_image)
 
@@ -86,8 +93,8 @@ def software_trigger():
         device_id = "PhotoneoTL_DEV_" + sys.argv[1]
     print("--> device_id: ", device_id)
 
-    if platform == "linux": # if the platform is linux
-        cti_file_path_suffix = "/API/lib/photoneo.cti" # provide the cti file path
+    if platform == "linux":  # if the platform is linux
+        cti_file_path_suffix = "/API/lib/photoneo.cti"  # provide the cti file path
     else:
         cti_file_path_suffix = "/API/lib/photoneo.cti"
     cti_file_path = os.getenv('PHOXI_CONTROL_PATH') + cti_file_path_suffix
@@ -129,7 +136,8 @@ def software_trigger():
 
                         point_cloud_component = payload.components[2]
                         norm_component = payload.components[3]
-                        display_pointcloud_if_available(point_cloud_component, norm_component, texture_component, texture_rgb_component)
+                        # You might want to implement display_pointcloud_if_available() logic
+                        # display_pointcloud_if_available(point_cloud_component, norm_component, texture_component, texture_rgb_component)
 
                     if cv2.waitKey(1) & 0xFF == ord('q'):
                         print("Exiting capture loop.")
