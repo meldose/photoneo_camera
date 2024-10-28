@@ -32,7 +32,7 @@ def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, 
     
 def display_color_image_with_detection(color_component, name):
     if color_component.width == 0 or color_component.height == 0:
-        print(name + " is empty!")  
+        print(name + " is empty!")
         return
 
     color_image = color_component.data.reshape(color_component.height, color_component.width, 3).copy()
@@ -49,15 +49,17 @@ def display_color_image_with_detection(color_component, name):
 
                 # Only process if the detected class is in your specified class names
                 if confidence > 0.5 and cls < len(classNames):
-                    detected_class = classNames[cls]
-                    if detected_class in classNames:
-                        print(f"Detected class: {detected_class}, Confidence: {confidence}")
-                        x1, y1, x2, y2 = box.xyxy[0].astype(int)
-                        cv2.rectangle(color_image, (x1, y1), (x2, y2), (255, 0, 255), 3)
-                        cv2.putText(color_image, f"{detected_class} {confidence:.2f}", (x1, y1 - 10),
-                                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                    detected_class = classNames[cls]  # Maps detected class index to class name in classNames
+                    print(f"Detected class: {detected_class}, Confidence: {confidence}")
+                    
+                    # Draw bounding box and label for the detected object
+                    x1, y1, x2, y2 = box.xyxy[0].astype(int)
+                    cv2.rectangle(color_image, (x1, y1), (x2, y2), (255, 0, 255), 3)
+                    cv2.putText(color_image, f"{detected_class} {confidence:.2f}", (x1, y1 - 10),
+                                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
     cv2.imshow(name, color_image)
+
 
 
 
