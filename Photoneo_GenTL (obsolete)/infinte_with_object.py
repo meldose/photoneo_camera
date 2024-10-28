@@ -22,8 +22,8 @@ classNames = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "trai
               "carrot", "hot dog", "pizza", "donut", "cake", "chair", "sofa", "pottedplant", "bed",
               "diningtable", "toilet", "tvmonitor", "laptop", "mouse", "remote", "keyboard", "cell phone",
               "microwave", "oven", "toaster", "sink", "refrigerator", "book", "clock", "vase", "scissors",
-              "teddy bear", "hair drier", "toothbrush"]
-
+              "teddy bear", "hair drier", "toothbrush"
+              ]
 # Define display functions
 
 def display_texture_if_available(texture_component): # defining an function for display texture if available
@@ -36,6 +36,7 @@ def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, 
     if pointcloud_comp.width == 0 or pointcloud_comp.height == 0: # check if the texture is empty or not
         print("PointCloud is empty!")
         return
+    
     
 def display_color_image_with_detection(color_component, name):
     if color_component.width == 0 or color_component.height == 0:
