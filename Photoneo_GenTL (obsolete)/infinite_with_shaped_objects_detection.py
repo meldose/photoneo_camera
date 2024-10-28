@@ -1,13 +1,13 @@
 
-import numpy as np
-import open3d as o3d
-import cv2
-import os
-import sys
-from sys import platform
+import numpy as np # imported module numpy
+import open3d as o3d # imported module o3d
+import cv2 # imported module cv2
+import os # imported os module
+import sys # imported sys module
+from sys import platform # imported platform module from sys
 from harvesters.core import Harvester
-from ultralytics import YOLO
-import math
+from ultralytics import YOLO # imported YOLO form ultralytics
+import math # imported math module
 
 # Load the YOLO model
 model = YOLO("yolo-Weights/yolov8n.pt")
