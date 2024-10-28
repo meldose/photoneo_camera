@@ -67,7 +67,7 @@ def display_color_image_with_detection(color_component, name):
                 cls = int(box.cls[0])
                 confidence = box.conf[0]
 
-                if confidence > 0.5 and cls < len(classNames):
+                if confidence > 0 and cls < len(classNames):
                     detected_class = classNames[cls]
                     if detected_class not in classNames:
                         continue
