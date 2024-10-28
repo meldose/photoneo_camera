@@ -86,15 +86,12 @@ def software_trigger():
         device_id = "PhotoneoTL_DEV_" + sys.argv[1]
     print("--> device_id: ", device_id)
 
-    if 'PHOXI_CONTROL_PATH' not in os.environ:
-        print("Error: PHOXI_CONTROL_PATH environment variable not set.")
-        return
-    cti_file_path_suffix = "/API/lib/photoneo.cti"
-    cti_file_path = os.path.join(os.getenv('PHOXI_CONTROL_PATH'), cti_file_path_suffix)
-    
-    if not os.path.exists(cti_file_path):
-        print(f"Error: CTI file not found at {cti_file_path}")
-        return
+    if platform == "linux": # if the platform is linux
+        cti_file_path_suffix = "/API/lib/photoneo.cti" # provide the cti file path
+    else:
+        cti_file_path_suffix = "/API/lib/photoneo.cti"
+    cti_file_path = os.getenv('PHOXI_CONTROL_PATH') + cti_file_path_suffix
+    print("--> cti_file_path: ", cti_file_path)
 
     with Harvester() as h:
         h.add_file(cti_file_path, True, True)
