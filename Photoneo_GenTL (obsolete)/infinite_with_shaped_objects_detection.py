@@ -25,48 +25,43 @@ def display_texture_if_available(texture_component): # defining an function for 
     
 
 def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, texture_rgb_comp): # defining the function for display pointcloud is available or not
-    if pointcloud_comp.width == 0 or pointcloud_comp.height == 0: # check if the texture is empty or not
+    if pointcloud_comp.width == 0 or pointcloud_comp.height == 0: # check if the pointcloud_comp is empty or not
         print("PointCloud is empty!")
         return
     
     
-def display_color_image_with_detection(color_component, name): # defined an function to check if the color image with detection having color component and name
-    if color_component.width == 0 or color_component.height == 0: # check if the width and height of the color component is zero
-        print(name + " is empty!") # print empty
+def display_color_image_with_detection(color_component, name): # defining an function for setting an color image with detection 
+    if color_component.width == 0 or color_component.height == 0: # check if the color_component is empty or not
+        print(name + " is empty!")  
         return
 
-    # Convert to 3-channel color image
-    color_image = color_component.data.reshape(color_component.height, color_component.width, 3).copy() # convert from 1D to 2D
-    color_image = cv2.normalize(color_image, dst=None, alpha=0, beta=65535, norm_type=cv2.NORM_MINMAX) # convert from 2D into 3D 
+    color_image = color_component.data.reshape(color_component.height, color_component.width, 3).copy() # convert the image from 1D to 2D array
+    color_image = cv2.normalize(color_image, dst=None, alpha=0, beta=65535, norm_type=cv2.NORM_MINMAX) # convert it to 3D array
     color_image = cv2.cvtColor(color_image, cv2.COLOR_RGB2BGR)
 
-# Apply YOLO object detection
-    results = model(color_image, stream=True) # assigning the model having color_image and stream to results.
-    for r in results: # checking r in the results
-        boxes = r.boxes # setting boxes 
-        if boxes: # checking that boxes are there 
-            for box in boxes: # checking if box are there in boxes 
+    results = model(color_image, stream=True) 
+    for r in results: 
+        boxes = r.boxes 
+        if boxes: 
+            for box in boxes: 
                 cls = int(box.cls[0]) 
                 confidence = box.conf[0]
 
-            # Debugging output
                 print(f"Detected class index: {cls}, Confidence: {confidence}")
 
-            # Adjust confidence threshold
-                if confidence > 0.5 and cls < len(classNames): # if the box config is greater than 0.5 and length of the class names is less then
-                    print(f"Detected class: {classNames[cls]}") # print the Detected class 
+                # Check if the detected class is in your specified class names
+                if confidence > 0.5 and cls < len(classNames): 
+                    detected_class = classNames[cls]
+                    print(f"Detected class: {detected_class}") 
 
-                    # x1, y1, x2, y2 = box.xyxy[0]
-                    # x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
+                    # Optional: Check for specific objects
+                    if detected_class in classNames:  # or use specific condition
+                        x1, y1, x2, y2 = box.xyxy[0].astype(int)
+                        cv2.rectangle(color_image, (x1, y1), (x2, y2), (255, 0, 255), 3) 
+                        cv2.putText(color_image, f"{detected_class} {confidence:.2f}", (x1, y1 - 10), 
+                                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2) 
 
-                # Draw bounding box and label
-                    cv2.rectangle(color_image, (x1, y1), (x2, y2), (255, 0, 255), 3) # draw the region for rectangle
-                    cv2.putText(color_image, f"{classNames[cls]} {confidence:.2f}", (x1, y1 - 10), # put text in color image 
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2) 
-
-
-    # Display the color image with detections
-    cv2.imshow(name, color_image) # display the color image of the object captured.
+    cv2.imshow(name, color_image) 
 
 
 
