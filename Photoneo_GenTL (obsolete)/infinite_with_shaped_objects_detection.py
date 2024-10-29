@@ -23,7 +23,7 @@ def detect_shapes_with_opencv(color_image): # defined as function for detecting 
     gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
     
     # Check the data type of the grayscale image
-    if gray.dtype != np.uint8: # 
+    if gray.dtype != np.uint8: 
         # Normalize to [0, 255] and convert to uint8
         gray = cv2.normalize(gray, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
 
