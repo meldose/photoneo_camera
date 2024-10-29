@@ -50,7 +50,7 @@ def main(device_sn: str): # defined function main having device_sn as an argumen
                     break
 
             cv2.destroyAllWindows() # clear the windows
- 
+
 
 if __name__ == "__main__": # checking if the name of the file is main
     try:

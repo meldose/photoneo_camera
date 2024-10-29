@@ -61,9 +61,9 @@ def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, 
     else:
         print("Texture and TextureRGB are empty!") # print the texture is empty
         return
-    texture_rgb = cv2.normalize(texture_rgb, dst=None, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX)
-    pcd.colors = o3d.utility.Vector3dVector(texture_rgb)
-    o3d.visualization.draw_geometries([pcd], width=800,height=600)
+    texture_rgb = cv2.normalize(texture_rgb, dst=None, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX) # set 3D array
+    pcd.colors = o3d.utility.Vector3dVector(texture_rgb) # 
+    o3d.visualization.draw_geometries([pcd], width=800,height=600) # set the geometry for image
     return
 
 def software_trigger(iterations=100): # defining the number of time it take the pictures
