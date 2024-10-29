@@ -1,10 +1,10 @@
 
-import numpy as np
-import open3d as o3d
-import cv2
-import os
-import sys
-from sys import platform
+import numpy as np # import numpy as module
+import open3d as o3d # import o3d module
+import cv2 # imported module cv2
+import os # imported os module
+import sys # imported sys module
+from sys import platform # imported platform from sys class
 from harvesters.core import Harvester
 from ultralytics import YOLO
 import math

@@ -136,8 +136,6 @@ def software_trigger(): # defined the function called software trigger
 
                         point_cloud_component = payload.components[2]
                         norm_component = payload.components[3]
-                        # You might want to implement display_pointcloud_if_available() logic
-                        # display_pointcloud_if_available(point_cloud_component, norm_component, texture_component, texture_rgb_component)
 
                     if cv2.waitKey(1) & 0xFF == ord('q'): # pressing the key will quit the camera
                         print("Exiting capture loop.")
