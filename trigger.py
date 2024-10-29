@@ -100,18 +100,6 @@ def software_trigger():
             features.PhotoneoTriggerMode.value = "Software"
             print("TriggerMode AFTER: ", features.PhotoneoTriggerMode.value)
 
-            # Order is fixed on the selected output structure. Disabled fields are shown as empty components.
-            # Individual structures can enabled/disabled by the following features:
-            # SendTexture, SendPointCloud, SendNormalMap, SendDepthMap, SendConfidenceMap, SendEventMap, SendColorCameraImage
-            # payload.components[#]
-            # [0] Texture
-            # [1] TextureRGB
-            # [2] PointCloud [X,Y,Z,...]
-            # [3] NormalMap [X,Y,Z,...]
-            # [4] DepthMap
-            # [5] ConfidenceMap
-            # [6] EventMap
-            # [7] ColorCameraImage
 
             # Send every output structure
             features.SendTexture.value = True
@@ -132,8 +120,7 @@ def software_trigger():
                 # do something with first frame
                 print(buffer)
 
-                # The buffer object will automatically call its dto once it goes
-                # out of scope and releases internal buffer object.
+
 
             features.TriggerFrame.execute() # trigger second frame
             with ia.fetch(timeout=10.0) as buffer:
@@ -153,30 +140,6 @@ def software_trigger():
                 norm_component = payload.components[3]
                 display_pointcloud_if_available(point_cloud_component, norm_component, texture_component, texture_rgb_component)
 
-                # The buffer object will automatically call its dto once it goes
-                # out of scope and releases internal buffer object.
-
-            """
-            # also possible use with error checking:
-            features.TriggerFrame.execute() # trigger third frame
-            buffer = ia.try_fetch(timeout=10.0) # grab newest frame
-            if buffer is None:
-                # check if device is still connected
-                is_connected = features.IsConnected.value
-                if not is_connected:
-                    sys.exit('Device disconnected!')
-            # ...
-            # work with buffer
-            # ...
-            # release used buffer (only limited buffers available)
-            buffer.queue()
-            """
-
-            # The ia object will automatically call its dtor
-            # once it goes out of scope.
-
-        # The h object will automatically call its dtor
-        # once it goes out of scope.
 
 # Call the main function
 software_trigger()
