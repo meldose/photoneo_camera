@@ -114,11 +114,11 @@ def software_trigger(): # defined function software_trigger
             # [7] ColorCameraImage
 
             # Send every output structure
-            features.SendTexture.value = True
-            features.SendPointCloud.value = True
-            features.SendNormalMap.value = True
-            features.SendDepthMap.value = True
-            features.SendConfidenceMap.value = True
+            features.SendTexture.value = True # set SendTexture to True
+            features.SendPointCloud.value = True # set Pointcloud to True
+            features.SendNormalMap.value = True # set NormalMap to True
+            features.SendDepthMap.value = True # set DepthMap to True 
+            features.SendConfidenceMap.value = True # set confidenceMap to value as True    
             #features.SendEventMap.value = True         # MotionCam-3D exclusive
             #features.SendColorCameraImage.value = True # MotionCam-3D Color exclusive
 
