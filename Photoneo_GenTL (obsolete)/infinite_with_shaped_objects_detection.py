@@ -1,113 +1,107 @@
-import numpy as np # imported module np 
-import open3d as o3d # imported o3d module
-import cv2 # imported cv2 module
-import os # imported os module
-import sys # imported sys moduel
+
+
+import numpy as np
+import open3d as o3d
+import cv2
+import os
+import sys
 from sys import platform
 from harvesters.core import Harvester
-from ultralytics import YOLO
+import torch
 
 # Load YOLO model
-model = YOLO("yolo-Weights/yolov8n.pt") # set the model value 
+model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)
 
-# Object classes for specific shapes
-classNames = ["rectangle", "square", "circle", "oval", "triangle", "polygon"] # set the class names as follows
+# Object classes for specific shapes and other objects of interest
+classNames = ["rectangle", "square", "circle", "oval", "triangle", "polygon", "person", "car"]
 
-def display_texture_if_available(texture_component): # defined a function called display texture if it is available or not 
-    if texture_component.width == 0 or texture_component.height == 0: # check if the texture component width and height is zero or not
+def display_texture_if_available(texture_component):
+    if texture_component.width == 0 or texture_component.height == 0:
         print("Texture is empty!")
         return
 
-def detect_shapes_with_opencv(color_image): # defined as function for detecting the shapes with opencv with color_image
+def detect_shapes_with_opencv(color_image):
     # Ensure the image is an 8-bit grayscale image
     gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
-    
-    # Check the data type of the grayscale image
-    if gray.dtype != np.uint8: 
-        # Normalize to [0, 255] and convert to uint8
+    if gray.dtype != np.uint8:
         gray = cv2.normalize(gray, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
 
     blurred = cv2.GaussianBlur(gray, (5, 5), 0)
     edged = cv2.Canny(blurred, 50, 150)
     contours, _ = cv2.findContours(edged, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-    for contour in contours: # checking contour in the list of contours 
+    for contour in contours:
         approx = cv2.approxPolyDP(contour, 0.04 * cv2.arcLength(contour, True), True)
         x, y, w, h = cv2.boundingRect(approx)
-
+        
         shape_name = "unidentified"
-        if len(approx) == 3: # if the length is 3 then
-            shape_name = "triangle" # set shape name as traingle
-        elif len(approx) == 4: # if the length is 4 then 
-            aspect_ratio = w / float(h) # equation for aspect ration
-            shape_name = "square" if 0.9 <= aspect_ratio <= 1.1 else "rectangle" # check if the shape name as square 
-        elif len(approx) > 4: # if len is less than 4 then 
-            shape_name = "circle" if cv2.isContourConvex(approx) else "oval" # set the shape as circle
+        if len(approx) == 3:
+            shape_name = "triangle"
+        elif len(approx) == 4:
+            aspect_ratio = w / float(h)
+            shape_name = "square" if 0.9 <= aspect_ratio <= 1.1 else "rectangle"
+        elif len(approx) > 4:
+            shape_name = "circle" if cv2.isContourConvex(approx) else "oval"
 
-        if shape_name in classNames: # if the shape_name is in classNamse
-            cv2.drawContours(color_image, [contour], -1, (0, 255, 0), 2) # draw boundries for the shape created
-            cv2.putText(color_image, shape_name, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
-            print(f"Detected {shape_name} at {(x, y)}") # print that the object is detected
+        if shape_name in classNames:
+            # Draw contour and display shape name and dimensions
+            cv2.drawContours(color_image, [contour], -1, (0, 255, 0), 2)
+            dimension_label = f"{shape_name} W:{w}px H:{h}px"
+            cv2.putText(color_image, dimension_label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
+            print(f"Detected {shape_name} at {(x, y)} with dimensions {w}px x {h}px")
 
-    cv2.imshow("Detected Shapes", color_image) # show the image 
-
-def display_color_image_with_detection(color_component, name): # defined as function to detect the image with detection
-    if color_component.width == 0 or color_component.height == 0:  # check if the color component width and height is zero or not
+def display_color_image_with_detection(color_component, name):
+    if color_component.width == 0 or color_component.height == 0:
         print(name + " is empty!")
         return
 
-    # Reshape the image data
     color_image = color_component.data.reshape(color_component.height, color_component.width, 3).copy()
-
-    # Normalize the image to [0, 255] and convert to uint8
     color_image = cv2.normalize(color_image, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
-    
-    # Convert RGB to BGR
     color_image = cv2.cvtColor(color_image, cv2.COLOR_RGB2BGR)
 
-    results = model(color_image, stream=True)
-    for r in results:
-        boxes = r.boxes
-        if boxes:
-            for box in boxes:
-                cls = int(box.cls[0])
-                confidence = box.conf[0]
+    # Run YOLO detection on the image
+    results = model(color_image)
+    detections = results.pandas().xyxy[0]
+    
+    # Display bounding boxes and dimensions for YOLO-detected objects
+    for idx, row in detections.iterrows():
+        x_min, y_min, x_max, y_max = int(row['xmin']), int(row['ymin']), int(row['xmax']), int(row['ymax'])
+        width = x_max - x_min
+        height = y_max - y_min
+        label = f"{row['name']} {row['confidence']:.2f}"
+        dimensions_label = f"W:{width}px H:{height}px"
 
-                if confidence > 0 and cls < len(classNames):
-                    detected_class = classNames[cls]
-                    if detected_class in classNames:  # Only process specified classes
-                        print(f"Detected class: {detected_class}, Confidence: {confidence}")
-                        x1, y1, x2, y2 = box.xyxy[0].astype(int)
-                        cv2.rectangle(color_image, (x1, y1), (x2, y2), (255, 0, 255), 3)
-                        cv2.putText(color_image, f"{detected_class} {confidence:.2f}", (x1, y1 - 10),
-                                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+        cv2.rectangle(color_image, (x_min, y_min), (x_max, y_max), (0, 255, 0), 2)
+        cv2.putText(color_image, label, (x_min, y_min - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+        cv2.putText(color_image, dimensions_label, (x_min, y_min - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+        print(f"Detected {label} at {(x_min, y_min)} with dimensions {width}px x {height}px")
 
-    # Call shape detection as well
+    # Detect shapes within the image using OpenCV
     detect_shapes_with_opencv(color_image)
 
-    cv2.imshow(name, color_image) # show the image
+    cv2.imshow(name, color_image)
 
-def software_trigger(): # defined the function called software trigger
+def software_trigger():
     device_id = "TER-008"
     if len(sys.argv) == 2:
         device_id = "PhotoneoTL_DEV_" + sys.argv[1]
     print("--> device_id: ", device_id)
 
-    if platform == "linux":  # if the platform is linux
-        cti_file_path_suffix = "/API/lib/photoneo.cti"  # provide the cti file path
+    if platform == "linux":
+        cti_file_path_suffix = "/API/lib/photoneo.cti"
     else:
         cti_file_path_suffix = "/API/lib/photoneo.cti"
     cti_file_path = os.getenv('PHOXI_CONTROL_PATH') + cti_file_path_suffix
     print("--> cti_file_path: ", cti_file_path)
 
-    with Harvester() as h: # consider the harvester as h 
-        h.add_file(cti_file_path, True, True) # add the file
-        h.update() # update the harvester
+    with Harvester() as h:
+        h.add_file(cti_file_path, True, True)
+        h.update()
 
         print("\nName : ID")
         print("---------")
-        for item in h.device_info_list: # check if the item is in device list 
-            print(item.property_dict['serial_number'], ' : ', item.property_dict['id_']) # print the item serial number and its id 
+        for item in h.device_info_list:
+            print(item.property_dict['serial_number'], ' : ', item.property_dict['id_'])
 
         with h.create({'id_': device_id}) as ia:
             features = ia.remote_device.node_map
@@ -119,29 +113,31 @@ def software_trigger(): # defined the function called software trigger
             features.SendDepthMap.value = True
             features.SendConfidenceMap.value = True
 
-            ia.start() # start the acquisition
+            ia.start()
 
-            try: 
-                while True: # start an infinite loop 
+            try:
+                while True:
                     print("\n-- Capturing frame --")
                     features.TriggerFrame.execute()
                     with ia.fetch(timeout=10.0) as buffer:
                         payload = buffer.payload
 
                         texture_component = payload.components[0]
-                        display_texture_if_available(texture_component) # calling the function for displaying the texture 
+                        display_texture_if_available(texture_component)
 
                         texture_rgb_component = payload.components[1]
-                        display_color_image_with_detection(texture_rgb_component, "TextureRGB") # calling the function to display the image with detection
+                        display_color_image_with_detection(texture_rgb_component, "TextureRGB")
 
                         point_cloud_component = payload.components[2]
                         norm_component = payload.components[3]
 
-                    if cv2.waitKey(1) & 0xFF == ord('q'): # pressing the key will quit the camera
+                    if cv2.waitKey(1) & 0xFF == ord('q'):
                         print("Exiting capture loop.")
                         break
             finally:
-                ia.stop() # stop the acquisition
+                ia.stop()
 
-software_trigger() # calling the function to trigger the software.
+# Run the software trigger function
+if __name__ == "__main__":
+    software_trigger()
 
