@@ -12,34 +12,54 @@ from mpl_toolkits.mplot3d import Axes3D
 def display_pointcloud_with_matplotlib(pointcloud):
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
-    ax.scatter(pointcloud[:, 0], pointcloud[:, 1], pointcloud[:, 2], s=0.1)
-    plt.show()
+    ax.set_xlabel("X axis")
+    ax.set_ylabel("Y axis")
+    ax.set_zlabel("Z axis")
+    ax.view_init(elev=30, azim=120)
 
 
-def display_texture_if_available(texture_component): # defining an function for display texture if available
-    if texture_component.width == 0 or texture_component.height == 0: # checking if the texture is empty or not
 
+def display_texture_if_available(texture_component):
+    """Display texture if available and dimensions match expectations."""
+    if texture_component.width == 0 or texture_component.height == 0:
         print("Texture is empty!")
         return
 
-    texture = texture_component.data.reshape(texture_component.height, texture_component.width, 1).copy() # copying the texture component height and height
-    texture_screen = cv2.normalize(texture, dst=None, alpha=0, beta=65535, norm_type=cv2.NORM_MINMAX) #  creating an 2D image
-    # texture_screen = cv2.flip(texture_screen, 0)  # Flip vertically
-    cv2.imshow("Texture", texture_screen)
-    cv2.waitKey(1)  # Ensure that the display updates correctly
-    return
-
-def display_color_image_if_available(color_component, name): # defining the function for color image available or not
-    if color_component.width == 0 or color_component.height == 0: # checking if the texture is empty or not
-        print(name + " is empty!")
+    # Check if the texture data matches the expected size
+    expected_size = texture_component.height * texture_component.width
+    if texture_component.data.size != expected_size:
+        print("Mismatch in texture dimensions!")
         return
 
-    color_image = color_component.data.reshape(color_component.height, color_component.width, 3).copy() # creating an 3D image
-    color_image = cv2.normalize(color_image, dst=None, alpha=0, beta=65535, norm_type=cv2.NORM_MINMAX) # opening the 3D image in an camera
-    color_image = cv2.cvtColor(color_image, cv2.COLOR_RGB2BGR)
-    # color_image = cv2.flip(color_image, 0)  # Flip vertically
-    cv2.imshow(name, color_image) # show the 3D image
+    # Reshape and normalize the texture for display
+    texture = texture_component.data.reshape(texture_component.height, texture_component.width, 1).copy()
+    texture_screen = cv2.normalize(texture, dst=None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX).astype(np.uint8)
+
+    cv2.imshow("Texture", texture_screen)
+    cv2.waitKey(1)  # Ensure the display updates correctly
     return
+
+
+def display_color_image_if_available(color_component, name):
+    """Display color image if available and dimensions match expectations."""
+    if color_component.width == 0 or color_component.height == 0:
+        print(f"{name} is empty!")
+        return
+
+    # Check if the color image data matches the expected size
+    expected_size = color_component.height * color_component.width * 3
+    if color_component.data.size != expected_size:
+        print(f"Mismatch in {name} dimensions!")
+        return
+
+    # Reshape, normalize, and convert to BGR for display
+    color_image = color_component.data.reshape(color_component.height, color_component.width, 3).copy()
+    color_image = cv2.normalize(color_image, dst=None, alpha=0, beta=65535, norm_type=cv2.NORM_MINMAX)
+    color_image = cv2.cvtColor(color_image, cv2.COLOR_RGB2BGR)
+
+    cv2.imshow(name, color_image)
+    return
+
 
 def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, texture_rgb_comp): # defining the function for display pointcloud is available or not
     if pointcloud_comp.width == 0 or pointcloud_comp.height == 0: # check if the texture is empty or not
@@ -70,8 +90,9 @@ def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, 
         return
     texture_rgb = cv2.normalize(texture_rgb, dst=None, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX) # creating 3D image
     pcd.colors = o3d.utility.Vector3dVector(texture_rgb)
-    o3d.visualization.draw_geometries([pcd], width=800, height=600) # show 3D images 
+    o3d.visualization.draw_geometries([pcd], width=1024, height=768)
     return
+
 
 def software_trigger():  # Continuous mode, removed 'iterations' parameter
     device_id = "TER-008" # device_id created
