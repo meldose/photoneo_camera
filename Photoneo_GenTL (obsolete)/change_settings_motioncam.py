@@ -51,7 +51,7 @@ with Harvester() as h: # consider h as Harvester
 
         # `Freerun` or `Software`
         trigger_mode = features.PhotoneoTriggerMode.value
-        features.PhotoneoTriggerMode.value = 'Freerun'
+        features.PhotoneoTriggerMode.value = 'Software'
         
         # True or False
         wait_for_grabbing_end = features.WaitForGrabbingEnd.value
@@ -73,11 +73,11 @@ with Harvester() as h: # consider h as Harvester
 
         # <1, 20>
         shutter_multiplier = features.ShutterMultiplier.value
-        features.ShutterMultiplier.value = 8
+        features.ShutterMultiplier.value = 20
         
         # <1, 20>
         scan_multiplier = features.ScanMultiplier.value
-        features.ScanMultiplier.value = 8
+        features.ScanMultiplier.value = 20
         
         # `Normal` or `Interreflections`
         coding_strategy = features.CodingStrategy.value
@@ -93,11 +93,11 @@ with Harvester() as h: # consider h as Harvester
         
         # <10.24, 40.96>
         single_pattern_exposure = features.SinglePatternExposure.value
-        features.SinglePatternExposure.value = 10.24
+        features.SinglePatternExposure.value = 40.96
         
         # <0.0, 100.0>
         maximum_fps = features.MaximumFPS.value
-        features.MaximumFPS.value = 25
+        features.MaximumFPS.value = 85
         
         # <1, 4095>
         laser_power = features.LaserPower.value
@@ -109,7 +109,7 @@ with Harvester() as h: # consider h as Harvester
         
         # True or False
         hardware_trigger = features.HardwareTrigger.value
-        features.HardwareTrigger.value = True
+        features.HardwareTrigger.value = False
         
         # `Falling`, `Rising` or `Both`
         hardware_trigger_signal = features.HardwareTriggerSignal.value

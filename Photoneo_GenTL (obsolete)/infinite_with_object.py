@@ -38,14 +38,14 @@ def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, 
         return
     
     
-def display_color_image_with_detection(color_component, name):
-    if color_component.width == 0 or color_component.height == 0:
+def display_color_image_with_detection(color_component, name): # defined a function with color_with image detection
+    if color_component.width == 0 or color_component.height == 0: # check with the texture is empty or not
         print(name + " is empty!")
         return
 
     # Convert to 3-channel color image
-    color_image = color_component.data.reshape(color_component.height, color_component.width, 3).copy()
-    color_image = cv2.normalize(color_image, dst=None, alpha=0, beta=65535, norm_type=cv2.NORM_MINMAX)
+    color_image = color_component.data.reshape(color_component.height, color_component.width, 3).copy() # convert it to 1D to 2D array 
+    color_image = cv2.normalize(color_image, dst=None, alpha=0, beta=65535, norm_type=cv2.NORM_MINMAX) # convert 2D to 3D array 
     color_image = cv2.cvtColor(color_image, cv2.COLOR_RGB2BGR)
 
     # Apply YOLO object detection
@@ -66,7 +66,7 @@ def display_color_image_with_detection(color_component, name):
     # Display the color image with detections
     cv2.imshow(name, color_image)
 
-def software_trigger():
+def software_trigger(): # defined an function for software trigger 
     device_id = "TER-008"
     if len(sys.argv) == 2:
         device_id = "PhotoneoTL_DEV_" + sys.argv[1]
@@ -100,7 +100,7 @@ def software_trigger():
             features.SendDepthMap.value = True
             features.SendConfidenceMap.value = True
 
-            ia.start()
+            ia.start() # start acquisition 
 
             while True:
                 print("\n-- Capturing frame --")
@@ -126,7 +126,7 @@ def software_trigger():
                     print("Exiting capture loop.")
                     break
 
-            ia.stop()
+            ia.stop() # stop the acquisition 
 
-software_trigger()
+software_trigger() # calling the function to trigger the camera
 

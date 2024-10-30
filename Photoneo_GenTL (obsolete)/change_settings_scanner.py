@@ -50,7 +50,7 @@ with Harvester() as h:
 
         # `Freerun` or `Software`
         trigger_mode = features.PhotoneoTriggerMode.value
-        features.PhotoneoTriggerMode.value = 'Freerun'
+        features.PhotoneoTriggerMode.value = 'Software'
         # True or False
         wait_for_grabbing_end = features.WaitForGrabbingEnd.value
         features.WaitForGrabbingEnd.value = False

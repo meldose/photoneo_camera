@@ -11,7 +11,7 @@ if len(sys.argv) == 2: #setting the length of the argument to 2
 print("--> device_id: ", device_id) # printing the device id
 
 if platform == "linux": # if the platform is linux
-    cti_file_path_suffix = "/API/bin/photoneo.cti" # assign the cti file path suffix as follows
+    cti_file_path_suffix = "/API/lib/photoneo.cti" # assign the cti file path suffix as follows
 else:
     cti_file_path_suffix = "/API/lib/photoneo.cti"
 cti_file_path = os.getenv('PHOXI_CONTROL_PATH') + cti_file_path_suffix
