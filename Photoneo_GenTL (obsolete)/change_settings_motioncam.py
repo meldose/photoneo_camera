@@ -166,19 +166,19 @@ with Harvester() as h: # consider h as Harvester
         
         # <0.0, 90.0>
         max_camera_angle = features.MaxCameraAngle.value
-        features.MaxCameraAngle.value = 10
+        features.MaxCameraAngle.value = 50
         
         # <0.0, 90.0>
         max_projector_angle = features.MaxProjectorAngle.value
-        features.MaxProjectorAngle.value = 15
+        features.MaxProjectorAngle.value = 60
         
         # <0.0, 90.0>
         min_halfway_angle = features.MinHalfwayAngle.value
-        features.MinHalfwayAngle.value = 20
+        features.MinHalfwayAngle.value = 50
         
         # <0.0, 90.0>
         max_halfway_angle = features.MaxHalfwayAngle.value
-        features.MaxHalfwayAngle.value = 25
+        features.MaxHalfwayAngle.value = 50
         
         # True or False
         calibration_volume_only = features.CalibrationVolumeOnly.value
@@ -385,6 +385,7 @@ with Harvester() as h: # consider h as Harvester
             features.ColorSettings_WhiteBalanceB.value = 1.0
 
 ##########################################################'FRAMEOUTPUT SETTINGS#################################################################################
+
         # Enable/Disable transfer of spefific images (True or False)
         features.SendPointCloud.value = True
         features.SendNormalMap.value = True

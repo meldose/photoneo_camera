@@ -6,14 +6,27 @@ import sys  # imported sys
 from sys import platform  # imported platform module from sys class
 from harvesters.core import Harvester # imported harvester from harvester.core class
 
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+def display_pointcloud_with_matplotlib(pointcloud):
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    ax.scatter(pointcloud[:, 0], pointcloud[:, 1], pointcloud[:, 2], s=0.1)
+    plt.show()
+
+
 def display_texture_if_available(texture_component): # defining an function for display texture if available
     if texture_component.width == 0 or texture_component.height == 0: # checking if the texture is empty or not
+
         print("Texture is empty!")
         return
 
     texture = texture_component.data.reshape(texture_component.height, texture_component.width, 1).copy() # copying the texture component height and height
     texture_screen = cv2.normalize(texture, dst=None, alpha=0, beta=65535, norm_type=cv2.NORM_MINMAX) #  creating an 2D image
-    cv2.imshow("Texture", texture_screen)# displaying the 2D image texture.
+    texture_screen = cv2.flip(texture_screen, 0)  # Flip vertically
+    cv2.imshow("Texture", texture_screen)
+    cv2.waitKey(1)  # Ensure that the display updates correctly
     return
 
 def display_color_image_if_available(color_component, name): # defining the function for color image available or not
@@ -24,6 +37,7 @@ def display_color_image_if_available(color_component, name): # defining the func
     color_image = color_component.data.reshape(color_component.height, color_component.width, 3).copy() # creating an 3D image
     color_image = cv2.normalize(color_image, dst=None, alpha=0, beta=65535, norm_type=cv2.NORM_MINMAX) # opening the 3D image in an camera
     color_image = cv2.cvtColor(color_image, cv2.COLOR_RGB2BGR)
+    color_image = cv2.flip(color_image, 0)  # Flip vertically
     cv2.imshow(name, color_image) # show the 3D image
     return
 
@@ -103,6 +117,10 @@ def software_trigger():  # Continuous mode, removed 'iterations' parameter
                 features.TriggerFrame.execute()  # trigger frame
                 with ia.fetch(timeout=10.0) as buffer: # fetching the acquisition in specific timeout
                     payload = buffer.payload
+                    
+                    point_cloud_component = payload.components[2]
+                    pointcloud = point_cloud_component.data.reshape(point_cloud_component.height * point_cloud_component.width, 3).copy()
+                    display_pointcloud_with_matplotlib(pointcloud)
 
                     texture_component = payload.components[0]
                     display_texture_if_available(texture_component)
@@ -119,8 +137,10 @@ def software_trigger():  # Continuous mode, removed 'iterations' parameter
                 # Add an exit option to stop the loop
                 if cv2.waitKey(1) & 0xFF == ord('q'):  # Press 'q' to stop
                     print("Exiting capture loop.")
+                    cv2.destroyAllWindows()
                     break
 
             ia.stop()  # Stop the acquisition after exiting the loop
 
 software_trigger() # calling the function
+
