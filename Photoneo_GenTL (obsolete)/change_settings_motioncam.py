@@ -1,36 +1,36 @@
-import os
-import sys
-from sys import platform
-from harvesters.core import Harvester
-import struct
+import os # imported os
+import sys # imported sys module
+from sys import platform #  imported platform module from sys
+from harvesters.core import Harvester # imported module Harvester from harvesters
+import struct # imported struct module
 
 # PhotoneoTL_DEV_<ID>
-device_id = "TER-008"
-if len(sys.argv) == 2:
+device_id = "TER-008" # set device id
+if len(sys.argv) == 2: #setting the length of the argument to 2
     device_id = "PhotoneoTL_DEV_" + sys.argv[1]
-print("--> device_id: ", device_id)
+print("--> device_id: ", device_id) # printing the device id
 
-if platform == "linux":
-    cti_file_path_suffix = "/API/lib/photoneo.cti"
+if platform == "linux": # if the platform is linux
+    cti_file_path_suffix = "/API/lib/photoneo.cti" # assign the cti file path suffix as follows
 else:
     cti_file_path_suffix = "/API/lib/photoneo.cti"
 cti_file_path = os.getenv('PHOXI_CONTROL_PATH') + cti_file_path_suffix
 print("--> cti_file_path: ", cti_file_path)
 
-with Harvester() as h:
-    h.add_file(cti_file_path, True, True)
-    h.update()
+with Harvester() as h: # consider h as Harvester
+    h.add_file(cti_file_path, True, True) # adding the file path
+    h.update() # updating the harvester
 
     # Print out available devices
     print()
     print("Name : ID")
     print("---------")
-    for item in h.device_info_list:
-        print(item.property_dict['serial_number'], ' : ', item.property_dict['id_'])
+    for item in h.device_info_list: # checking if the item is in the info list or not
+        print(item.property_dict['serial_number'], ' : ', item.property_dict['id_']) #  printing the serial_number with item property dict
     print()
 
-    with h.create({'id_': device_id}) as ia:
-        features = ia.remote_device.node_map
+    with h.create({'id_': device_id}) as ia: # creating the device id
+        features = ia.remote_device.node_map # assigning the features as ia.remote_device.node_map
 
         ## General settings
         # ReadOnly
@@ -44,8 +44,8 @@ with Harvester() as h:
         device_variant = features.PhotoneoDeviceVariant.value
         device_features = features.PhotoneoDeviceFeatures.value
 
-        if type != "PhoXi3DScanner":
-            print("Device is not a PhoXi3DScanner!")
+        if type != "MotionCam3D":
+            print("Device is not a MotionCam!")
             sys.exit(0)
 
         # `Freerun` or `Software`
@@ -72,15 +72,6 @@ with Harvester() as h:
         # <1, 20>
         scan_multiplier = features.ScanMultiplier.value
         features.ScanMultiplier.value = 5
-        # `Res_2064_1544` or `Res_1032_772`
-        resolution = features.Resolution.value
-        features.Resolution.value = 'Res_1032_772'
-        # True or False
-        camera_only_mode = features.CameraOnlyMode.value
-        features.CameraOnlyMode.value = False
-        # True or False
-        ambient_light_suppression = features.AmbientLightSuppression.value
-        features.AmbientLightSuppression.value = False
         # `Normal` or `Interreflections`
         coding_strategy = features.CodingStrategy.value
         features.CodingStrategy.value = 'Normal'
@@ -90,7 +81,7 @@ with Harvester() as h:
         # `Computed`, `LED`, `Laser` or `Focus`
         texture_source = features.TextureSource.value
         features.TextureSource.value = 'Laser'
-        # <10.24, 100.352>
+        # <10.24, 40.96>
         single_pattern_exposure = features.SinglePatternExposure.value
         features.SinglePatternExposure.value = 10.24
         # <0.0, 100.0>
@@ -99,12 +90,6 @@ with Harvester() as h:
         # <1, 4095>
         laser_power = features.LaserPower.value
         features.LaserPower.value = 2000
-        # <0, 512>
-        projection_offset_left = features.ProjectionOffsetLeft.value
-        features.ProjectionOffsetLeft.value = 50
-        # <0, 512>
-        projection_offset_right = features.ProjectionOffsetRight.value
-        features.ProjectionOffsetRight.value = 50
         # <1, 4095>
         led_power = features.LEDPower.value
         features.LEDPower.value = 2000
@@ -114,6 +99,27 @@ with Harvester() as h:
         # `Falling`, `Rising` or `Both`
         hardware_trigger_signal = features.HardwareTriggerSignal.value
         features.HardwareTriggerSignal.value = 'Both'
+
+        # `CameraMode`, `ScannerMode` or `Mode2D`
+        operation_mode = features.OperationMode.value
+        features.OperationMode.value = ''
+        # ReadOnly
+        resolution = features.CameraResolution.value
+        # <10.24, 40.96>
+        camera_exposure = features.CameraExposure.value
+        features.CameraExposure.value = 10.24
+        # `Standard`
+        sampling_topology = features.SamplingTopology.value
+        features.SamplingTopology.value = 'Standard'
+        # `IrregularGrid`, `RegularGrid` or `Raw`
+        output_topology = features.OutputTopology.value
+        features.OutputTopology.value = 'Raw'
+        # `Normal` or `Interreflections`
+        camera_coding_strategy = features.CameraCodingStrategy.value
+        features.CameraCodingStrategy.value = 'Interreflections'
+        # `Laser`, `LED` or `Color`
+        camera_texture_source = features.CameraTextureSource.value
+        features.CameraTextureSource.value = 'Laser'
 
 
         ## Processing settings
@@ -153,18 +159,6 @@ with Harvester() as h:
         # <0, 4>
         normals_estimation_radius = features.NormalsEstimationRadius.value
         features.NormalsEstimationRadius.value = 1
-        # True or False
-        interreflections_filtering = features.InterreflectionsFiltering.value
-        features.InterreflectionsFiltering.value = True
-        # <0.01, 0.99>
-        interreflections_filtering_strength = features.InterreflectionFilterStrength.value
-        features.InterreflectionFilterStrength.value = 0.50
-        # `Local`, `Small`, `Medium` or `Large`
-        pattern_decomposition_reach = features.PatternDecompositionReach.value
-        features.PatternDecompositionReach.value = 'Medium'
-        # <0.0, 4095.0>
-        signal_contrast_threshold = features.SignalContrastThreshold.value
-        features.SignalContrastThreshold.value = 2000.50
 
 
         ## Coordinates settings
@@ -247,6 +241,89 @@ with Harvester() as h:
         pixel_length_width = features.PixelSizeWidth.value
         pixel_length_height = features.PixelSizeHeight.value
 
+        if "Color" in device_features:   
+            ## Color calibration settings         
+            # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
+            color_calibration_camera_matrix_selector = features.ColorCalibration_CameraMatrixSelector.value
+            features.CameraMatrixSelector.value = 'Row0Col1'
+            # ReadOnly
+            color_calibration_camera_matrix_value = features.ColorCalibration_CameraMatrixValue.value
+            # Read as raw bytes array
+            color_calibration_camera_matrix_length = features.ColorCalibration_CameraMatrix.length
+            color_calibration_camera_matrix_bytes = features.ColorCalibration_CameraMatrix.get(color_calibration_camera_matrix_length)
+            color_calibration_camera_matrix = struct.unpack('9d', color_calibration_camera_matrix_bytes)
+            # <0, 13>
+            color_calibration_distortion_coefficient_selector = features.ColorCalibration_DistortionCoefficientSelector.value
+            features.DistortionCoefficientSelector.value = 3
+            # ReadOnly
+            color_calibration_distortion_coefficient_value = features.ColorCalibration_DistortionCoefficientValue.value
+            # Read as raw bytes array
+            color_calibration_distortion_coefficient_length = features.ColorCalibration_DistortionCoefficient.length
+            color_calibration_distortion_coefficient_bytes = features.ColorCalibration_DistortionCoefficient.get(color_calibration_distortion_coefficient_length)
+            color_calibration_distortion_coefficient = struct.unpack('14d', color_calibration_distortion_coefficient_bytes)
+
+            color_calibration_focus_length = features.ColorCalibration_FocusLength.value
+            color_calibration_pixel_length_width = features.ColorCalibration_PixelSizeWidth.value
+            color_calibration_pixel_length_height = features.ColorCalibration_PixelSizeHeight.value
+            # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
+            color_calibration_rotation_matrix_selector = features.ColorCalibration_RotationMatrixSelector.value
+            features.ColorCalibration_RotationMatrixSelector = "Row0Col1"
+            # ReadOnly
+            color_calibration_rotation_matrix_value = features.ColorCalibration_RotationMatrixValue.value
+            # Read/Write as raw bytes array    
+            color_calibration_rotation_matrix_length = features.ColorCalibration_RotationMatrix.length
+            color_calibration_rotation_matrix_bytes = features.ColorCalibration_RotationMatrix.get(color_calibration_rotation_matrix_length)
+            color_calibration_rotation_matrix = struct.unpack('9d', color_calibration_rotation_matrix_bytes)
+            # `X`, `Y` or `Z`
+            color_calibration_translation_vector_selector = features.ColorCalibration_TranslationVectorSelector.value
+            features.ColorCalibration_TranslationVectorSelector.value = "Y"
+            # ReadOnly
+            color_calibration_translation_vector_value = features.ColorCalibration_TranslationVectorSelector.value
+            # Read/Write as raw bytes array    
+            color_calibration_translation_vector_length = features.ColorCalibration_TranslationVector.length
+            color_calibration_translation_vector_bytes = features.ColorCalibration_TranslationVector.get(color_calibration_translation_vector_length)
+            color_calibration_translation_vector = struct.unpack('3d', color_calibration_translation_vector_bytes)
+
+            color_calibration_camera_resolution_width = features.ColorCalibration_CameraResolutionWidth.value
+            color_calibration_camera_resolution_height = features.ColorCalibration_CameraResolutionHeight.value
+
+
+            ## Color settings
+            # Choose ISO value from supported ISO values
+            if features.ColorSettings_SupportedISOsSize.value > 0:
+                # Select via selector supported value in range [0, listSize - 1]
+                features.ColorSettings_SupportedISOsSelector.value = 0
+                # Set selected value to the settings
+                features.ColorSettings_ISO.value = features.ColorSettings_SupportedISO.value
+
+            # Choose exposure value from supported exposure values
+            if features.ColorSettings_SupportedExposuresSize.value > 0:
+                # Select using selector supported value in range [0, listSize - 1]
+                features.ColorSettings_SupportedExposuresSelector.value = 0
+                # Set selected value to the settings
+                features.ColorSettings_Exposure.value = features.ColorSettings_SupportedExposure.value
+
+            # Choose value of camera resolution from supported capturing modes
+            if features.ColorSettings_SupportedCapturingModesSize.value > 0:
+                # Select via selector supported value in range [0, listSize - 1]
+                features.ColorSettings_SupportedCapturingModesSelector.value = 0
+                # Get selected values
+                color_settings_capturing_mode_resolution_width = features.ColorSettings_SupportedCapturingModeResolutionWidth.value
+                color_settings_capturing_mode_resolution_height = features.ColorSettings_SupportedCapturingModeResolutionHeight.value
+
+            # `Res_3864_2192`, `Res_1932_1096` or `Res_1288_730`
+            resolution = features.ColorSettings_Resolution.value
+            features.ColorSettings_Resolution.value = 'Res_1932_1096'
+
+            # Set required gamma value in range [0.0, 1.0]
+            features.ColorSettings_Gamma.value = 1.0
+
+            # Enable white balance if required (True, False)
+            features.ColorSettings_WhiteBalanceEnabled.value = True
+            # Set required white balance coefficients if required in range [0.0, 1.0]
+            features.ColorSettings_WhiteBalanceR.value = 1.0
+            features.ColorSettings_WhiteBalanceG.value = 1.0
+            features.ColorSettings_WhiteBalanceB.value = 1.0
 
         ## FrameOutput settings
         # Enable/Disable transfer of spefific images (True or False)
@@ -254,7 +331,9 @@ with Harvester() as h:
         features.SendNormalMap.value = True
         features.SendDepthMap.value = True
         features.SendConfidenceMap.value = True
+        features.SendEventMap.value = True
         features.SendTexture.value = True
+        features.SendColorCameraImage.value = True # Available only with "MotionCam-3D Color" variant
 
         # The ia object will automatically call the destroy method
         # once it goes out of the block.
