@@ -52,15 +52,19 @@ with Harvester() as h: # consider h as Harvester
         # `Freerun` or `Software`
         trigger_mode = features.PhotoneoTriggerMode.value
         features.PhotoneoTriggerMode.value = 'Freerun'
+        
         # True or False
         wait_for_grabbing_end = features.WaitForGrabbingEnd.value
         features.WaitForGrabbingEnd.value = False
+        
         # Timeout in ms, or values 0 (ZeroTimeout) and -1 (Infinity)
         get_frame_timeout = features.GetFrameTimeout.value
         features.GetFrameTimeout.value = 5000
+        
         # True or False
         logout_after_disconnect = features.LogoutAfterDisconnect.value
         features.LogoutAfterDisconnect.value = False
+        
         # True or False
         stop_acquisition_after_disconnect = features.StopAcquisitionAfterDisconnect.value
         features.StopAcquisitionAfterDisconnect.value = False
@@ -70,33 +74,43 @@ with Harvester() as h: # consider h as Harvester
         # <1, 20>
         shutter_multiplier = features.ShutterMultiplier.value
         features.ShutterMultiplier.value = 8
+        
         # <1, 20>
         scan_multiplier = features.ScanMultiplier.value
         features.ScanMultiplier.value = 8
+        
         # `Normal` or `Interreflections`
         coding_strategy = features.CodingStrategy.value
         features.CodingStrategy.value = 'Normal'
+        
         # `Fast`, `High` or `Ultra`
         coding_quality = features.CodingQuality.value
         features.CodingQuality.value = 'Ultra'
+        
         # `Computed`, `LED`, `Laser` or `Focus`
         texture_source = features.TextureSource.value
         features.TextureSource.value = 'Laser'
+        
         # <10.24, 40.96>
         single_pattern_exposure = features.SinglePatternExposure.value
         features.SinglePatternExposure.value = 10.24
+        
         # <0.0, 100.0>
         maximum_fps = features.MaximumFPS.value
         features.MaximumFPS.value = 25
+        
         # <1, 4095>
         laser_power = features.LaserPower.value
         features.LaserPower.value = 2000
+        
         # <1, 4095>
         led_power = features.LEDPower.value
         features.LEDPower.value = 2000
+        
         # True or False
         hardware_trigger = features.HardwareTrigger.value
         features.HardwareTrigger.value = True
+        
         # `Falling`, `Rising` or `Both`
         hardware_trigger_signal = features.HardwareTriggerSignal.value
         features.HardwareTriggerSignal.value = 'Both'
@@ -104,20 +118,26 @@ with Harvester() as h: # consider h as Harvester
         # `CameraMode`, `ScannerMode` or `Mode2D`
         operation_mode = features.OperationMode.value
         features.OperationMode.value = 'ScannerMode'
+        
         # ReadOnly
         resolution = features.CameraResolution.value
+        
         # <10.24, 40.96>
         camera_exposure = features.CameraExposure.value
         features.CameraExposure.value = 40.96
+        
         # `Standard`
         sampling_topology = features.SamplingTopology.value
         features.SamplingTopology.value = 'Standard'
+        
         # `IrregularGrid`, `RegularGrid` or `Raw`
         output_topology = features.OutputTopology.value
         features.OutputTopology.value = 'Raw'
+        
         # `Normal` or `Interreflections`
         camera_coding_strategy = features.CameraCodingStrategy.value
         features.CameraCodingStrategy.value = 'Interreflections'
+        
         # `Laser`, `LED` or `Color`
         camera_texture_source = features.CameraTextureSource.value
         features.CameraTextureSource.value = 'Laser'
@@ -127,36 +147,47 @@ with Harvester() as h: # consider h as Harvester
         # <0.0, 100.0>
         max_inaccuracy = features.MaxInaccuracy.value
         features.MaxInaccuracy.value = 3.5
+        
         # `MinX`, `MinY`, `MinZ`, `MaxX`, `MaxY` or `MaxZ`
         camera_space_selector = features.CameraSpaceSelector.value
         features.CameraSpaceSelector.value = 'MinZ'
+        
         # <-999999.0, 999999.0>
         camera_space_value = features.CameraSpaceValue.value
         features.CameraSpaceValue.value = 100.5
+        
         # `MinX`, `MinY`, `MinZ`, `MaxX`, `MaxY` or `MaxZ`
         point_cloud_space_selector = features.PointCloudSpaceSelector.value
         features.PointCloudSpaceSelector.value = 'MaxY'
+        
         # <-999999.0, 999999.0>
         point_cloud_space_value = features.PointCloudSpaceValue.value
         features.PointCloudSpaceValue.value = 200.5
+        
         # <0.0, 90.0>
         max_camera_angle = features.MaxCameraAngle.value
         features.MaxCameraAngle.value = 10
+        
         # <0.0, 90.0>
         max_projector_angle = features.MaxProjectorAngle.value
         features.MaxProjectorAngle.value = 15
+        
         # <0.0, 90.0>
         min_halfway_angle = features.MinHalfwayAngle.value
         features.MinHalfwayAngle.value = 20
+        
         # <0.0, 90.0>
         max_halfway_angle = features.MaxHalfwayAngle.value
         features.MaxHalfwayAngle.value = 25
+        
         # True or False
         calibration_volume_only = features.CalibrationVolumeOnly.value
         features.CalibrationVolumeOnly.value = True
+        
         # `Sharp`, `Normal` or `Smooth`
         surface_smoothness = features.SurfaceSmoothness.value
         features.SurfaceSmoothness.value = 'Normal'
+        
         # <0, 4>
         normals_estimation_radius = features.NormalsEstimationRadius.value
         features.NormalsEstimationRadius.value = 1
@@ -167,15 +198,19 @@ with Harvester() as h: # consider h as Harvester
         # `CameraSpace`, `MarkerSpace`, `RobotSpace` or `CustomSpace`
         camera_space = features.CoordinateSpace.value
         features.CoordinateSpace.value = 'MarkerSpace'
+        
         # `Custom` or `Robot`
         transformation_space_selector = features.TransformationSpaceSelector.value
         features.TransformationSpaceSelector.value = 'Robot'
+        
         # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
         transformation_rotation_matrix_selector = features.TransformationRotationMatrixSelector.value
         features.TransformationRotationMatrixSelector.value = 'Row0Col1'
+        
         # <-999999.0, 999999.0>
         transformation_rotation_matrix_value = features.TransformationRotationMatrixValue.value
         features.TransformationRotationMatrixValue.value = 150.25
+        
         # Read/Write as raw bytes array    
         custom_transformation_rotation_matrix_length = features.CustomTransformationRotationMatrix.length
         custom_transformation_rotation_matrix_bytes = features.CustomTransformationRotationMatrix.get(custom_transformation_rotation_matrix_length)
@@ -189,12 +224,15 @@ with Harvester() as h: # consider h as Harvester
         robot_transformation_rotation_matrix_new_values = [1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9]
         robot_transformation_rotation_matrix_new_bytes = struct.pack('9d', *robot_transformation_rotation_matrix_new_values)
         features.RobotTransformationRotationMatrix.set(robot_transformation_rotation_matrix_new_bytes)
+        
         # `X`, `Y` or `Z`
         transformation_translation_vector_selector = features.TransformationTranslationVectorSelector.value
         features.TransformationTranslationVectorSelector.value = 'Z'
+        
         # <-999999.0, 999999.0>
         transformation_translation_vector_value = features.TransformationTranslationVectorValue.value
         features.TransformationTranslationVectorValue.value = 225.50
+        
         # Read/Write as raw bytes array    
         custom_transformation_translation_vector_length = features.CustomTransformationTranslationVector.length
         custom_transformation_translation_vector_bytes = features.CustomTransformationTranslationVector.get(custom_transformation_translation_vector_length)
@@ -208,13 +246,16 @@ with Harvester() as h: # consider h as Harvester
         robot_transformation_translation_vector_new_values = [1.1, 2.2, 3.3]
         robot_transformation_translation_vector_new_bytes = struct.pack('3d', *robot_transformation_translation_vector_new_values)
         features.RobotTransformationTranslationVector.set(robot_transformation_translation_vector_new_bytes)
+        
         # True or False
         recognize_markers = features.RecognizeMarkers
         features.RecognizeMarkers.value = True
         # <-999999.0, 999999.0>
+        
         marker_scale_width = features.MarkerScaleWidth
         features.MarkerScaleWidth.value = 0.50
         # <-999999.0, 999999.0>
+        
         marker_scale_height = features.MarkerScaleHeight
         features.MarkerScaleHeight.value = 0.50
 
@@ -223,17 +264,22 @@ with Harvester() as h: # consider h as Harvester
         # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
         camera_matrix_selector = features.CameraMatrixSelector.value
         features.CameraMatrixSelector.value = 'Row0Col1'
+        
         # ReadOnly
         camera_matrix_value = features.CameraMatrixValue.value
+        
         # Read as raw bytes array
         camera_matrix_length = features.CameraMatrix.length
         camera_matrix_bytes = features.CameraMatrix.get(camera_matrix_length)
         camera_matrix = struct.unpack('9d', camera_matrix_bytes)
+        
         # <0, 13>
         distortion_coefficient_selector = features.DistortionCoefficientSelector.value
         features.DistortionCoefficientSelector.value = 3
+        
         # ReadOnly
         distortion_coefficient_value = features.DistortionCoefficientValue.value
+        
         # Read as raw bytes array
         distortion_coefficient_length = features.DistortionCoefficient.length
         distortion_coefficient_bytes = features.DistortionCoefficient.get(distortion_coefficient_length)
@@ -248,17 +294,22 @@ with Harvester() as h: # consider h as Harvester
             # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
             color_calibration_camera_matrix_selector = features.ColorCalibration_CameraMatrixSelector.value
             features.CameraMatrixSelector.value = 'Row0Col1'
+            
             # ReadOnly
             color_calibration_camera_matrix_value = features.ColorCalibration_CameraMatrixValue.value
+            
             # Read as raw bytes array
             color_calibration_camera_matrix_length = features.ColorCalibration_CameraMatrix.length
             color_calibration_camera_matrix_bytes = features.ColorCalibration_CameraMatrix.get(color_calibration_camera_matrix_length)
             color_calibration_camera_matrix = struct.unpack('9d', color_calibration_camera_matrix_bytes)
+            
             # <0, 13>
             color_calibration_distortion_coefficient_selector = features.ColorCalibration_DistortionCoefficientSelector.value
             features.DistortionCoefficientSelector.value = 3
+            
             # ReadOnly
             color_calibration_distortion_coefficient_value = features.ColorCalibration_DistortionCoefficientValue.value
+            
             # Read as raw bytes array
             color_calibration_distortion_coefficient_length = features.ColorCalibration_DistortionCoefficient.length
             color_calibration_distortion_coefficient_bytes = features.ColorCalibration_DistortionCoefficient.get(color_calibration_distortion_coefficient_length)
@@ -267,20 +318,26 @@ with Harvester() as h: # consider h as Harvester
             color_calibration_focus_length = features.ColorCalibration_FocusLength.value
             color_calibration_pixel_length_width = features.ColorCalibration_PixelSizeWidth.value
             color_calibration_pixel_length_height = features.ColorCalibration_PixelSizeHeight.value
+            
             # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
             color_calibration_rotation_matrix_selector = features.ColorCalibration_RotationMatrixSelector.value
             features.ColorCalibration_RotationMatrixSelector = "Row0Col1"
+            
             # ReadOnly
             color_calibration_rotation_matrix_value = features.ColorCalibration_RotationMatrixValue.value
+            
             # Read/Write as raw bytes array    
             color_calibration_rotation_matrix_length = features.ColorCalibration_RotationMatrix.length
             color_calibration_rotation_matrix_bytes = features.ColorCalibration_RotationMatrix.get(color_calibration_rotation_matrix_length)
             color_calibration_rotation_matrix = struct.unpack('9d', color_calibration_rotation_matrix_bytes)
+            
             # `X`, `Y` or `Z`
             color_calibration_translation_vector_selector = features.ColorCalibration_TranslationVectorSelector.value
             features.ColorCalibration_TranslationVectorSelector.value = "Y"
+            
             # ReadOnly
             color_calibration_translation_vector_value = features.ColorCalibration_TranslationVectorSelector.value
+            
             # Read/Write as raw bytes array    
             color_calibration_translation_vector_length = features.ColorCalibration_TranslationVector.length
             color_calibration_translation_vector_bytes = features.ColorCalibration_TranslationVector.get(color_calibration_translation_vector_length)
