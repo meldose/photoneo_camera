@@ -24,7 +24,7 @@ def display_texture_if_available(texture_component): # defining an function for 
 
     texture = texture_component.data.reshape(texture_component.height, texture_component.width, 1).copy() # copying the texture component height and height
     texture_screen = cv2.normalize(texture, dst=None, alpha=0, beta=65535, norm_type=cv2.NORM_MINMAX) #  creating an 2D image
-    texture_screen = cv2.flip(texture_screen, 0)  # Flip vertically
+    # texture_screen = cv2.flip(texture_screen, 0)  # Flip vertically
     cv2.imshow("Texture", texture_screen)
     cv2.waitKey(1)  # Ensure that the display updates correctly
     return
@@ -37,7 +37,7 @@ def display_color_image_if_available(color_component, name): # defining the func
     color_image = color_component.data.reshape(color_component.height, color_component.width, 3).copy() # creating an 3D image
     color_image = cv2.normalize(color_image, dst=None, alpha=0, beta=65535, norm_type=cv2.NORM_MINMAX) # opening the 3D image in an camera
     color_image = cv2.cvtColor(color_image, cv2.COLOR_RGB2BGR)
-    color_image = cv2.flip(color_image, 0)  # Flip vertically
+    # color_image = cv2.flip(color_image, 0)  # Flip vertically
     cv2.imshow(name, color_image) # show the 3D image
     return
 
