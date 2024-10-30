@@ -32,19 +32,20 @@ with Harvester() as h: # consider h as Harvester
     with h.create({'id_': device_id}) as ia: # creating the device id
         features = ia.remote_device.node_map # assigning the features as ia.remote_device.node_map
 
-        ## General settings
+################################## GENERAL SETTINGS ##################################################################################################
+
         # ReadOnly
-        is_phoxi_control_running = features.IsPhoXiControlRunning.value
+        is_phoxi_control_running = features.IsPhoXiControlRunning.value 
         api_version = features.PhotoneoAPIVersion.value
-        id = features.PhotoneoDeviceID.value
-        type = features.PhotoneoDeviceType.value
+        id = features.PhotoneoDeviceID.value # assigning the id as PhotoneoDeviceID value
+        type = features.PhotoneoDeviceType.value # assigning the type as PhotoneoDeviceType
         is_acquiring = features.IsAcquiring.value
         is_connected = features.IsConnected.value
         device_firmware_version = features.PhotoneoDeviceFirmwareVersion.value
         device_variant = features.PhotoneoDeviceVariant.value
         device_features = features.PhotoneoDeviceFeatures.value
 
-        if type != "MotionCam3D":
+        if type != "MotionCam3D": # if the device is MotionCam3D then
             print("Device is not a MotionCam!")
             sys.exit(0)
 
@@ -64,14 +65,14 @@ with Harvester() as h: # consider h as Harvester
         stop_acquisition_after_disconnect = features.StopAcquisitionAfterDisconnect.value
         features.StopAcquisitionAfterDisconnect.value = False
 
+################################################## CAPTURE  SETTINGS####################################################################
 
-        ## Capturing settings
         # <1, 20>
         shutter_multiplier = features.ShutterMultiplier.value
-        features.ShutterMultiplier.value = 5
+        features.ShutterMultiplier.value = 8
         # <1, 20>
         scan_multiplier = features.ScanMultiplier.value
-        features.ScanMultiplier.value = 5
+        features.ScanMultiplier.value = 8
         # `Normal` or `Interreflections`
         coding_strategy = features.CodingStrategy.value
         features.CodingStrategy.value = 'Normal'
@@ -102,12 +103,12 @@ with Harvester() as h: # consider h as Harvester
 
         # `CameraMode`, `ScannerMode` or `Mode2D`
         operation_mode = features.OperationMode.value
-        features.OperationMode.value = ''
+        features.OperationMode.value = 'ScannerMode'
         # ReadOnly
         resolution = features.CameraResolution.value
         # <10.24, 40.96>
         camera_exposure = features.CameraExposure.value
-        features.CameraExposure.value = 10.24
+        features.CameraExposure.value = 40.96
         # `Standard`
         sampling_topology = features.SamplingTopology.value
         features.SamplingTopology.value = 'Standard'
@@ -121,8 +122,8 @@ with Harvester() as h: # consider h as Harvester
         camera_texture_source = features.CameraTextureSource.value
         features.CameraTextureSource.value = 'Laser'
 
+##################################### PROCESSING SETTINGS #####################################################################################################
 
-        ## Processing settings
         # <0.0, 100.0>
         max_inaccuracy = features.MaxInaccuracy.value
         features.MaxInaccuracy.value = 3.5
@@ -160,8 +161,9 @@ with Harvester() as h: # consider h as Harvester
         normals_estimation_radius = features.NormalsEstimationRadius.value
         features.NormalsEstimationRadius.value = 1
 
+####################################################### COORDINATES SETTINGS #############################################################################################
 
-        ## Coordinates settings
+
         # `CameraSpace`, `MarkerSpace`, `RobotSpace` or `CustomSpace`
         camera_space = features.CoordinateSpace.value
         features.CoordinateSpace.value = 'MarkerSpace'
@@ -216,8 +218,8 @@ with Harvester() as h: # consider h as Harvester
         marker_scale_height = features.MarkerScaleHeight
         features.MarkerScaleHeight.value = 0.50
 
+##############################################' CALIBRATION SETTINGS ###########################################################################################
 
-        ## Calibration settings
         # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
         camera_matrix_selector = features.CameraMatrixSelector.value
         features.CameraMatrixSelector.value = 'Row0Col1'
@@ -287,8 +289,8 @@ with Harvester() as h: # consider h as Harvester
             color_calibration_camera_resolution_width = features.ColorCalibration_CameraResolutionWidth.value
             color_calibration_camera_resolution_height = features.ColorCalibration_CameraResolutionHeight.value
 
+#################################################### COLOR SETTINGS #####################################################################################
 
-            ## Color settings
             # Choose ISO value from supported ISO values
             if features.ColorSettings_SupportedISOsSize.value > 0:
                 # Select via selector supported value in range [0, listSize - 1]
@@ -325,7 +327,7 @@ with Harvester() as h: # consider h as Harvester
             features.ColorSettings_WhiteBalanceG.value = 1.0
             features.ColorSettings_WhiteBalanceB.value = 1.0
 
-        ## FrameOutput settings
+##########################################################'FRAMEOUTPUT SETTINGS#################################################################################
         # Enable/Disable transfer of spefific images (True or False)
         features.SendPointCloud.value = True
         features.SendNormalMap.value = True

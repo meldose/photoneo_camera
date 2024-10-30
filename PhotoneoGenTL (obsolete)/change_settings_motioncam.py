@@ -86,10 +86,10 @@ with Harvester() as h: # consider h as Harvester
         features.SinglePatternExposure.value = 10.24
         # <0.0, 100.0>
         maximum_fps = features.MaximumFPS.value
-        features.MaximumFPS.value = 25
+        features.MaximumFPS.value = 35
         # <1, 4095>
         laser_power = features.LaserPower.value
-        features.LaserPower.value = 2000
+        features.LaserPower.value = 3500
         # <1, 4095>
         led_power = features.LEDPower.value
         features.LEDPower.value = 2000
@@ -102,7 +102,7 @@ with Harvester() as h: # consider h as Harvester
 
         # `CameraMode`, `ScannerMode` or `Mode2D`
         operation_mode = features.OperationMode.value
-        features.OperationMode.value = 'ScannerMode'
+        features.OperationMode.value = 'CameraMode'
         # ReadOnly
         resolution = features.CameraResolution.value
         # <10.24, 40.96>
@@ -155,7 +155,7 @@ with Harvester() as h: # consider h as Harvester
         features.CalibrationVolumeOnly.value = True
         # `Sharp`, `Normal` or `Smooth`
         surface_smoothness = features.SurfaceSmoothness.value
-        features.SurfaceSmoothness.value = 'Normal'
+        features.SurfaceSmoothness.value = 'Sharp'
         # <0, 4>
         normals_estimation_radius = features.NormalsEstimationRadius.value
         features.NormalsEstimationRadius.value = 1
