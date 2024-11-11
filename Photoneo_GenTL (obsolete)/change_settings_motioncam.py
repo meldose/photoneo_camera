@@ -195,69 +195,69 @@ with Harvester() as h: # consider h as Harvester
 ####################################################### COORDINATES SETTINGS #############################################################################################
 
 
-        # `CameraSpace`, `MarkerSpace`, `RobotSpace` or `CustomSpace`
-        camera_space = features.CoordinateSpace.value
-        features.CoordinateSpace.value = 'MarkerSpace'
+        # # `CameraSpace`, `MarkerSpace`, `RobotSpace` or `CustomSpace`
+        # camera_space = features.CoordinateSpace.value
+        # features.CoordinateSpace.value = 'MarkerSpace'
         
-        # `Custom` or `Robot`
-        transformation_space_selector = features.TransformationSpaceSelector.value
-        features.TransformationSpaceSelector.value = 'Robot'
+        # # `Custom` or `Robot`
+        # transformation_space_selector = features.TransformationSpaceSelector.value
+        # features.TransformationSpaceSelector.value = 'Robot'
         
-        # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
-        transformation_rotation_matrix_selector = features.TransformationRotationMatrixSelector.value
-        features.TransformationRotationMatrixSelector.value = 'Row0Col1'
+        # # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
+        # transformation_rotation_matrix_selector = features.TransformationRotationMatrixSelector.value
+        # features.TransformationRotationMatrixSelector.value = 'Row0Col1'
         
-        # <-999999.0, 999999.0>
-        transformation_rotation_matrix_value = features.TransformationRotationMatrixValue.value
-        features.TransformationRotationMatrixValue.value = 150.25
+        # # <-999999.0, 999999.0>
+        # transformation_rotation_matrix_value = features.TransformationRotationMatrixValue.value
+        # features.TransformationRotationMatrixValue.value = 150.25
         
-        # Read/Write as raw bytes array    
-        custom_transformation_rotation_matrix_length = features.CustomTransformationRotationMatrix.length
-        custom_transformation_rotation_matrix_bytes = features.CustomTransformationRotationMatrix.get(custom_transformation_rotation_matrix_length)
-        custom_transformation_rotation_matrix = struct.unpack('9d', custom_transformation_rotation_matrix_bytes)
-        custom_transformation_rotation_matrix_new_values = [1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9]
-        custom_transformation_rotation_matrix_new_bytes = struct.pack('9d', *custom_transformation_rotation_matrix_new_values)
-        features.CustomTransformationRotationMatrix.set(custom_transformation_rotation_matrix_new_bytes)
-        robot_transformation_rotation_matrix_length = features.RobotTransformationRotationMatrix.length
-        robot_transformation_rotation_matrix_bytes = features.RobotTransformationRotationMatrix.get(robot_transformation_rotation_matrix_length)
-        robot_transformation_rotation_matrix = struct.unpack('9d', robot_transformation_rotation_matrix_bytes)
-        robot_transformation_rotation_matrix_new_values = [1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9]
-        robot_transformation_rotation_matrix_new_bytes = struct.pack('9d', *robot_transformation_rotation_matrix_new_values)
-        features.RobotTransformationRotationMatrix.set(robot_transformation_rotation_matrix_new_bytes)
+        # # Read/Write as raw bytes array    
+        # custom_transformation_rotation_matrix_length = features.CustomTransformationRotationMatrix.length
+        # custom_transformation_rotation_matrix_bytes = features.CustomTransformationRotationMatrix.get(custom_transformation_rotation_matrix_length)
+        # custom_transformation_rotation_matrix = struct.unpack('9d', custom_transformation_rotation_matrix_bytes)
+        # custom_transformation_rotation_matrix_new_values = [1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9]
+        # custom_transformation_rotation_matrix_new_bytes = struct.pack('9d', *custom_transformation_rotation_matrix_new_values)
+        # features.CustomTransformationRotationMatrix.set(custom_transformation_rotation_matrix_new_bytes)
+        # robot_transformation_rotation_matrix_length = features.RobotTransformationRotationMatrix.length
+        # robot_transformation_rotation_matrix_bytes = features.RobotTransformationRotationMatrix.get(robot_transformation_rotation_matrix_length)
+        # robot_transformation_rotation_matrix = struct.unpack('9d', robot_transformation_rotation_matrix_bytes)
+        # robot_transformation_rotation_matrix_new_values = [1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9]
+        # robot_transformation_rotation_matrix_new_bytes = struct.pack('9d', *robot_transformation_rotation_matrix_new_values)
+        # features.RobotTransformationRotationMatrix.set(robot_transformation_rotation_matrix_new_bytes)
         
-        # `X`, `Y` or `Z`
-        transformation_translation_vector_selector = features.TransformationTranslationVectorSelector.value
-        features.TransformationTranslationVectorSelector.value = 'Z'
+        # # `X`, `Y` or `Z`
+        # transformation_translation_vector_selector = features.TransformationTranslationVectorSelector.value
+        # features.TransformationTranslationVectorSelector.value = 'Z'
         
-        # <-999999.0, 999999.0>
-        transformation_translation_vector_value = features.TransformationTranslationVectorValue.value
-        features.TransformationTranslationVectorValue.value = 225.50
+        # # <-999999.0, 999999.0>
+        # transformation_translation_vector_value = features.TransformationTranslationVectorValue.value
+        # features.TransformationTranslationVectorValue.value = 225.50
         
-        # Read/Write as raw bytes array    
-        custom_transformation_translation_vector_length = features.CustomTransformationTranslationVector.length
-        custom_transformation_translation_vector_bytes = features.CustomTransformationTranslationVector.get(custom_transformation_translation_vector_length)
-        custom_transformation_translation_vector = struct.unpack('3d', custom_transformation_translation_vector_bytes)
-        custom_transformation_translation_vector_new_values = [1.1, 2.2, 3.3]
-        custom_transformation_translation_vector_new_bytes = struct.pack('3d', *custom_transformation_translation_vector_new_values)
-        features.CustomTransformationTranslationVector.set(custom_transformation_translation_vector_new_bytes)
-        robot_transformation_translation_vector_length = features.RobotTransformationTranslationVector.length
-        robot_transformation_translation_vector_bytes = features.RobotTransformationTranslationVector.get(robot_transformation_translation_vector_length)
-        robot_transformation_translation_vector = struct.unpack('3d', robot_transformation_translation_vector_bytes)
-        robot_transformation_translation_vector_new_values = [1.1, 2.2, 3.3]
-        robot_transformation_translation_vector_new_bytes = struct.pack('3d', *robot_transformation_translation_vector_new_values)
-        features.RobotTransformationTranslationVector.set(robot_transformation_translation_vector_new_bytes)
+        # # Read/Write as raw bytes array    
+        # custom_transformation_translation_vector_length = features.CustomTransformationTranslationVector.length
+        # custom_transformation_translation_vector_bytes = features.CustomTransformationTranslationVector.get(custom_transformation_translation_vector_length)
+        # custom_transformation_translation_vector = struct.unpack('3d', custom_transformation_translation_vector_bytes)
+        # custom_transformation_translation_vector_new_values = [1.1, 2.2, 3.3]
+        # custom_transformation_translation_vector_new_bytes = struct.pack('3d', *custom_transformation_translation_vector_new_values)
+        # features.CustomTransformationTranslationVector.set(custom_transformation_translation_vector_new_bytes)
+        # robot_transformation_translation_vector_length = features.RobotTransformationTranslationVector.length
+        # robot_transformation_translation_vector_bytes = features.RobotTransformationTranslationVector.get(robot_transformation_translation_vector_length)
+        # robot_transformation_translation_vector = struct.unpack('3d', robot_transformation_translation_vector_bytes)
+        # robot_transformation_translation_vector_new_values = [1.1, 2.2, 3.3]
+        # robot_transformation_translation_vector_new_bytes = struct.pack('3d', *robot_transformation_translation_vector_new_values)
+        # features.RobotTransformationTranslationVector.set(robot_transformation_translation_vector_new_bytes)
         
-        # True or False
-        recognize_markers = features.RecognizeMarkers
-        features.RecognizeMarkers.value = True
-        # <-999999.0, 999999.0>
+        # # True or False
+        # recognize_markers = features.RecognizeMarkers
+        # features.RecognizeMarkers.value = True
+        # # <-999999.0, 999999.0>
         
-        marker_scale_width = features.MarkerScaleWidth
-        features.MarkerScaleWidth.value = 0.50
-        # <-999999.0, 999999.0>
+        # marker_scale_width = features.MarkerScaleWidth
+        # features.MarkerScaleWidth.value = 0.50
+        # # <-999999.0, 999999.0>
         
-        marker_scale_height = features.MarkerScaleHeight
-        features.MarkerScaleHeight.value = 0.50
+        # marker_scale_height = features.MarkerScaleHeight
+        # features.MarkerScaleHeight.value = 0.50
 
 ##############################################' CALIBRATION SETTINGS ###########################################################################################
 
