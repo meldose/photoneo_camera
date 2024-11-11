@@ -195,205 +195,205 @@ with Harvester() as h: # consider h as Harvester
 ####################################################### COORDINATES SETTINGS #############################################################################################
 
 
-        # # `CameraSpace`, `MarkerSpace`, `RobotSpace` or `CustomSpace`
-        # camera_space = features.CoordinateSpace.value
-        # features.CoordinateSpace.value = 'MarkerSpace'
+        # `CameraSpace`, `MarkerSpace`, `RobotSpace` or `CustomSpace`
+        camera_space = features.CoordinateSpace.value
+        features.CoordinateSpace.value = 'MarkerSpace'
         
-        # # `Custom` or `Robot`
-        # transformation_space_selector = features.TransformationSpaceSelector.value
-        # features.TransformationSpaceSelector.value = 'Robot'
+        # `Custom` or `Robot`
+        transformation_space_selector = features.TransformationSpaceSelector.value
+        features.TransformationSpaceSelector.value = 'Robot'
         
-        # # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
-        # transformation_rotation_matrix_selector = features.TransformationRotationMatrixSelector.value
-        # features.TransformationRotationMatrixSelector.value = 'Row0Col1'
+        # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
+        transformation_rotation_matrix_selector = features.TransformationRotationMatrixSelector.value
+        features.TransformationRotationMatrixSelector.value = 'Row0Col1'
         
-        # # <-999999.0, 999999.0>
-        # transformation_rotation_matrix_value = features.TransformationRotationMatrixValue.value
-        # features.TransformationRotationMatrixValue.value = 150.25
+        # <-999999.0, 999999.0>
+        transformation_rotation_matrix_value = features.TransformationRotationMatrixValue.value
+        features.TransformationRotationMatrixValue.value = 150.25
         
-        # # Read/Write as raw bytes array    
-        # custom_transformation_rotation_matrix_length = features.CustomTransformationRotationMatrix.length
-        # custom_transformation_rotation_matrix_bytes = features.CustomTransformationRotationMatrix.get(custom_transformation_rotation_matrix_length)
-        # custom_transformation_rotation_matrix = struct.unpack('9d', custom_transformation_rotation_matrix_bytes)
-        # custom_transformation_rotation_matrix_new_values = [1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9]
-        # custom_transformation_rotation_matrix_new_bytes = struct.pack('9d', *custom_transformation_rotation_matrix_new_values)
-        # features.CustomTransformationRotationMatrix.set(custom_transformation_rotation_matrix_new_bytes)
-        # robot_transformation_rotation_matrix_length = features.RobotTransformationRotationMatrix.length
-        # robot_transformation_rotation_matrix_bytes = features.RobotTransformationRotationMatrix.get(robot_transformation_rotation_matrix_length)
-        # robot_transformation_rotation_matrix = struct.unpack('9d', robot_transformation_rotation_matrix_bytes)
-        # robot_transformation_rotation_matrix_new_values = [1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9]
-        # robot_transformation_rotation_matrix_new_bytes = struct.pack('9d', *robot_transformation_rotation_matrix_new_values)
-        # features.RobotTransformationRotationMatrix.set(robot_transformation_rotation_matrix_new_bytes)
+        # Read/Write as raw bytes array    
+        custom_transformation_rotation_matrix_length = features.CustomTransformationRotationMatrix.length
+        custom_transformation_rotation_matrix_bytes = features.CustomTransformationRotationMatrix.get(custom_transformation_rotation_matrix_length)
+        custom_transformation_rotation_matrix = struct.unpack('9d', custom_transformation_rotation_matrix_bytes)
+        custom_transformation_rotation_matrix_new_values = [1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9]
+        custom_transformation_rotation_matrix_new_bytes = struct.pack('9d', *custom_transformation_rotation_matrix_new_values)
+        features.CustomTransformationRotationMatrix.set(custom_transformation_rotation_matrix_new_bytes)
+        robot_transformation_rotation_matrix_length = features.RobotTransformationRotationMatrix.length
+        robot_transformation_rotation_matrix_bytes = features.RobotTransformationRotationMatrix.get(robot_transformation_rotation_matrix_length)
+        robot_transformation_rotation_matrix = struct.unpack('9d', robot_transformation_rotation_matrix_bytes)
+        robot_transformation_rotation_matrix_new_values = [1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9]
+        robot_transformation_rotation_matrix_new_bytes = struct.pack('9d', *robot_transformation_rotation_matrix_new_values)
+        features.RobotTransformationRotationMatrix.set(robot_transformation_rotation_matrix_new_bytes)
         
-        # # `X`, `Y` or `Z`
-        # transformation_translation_vector_selector = features.TransformationTranslationVectorSelector.value
-        # features.TransformationTranslationVectorSelector.value = 'Z'
+        # `X`, `Y` or `Z`
+        transformation_translation_vector_selector = features.TransformationTranslationVectorSelector.value
+        features.TransformationTranslationVectorSelector.value = 'Z'
         
-        # # <-999999.0, 999999.0>
-        # transformation_translation_vector_value = features.TransformationTranslationVectorValue.value
-        # features.TransformationTranslationVectorValue.value = 225.50
+        # <-999999.0, 999999.0>
+        transformation_translation_vector_value = features.TransformationTranslationVectorValue.value
+        features.TransformationTranslationVectorValue.value = 225.50
         
-        # # Read/Write as raw bytes array    
-        # custom_transformation_translation_vector_length = features.CustomTransformationTranslationVector.length
-        # custom_transformation_translation_vector_bytes = features.CustomTransformationTranslationVector.get(custom_transformation_translation_vector_length)
-        # custom_transformation_translation_vector = struct.unpack('3d', custom_transformation_translation_vector_bytes)
-        # custom_transformation_translation_vector_new_values = [1.1, 2.2, 3.3]
-        # custom_transformation_translation_vector_new_bytes = struct.pack('3d', *custom_transformation_translation_vector_new_values)
-        # features.CustomTransformationTranslationVector.set(custom_transformation_translation_vector_new_bytes)
-        # robot_transformation_translation_vector_length = features.RobotTransformationTranslationVector.length
-        # robot_transformation_translation_vector_bytes = features.RobotTransformationTranslationVector.get(robot_transformation_translation_vector_length)
-        # robot_transformation_translation_vector = struct.unpack('3d', robot_transformation_translation_vector_bytes)
-        # robot_transformation_translation_vector_new_values = [1.1, 2.2, 3.3]
-        # robot_transformation_translation_vector_new_bytes = struct.pack('3d', *robot_transformation_translation_vector_new_values)
-        # features.RobotTransformationTranslationVector.set(robot_transformation_translation_vector_new_bytes)
+        # Read/Write as raw bytes array    
+        custom_transformation_translation_vector_length = features.CustomTransformationTranslationVector.length
+        custom_transformation_translation_vector_bytes = features.CustomTransformationTranslationVector.get(custom_transformation_translation_vector_length)
+        custom_transformation_translation_vector = struct.unpack('3d', custom_transformation_translation_vector_bytes)
+        custom_transformation_translation_vector_new_values = [1.1, 2.2, 3.3]
+        custom_transformation_translation_vector_new_bytes = struct.pack('3d', *custom_transformation_translation_vector_new_values)
+        features.CustomTransformationTranslationVector.set(custom_transformation_translation_vector_new_bytes)
+        robot_transformation_translation_vector_length = features.RobotTransformationTranslationVector.length
+        robot_transformation_translation_vector_bytes = features.RobotTransformationTranslationVector.get(robot_transformation_translation_vector_length)
+        robot_transformation_translation_vector = struct.unpack('3d', robot_transformation_translation_vector_bytes)
+        robot_transformation_translation_vector_new_values = [1.1, 2.2, 3.3]
+        robot_transformation_translation_vector_new_bytes = struct.pack('3d', *robot_transformation_translation_vector_new_values)
+        features.RobotTransformationTranslationVector.set(robot_transformation_translation_vector_new_bytes)
         
-        # # True or False
-        # recognize_markers = features.RecognizeMarkers
-        # features.RecognizeMarkers.value = True
-        # # <-999999.0, 999999.0>
+        # True or False
+        recognize_markers = features.RecognizeMarkers
+        features.RecognizeMarkers.value = True
+        # <-999999.0, 999999.0>
         
-        # marker_scale_width = features.MarkerScaleWidth
-        # features.MarkerScaleWidth.value = 0.50
-        # # <-999999.0, 999999.0>
+        marker_scale_width = features.MarkerScaleWidth
+        features.MarkerScaleWidth.value = 0.50
+        # <-999999.0, 999999.0>
         
-        # marker_scale_height = features.MarkerScaleHeight
-        # features.MarkerScaleHeight.value = 0.50
+        marker_scale_height = features.MarkerScaleHeight
+        features.MarkerScaleHeight.value = 0.50
 
 ##############################################' CALIBRATION SETTINGS ###########################################################################################
 
-        # # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
-        # camera_matrix_selector = features.CameraMatrixSelector.value
-        # features.CameraMatrixSelector.value = 'Row0Col1'
+        # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
+        camera_matrix_selector = features.CameraMatrixSelector.value
+        features.CameraMatrixSelector.value = 'Row0Col1'
         
-        # # ReadOnly
-        # camera_matrix_value = features.CameraMatrixValue.value
+        # ReadOnly
+        camera_matrix_value = features.CameraMatrixValue.value
         
-        # # Read as raw bytes array
-        # camera_matrix_length = features.CameraMatrix.length
-        # camera_matrix_bytes = features.CameraMatrix.get(camera_matrix_length)
-        # camera_matrix = struct.unpack('9d', camera_matrix_bytes)
+        # Read as raw bytes array
+        camera_matrix_length = features.CameraMatrix.length
+        camera_matrix_bytes = features.CameraMatrix.get(camera_matrix_length)
+        camera_matrix = struct.unpack('9d', camera_matrix_bytes)
         
-        # # <0, 13>
-        # distortion_coefficient_selector = features.DistortionCoefficientSelector.value
-        # features.DistortionCoefficientSelector.value = 3
+        # <0, 13>
+        distortion_coefficient_selector = features.DistortionCoefficientSelector.value
+        features.DistortionCoefficientSelector.value = 3
         
-        # # ReadOnly
-        # distortion_coefficient_value = features.DistortionCoefficientValue.value
+        # ReadOnly
+        distortion_coefficient_value = features.DistortionCoefficientValue.value
         
-        # # Read as raw bytes array
-        # distortion_coefficient_length = features.DistortionCoefficient.length
-        # distortion_coefficient_bytes = features.DistortionCoefficient.get(distortion_coefficient_length)
-        # distortion_coefficient = struct.unpack('14d', distortion_coefficient_bytes)
+        # Read as raw bytes array
+        distortion_coefficient_length = features.DistortionCoefficient.length
+        distortion_coefficient_bytes = features.DistortionCoefficient.get(distortion_coefficient_length)
+        distortion_coefficient = struct.unpack('14d', distortion_coefficient_bytes)
 
-        # focus_length = features.FocusLength.value
-        # pixel_length_width = features.PixelSizeWidth.value
-        # pixel_length_height = features.PixelSizeHeight.value
+        focus_length = features.FocusLength.value
+        pixel_length_width = features.PixelSizeWidth.value
+        pixel_length_height = features.PixelSizeHeight.value
 
-        # if "Color" in device_features:   
-        #     ## Color calibration settings         
-        #     # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
-        #     color_calibration_camera_matrix_selector = features.ColorCalibration_CameraMatrixSelector.value
-        #     features.CameraMatrixSelector.value = 'Row0Col1'
+        if "Color" in device_features:   
+            ## Color calibration settings         
+            # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
+            color_calibration_camera_matrix_selector = features.ColorCalibration_CameraMatrixSelector.value
+            features.CameraMatrixSelector.value = 'Row0Col1'
             
-        #     # ReadOnly
-        #     color_calibration_camera_matrix_value = features.ColorCalibration_CameraMatrixValue.value
+            # ReadOnly
+            color_calibration_camera_matrix_value = features.ColorCalibration_CameraMatrixValue.value
             
-        #     # Read as raw bytes array
-        #     color_calibration_camera_matrix_length = features.ColorCalibration_CameraMatrix.length
-        #     color_calibration_camera_matrix_bytes = features.ColorCalibration_CameraMatrix.get(color_calibration_camera_matrix_length)
-        #     color_calibration_camera_matrix = struct.unpack('9d', color_calibration_camera_matrix_bytes)
+            # Read as raw bytes array
+            color_calibration_camera_matrix_length = features.ColorCalibration_CameraMatrix.length
+            color_calibration_camera_matrix_bytes = features.ColorCalibration_CameraMatrix.get(color_calibration_camera_matrix_length)
+            color_calibration_camera_matrix = struct.unpack('9d', color_calibration_camera_matrix_bytes)
             
-        #     # <0, 13>
-        #     color_calibration_distortion_coefficient_selector = features.ColorCalibration_DistortionCoefficientSelector.value
-        #     features.DistortionCoefficientSelector.value = 3
+            # <0, 13>
+            color_calibration_distortion_coefficient_selector = features.ColorCalibration_DistortionCoefficientSelector.value
+            features.DistortionCoefficientSelector.value = 3
             
-        #     # ReadOnly
-        #     color_calibration_distortion_coefficient_value = features.ColorCalibration_DistortionCoefficientValue.value
+            # ReadOnly
+            color_calibration_distortion_coefficient_value = features.ColorCalibration_DistortionCoefficientValue.value
             
-        #     # Read as raw bytes array
-        #     color_calibration_distortion_coefficient_length = features.ColorCalibration_DistortionCoefficient.length
-        #     color_calibration_distortion_coefficient_bytes = features.ColorCalibration_DistortionCoefficient.get(color_calibration_distortion_coefficient_length)
-        #     color_calibration_distortion_coefficient = struct.unpack('14d', color_calibration_distortion_coefficient_bytes)
+            # Read as raw bytes array
+            color_calibration_distortion_coefficient_length = features.ColorCalibration_DistortionCoefficient.length
+            color_calibration_distortion_coefficient_bytes = features.ColorCalibration_DistortionCoefficient.get(color_calibration_distortion_coefficient_length)
+            color_calibration_distortion_coefficient = struct.unpack('14d', color_calibration_distortion_coefficient_bytes)
 
-        #     color_calibration_focus_length = features.ColorCalibration_FocusLength.value
-        #     color_calibration_pixel_length_width = features.ColorCalibration_PixelSizeWidth.value
-        #     color_calibration_pixel_length_height = features.ColorCalibration_PixelSizeHeight.value
+            color_calibration_focus_length = features.ColorCalibration_FocusLength.value
+            color_calibration_pixel_length_width = features.ColorCalibration_PixelSizeWidth.value
+            color_calibration_pixel_length_height = features.ColorCalibration_PixelSizeHeight.value
             
-        #     # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
-        #     color_calibration_rotation_matrix_selector = features.ColorCalibration_RotationMatrixSelector.value
-        #     features.ColorCalibration_RotationMatrixSelector = "Row0Col1"
+            # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
+            color_calibration_rotation_matrix_selector = features.ColorCalibration_RotationMatrixSelector.value
+            features.ColorCalibration_RotationMatrixSelector = "Row0Col1"
             
-        #     # ReadOnly
-        #     color_calibration_rotation_matrix_value = features.ColorCalibration_RotationMatrixValue.value
+            # ReadOnly
+            color_calibration_rotation_matrix_value = features.ColorCalibration_RotationMatrixValue.value
             
-        #     # Read/Write as raw bytes array    
-        #     color_calibration_rotation_matrix_length = features.ColorCalibration_RotationMatrix.length
-        #     color_calibration_rotation_matrix_bytes = features.ColorCalibration_RotationMatrix.get(color_calibration_rotation_matrix_length)
-        #     color_calibration_rotation_matrix = struct.unpack('9d', color_calibration_rotation_matrix_bytes)
+            # Read/Write as raw bytes array    
+            color_calibration_rotation_matrix_length = features.ColorCalibration_RotationMatrix.length
+            color_calibration_rotation_matrix_bytes = features.ColorCalibration_RotationMatrix.get(color_calibration_rotation_matrix_length)
+            color_calibration_rotation_matrix = struct.unpack('9d', color_calibration_rotation_matrix_bytes)
             
-        #     # `X`, `Y` or `Z`
-        #     color_calibration_translation_vector_selector = features.ColorCalibration_TranslationVectorSelector.value
-        #     features.ColorCalibration_TranslationVectorSelector.value = "Y"
+            # `X`, `Y` or `Z`
+            color_calibration_translation_vector_selector = features.ColorCalibration_TranslationVectorSelector.value
+            features.ColorCalibration_TranslationVectorSelector.value = "Y"
             
-        #     # ReadOnly
-        #     color_calibration_translation_vector_value = features.ColorCalibration_TranslationVectorSelector.value
+            # ReadOnly
+            color_calibration_translation_vector_value = features.ColorCalibration_TranslationVectorSelector.value
             
-        #     # Read/Write as raw bytes array    
-        #     color_calibration_translation_vector_length = features.ColorCalibration_TranslationVector.length
-        #     color_calibration_translation_vector_bytes = features.ColorCalibration_TranslationVector.get(color_calibration_translation_vector_length)
-        #     color_calibration_translation_vector = struct.unpack('3d', color_calibration_translation_vector_bytes)
+            # Read/Write as raw bytes array    
+            color_calibration_translation_vector_length = features.ColorCalibration_TranslationVector.length
+            color_calibration_translation_vector_bytes = features.ColorCalibration_TranslationVector.get(color_calibration_translation_vector_length)
+            color_calibration_translation_vector = struct.unpack('3d', color_calibration_translation_vector_bytes)
 
-        #     color_calibration_camera_resolution_width = features.ColorCalibration_CameraResolutionWidth.value
-        #     color_calibration_camera_resolution_height = features.ColorCalibration_CameraResolutionHeight.value
+            color_calibration_camera_resolution_width = features.ColorCalibration_CameraResolutionWidth.value
+            color_calibration_camera_resolution_height = features.ColorCalibration_CameraResolutionHeight.value
 
 #################################################### COLOR SETTINGS #####################################################################################
 
-#             # Choose ISO value from supported ISO values
-#         if features.ColorSettings_SupportedISOsSize.value > 0:
-#                 # Select via selector supported value in range [0, listSize - 1]
-#             features.ColorSettings_SupportedISOsSelector.value = 0
-#                 # Set selected value to the settings
-#             features.ColorSettings_ISO.value = features.ColorSettings_SupportedISO.value
+            # Choose ISO value from supported ISO values
+        if features.ColorSettings_SupportedISOsSize.value > 0:
+                # Select via selector supported value in range [0, listSize - 1]
+            features.ColorSettings_SupportedISOsSelector.value = 0
+                # Set selected value to the settings
+            features.ColorSettings_ISO.value = features.ColorSettings_SupportedISO.value
 
-#             # Choose exposure value from supported exposure values
-#         if features.ColorSettings_SupportedExposuresSize.value > 0:
-#                 # Select using selector supported value in range [0, listSize - 1]
-#             features.ColorSettings_SupportedExposuresSelector.value = 0
-#                 # Set selected value to the settings
-#             features.ColorSettings_Exposure.value = features.ColorSettings_SupportedExposure.value
+            # Choose exposure value from supported exposure values
+        if features.ColorSettings_SupportedExposuresSize.value > 0:
+                # Select using selector supported value in range [0, listSize - 1]
+            features.ColorSettings_SupportedExposuresSelector.value = 0
+                # Set selected value to the settings
+            features.ColorSettings_Exposure.value = features.ColorSettings_SupportedExposure.value
 
-#             # Choose value of camera resolution from supported capturing modes
-#         if features.ColorSettings_SupportedCapturingModesSize.value > 0:
-#                 # Select via selector supported value in range [0, listSize - 1]
-#             features.ColorSettings_SupportedCapturingModesSelector.value = 0
-#                 # Get selected values
-#             color_settings_capturing_mode_resolution_width = features.ColorSettings_SupportedCapturingModeResolutionWidth.value
-#             color_settings_capturing_mode_resolution_height = features.ColorSettings_SupportedCapturingModeResolutionHeight.value
+            # Choose value of camera resolution from supported capturing modes
+        if features.ColorSettings_SupportedCapturingModesSize.value > 0:
+                # Select via selector supported value in range [0, listSize - 1]
+            features.ColorSettings_SupportedCapturingModesSelector.value = 0
+                # Get selected values
+            color_settings_capturing_mode_resolution_width = features.ColorSettings_SupportedCapturingModeResolutionWidth.value
+            color_settings_capturing_mode_resolution_height = features.ColorSettings_SupportedCapturingModeResolutionHeight.value
 
-#             # `Res_3864_2192`, `Res_1932_1096` or `Res_1288_730`
-#             resolution = features.ColorSettings_Resolution.value
-#             features.ColorSettings_Resolution.value = 'Res_1932_1096'
+            # `Res_3864_2192`, `Res_1932_1096` or `Res_1288_730`
+            resolution = features.ColorSettings_Resolution.value
+            features.ColorSettings_Resolution.value = 'Res_1932_1096'
 
-#             # Set required gamma value in range [0.0, 1.0]
-#             features.ColorSettings_Gamma.value = 1.0
+            # Set required gamma value in range [0.0, 1.0]
+            features.ColorSettings_Gamma.value = 1.0
 
-#             # Enable white balance if required (True, False)
-#             features.ColorSettings_WhiteBalanceEnabled.value = True
-#             # Set required white balance coefficients if required in range [0.0, 1.0]
-#             features.ColorSettings_WhiteBalanceR.value = 1.0
-#             features.ColorSettings_WhiteBalanceG.value = 1.0
-#             features.ColorSettings_WhiteBalanceB.value = 1.0
+            # Enable white balance if required (True, False)
+            features.ColorSettings_WhiteBalanceEnabled.value = True
+            # Set required white balance coefficients if required in range [0.0, 1.0]
+            features.ColorSettings_WhiteBalanceR.value = 1.0
+            features.ColorSettings_WhiteBalanceG.value = 1.0
+            features.ColorSettings_WhiteBalanceB.value = 1.0
 
 # ##########################################################'FRAMEOUTPUT SETTINGS#################################################################################
 
-#         # Enable/Disable transfer of spefific images (True or False)
-#         features.SendPointCloud.value = True
-#         features.SendNormalMap.value = True
-#         features.SendDepthMap.value = True
-#         features.SendConfidenceMap.value = True
-#         features.SendEventMap.value = True
-#         features.SendTexture.value = True
-#         features.SendColorCameraImage.value = True # Available only with "MotionCam-3D Color" variant
+        # Enable/Disable transfer of spefific images (True or False)
+        features.SendPointCloud.value = True
+        features.SendNormalMap.value = True
+        features.SendDepthMap.value = True
+        features.SendConfidenceMap.value = True
+        features.SendEventMap.value = True
+        features.SendTexture.value = True
+        features.SendColorCameraImage.value = True # Available only with "MotionCam-3D Color" variant
 
         # The ia object will automatically call the destroy method
         # once it goes out of the block.
