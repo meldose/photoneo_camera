@@ -261,90 +261,90 @@ with Harvester() as h: # consider h as Harvester
 
 ##############################################' CALIBRATION SETTINGS ###########################################################################################
 
-        # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
-        camera_matrix_selector = features.CameraMatrixSelector.value
-        features.CameraMatrixSelector.value = 'Row0Col1'
+        # # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
+        # camera_matrix_selector = features.CameraMatrixSelector.value
+        # features.CameraMatrixSelector.value = 'Row0Col1'
         
-        # ReadOnly
-        camera_matrix_value = features.CameraMatrixValue.value
+        # # ReadOnly
+        # camera_matrix_value = features.CameraMatrixValue.value
         
-        # Read as raw bytes array
-        camera_matrix_length = features.CameraMatrix.length
-        camera_matrix_bytes = features.CameraMatrix.get(camera_matrix_length)
-        camera_matrix = struct.unpack('9d', camera_matrix_bytes)
+        # # Read as raw bytes array
+        # camera_matrix_length = features.CameraMatrix.length
+        # camera_matrix_bytes = features.CameraMatrix.get(camera_matrix_length)
+        # camera_matrix = struct.unpack('9d', camera_matrix_bytes)
         
-        # <0, 13>
-        distortion_coefficient_selector = features.DistortionCoefficientSelector.value
-        features.DistortionCoefficientSelector.value = 3
+        # # <0, 13>
+        # distortion_coefficient_selector = features.DistortionCoefficientSelector.value
+        # features.DistortionCoefficientSelector.value = 3
         
-        # ReadOnly
-        distortion_coefficient_value = features.DistortionCoefficientValue.value
+        # # ReadOnly
+        # distortion_coefficient_value = features.DistortionCoefficientValue.value
         
-        # Read as raw bytes array
-        distortion_coefficient_length = features.DistortionCoefficient.length
-        distortion_coefficient_bytes = features.DistortionCoefficient.get(distortion_coefficient_length)
-        distortion_coefficient = struct.unpack('14d', distortion_coefficient_bytes)
+        # # Read as raw bytes array
+        # distortion_coefficient_length = features.DistortionCoefficient.length
+        # distortion_coefficient_bytes = features.DistortionCoefficient.get(distortion_coefficient_length)
+        # distortion_coefficient = struct.unpack('14d', distortion_coefficient_bytes)
 
-        focus_length = features.FocusLength.value
-        pixel_length_width = features.PixelSizeWidth.value
-        pixel_length_height = features.PixelSizeHeight.value
+        # focus_length = features.FocusLength.value
+        # pixel_length_width = features.PixelSizeWidth.value
+        # pixel_length_height = features.PixelSizeHeight.value
 
-        if "Color" in device_features:   
-            ## Color calibration settings         
-            # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
-            color_calibration_camera_matrix_selector = features.ColorCalibration_CameraMatrixSelector.value
-            features.CameraMatrixSelector.value = 'Row0Col1'
+        # if "Color" in device_features:   
+        #     ## Color calibration settings         
+        #     # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
+        #     color_calibration_camera_matrix_selector = features.ColorCalibration_CameraMatrixSelector.value
+        #     features.CameraMatrixSelector.value = 'Row0Col1'
             
-            # ReadOnly
-            color_calibration_camera_matrix_value = features.ColorCalibration_CameraMatrixValue.value
+        #     # ReadOnly
+        #     color_calibration_camera_matrix_value = features.ColorCalibration_CameraMatrixValue.value
             
-            # Read as raw bytes array
-            color_calibration_camera_matrix_length = features.ColorCalibration_CameraMatrix.length
-            color_calibration_camera_matrix_bytes = features.ColorCalibration_CameraMatrix.get(color_calibration_camera_matrix_length)
-            color_calibration_camera_matrix = struct.unpack('9d', color_calibration_camera_matrix_bytes)
+        #     # Read as raw bytes array
+        #     color_calibration_camera_matrix_length = features.ColorCalibration_CameraMatrix.length
+        #     color_calibration_camera_matrix_bytes = features.ColorCalibration_CameraMatrix.get(color_calibration_camera_matrix_length)
+        #     color_calibration_camera_matrix = struct.unpack('9d', color_calibration_camera_matrix_bytes)
             
-            # <0, 13>
-            color_calibration_distortion_coefficient_selector = features.ColorCalibration_DistortionCoefficientSelector.value
-            features.DistortionCoefficientSelector.value = 3
+        #     # <0, 13>
+        #     color_calibration_distortion_coefficient_selector = features.ColorCalibration_DistortionCoefficientSelector.value
+        #     features.DistortionCoefficientSelector.value = 3
             
-            # ReadOnly
-            color_calibration_distortion_coefficient_value = features.ColorCalibration_DistortionCoefficientValue.value
+        #     # ReadOnly
+        #     color_calibration_distortion_coefficient_value = features.ColorCalibration_DistortionCoefficientValue.value
             
-            # Read as raw bytes array
-            color_calibration_distortion_coefficient_length = features.ColorCalibration_DistortionCoefficient.length
-            color_calibration_distortion_coefficient_bytes = features.ColorCalibration_DistortionCoefficient.get(color_calibration_distortion_coefficient_length)
-            color_calibration_distortion_coefficient = struct.unpack('14d', color_calibration_distortion_coefficient_bytes)
+        #     # Read as raw bytes array
+        #     color_calibration_distortion_coefficient_length = features.ColorCalibration_DistortionCoefficient.length
+        #     color_calibration_distortion_coefficient_bytes = features.ColorCalibration_DistortionCoefficient.get(color_calibration_distortion_coefficient_length)
+        #     color_calibration_distortion_coefficient = struct.unpack('14d', color_calibration_distortion_coefficient_bytes)
 
-            color_calibration_focus_length = features.ColorCalibration_FocusLength.value
-            color_calibration_pixel_length_width = features.ColorCalibration_PixelSizeWidth.value
-            color_calibration_pixel_length_height = features.ColorCalibration_PixelSizeHeight.value
+        #     color_calibration_focus_length = features.ColorCalibration_FocusLength.value
+        #     color_calibration_pixel_length_width = features.ColorCalibration_PixelSizeWidth.value
+        #     color_calibration_pixel_length_height = features.ColorCalibration_PixelSizeHeight.value
             
-            # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
-            color_calibration_rotation_matrix_selector = features.ColorCalibration_RotationMatrixSelector.value
-            features.ColorCalibration_RotationMatrixSelector = "Row0Col1"
+        #     # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
+        #     color_calibration_rotation_matrix_selector = features.ColorCalibration_RotationMatrixSelector.value
+        #     features.ColorCalibration_RotationMatrixSelector = "Row0Col1"
             
-            # ReadOnly
-            color_calibration_rotation_matrix_value = features.ColorCalibration_RotationMatrixValue.value
+        #     # ReadOnly
+        #     color_calibration_rotation_matrix_value = features.ColorCalibration_RotationMatrixValue.value
             
-            # Read/Write as raw bytes array    
-            color_calibration_rotation_matrix_length = features.ColorCalibration_RotationMatrix.length
-            color_calibration_rotation_matrix_bytes = features.ColorCalibration_RotationMatrix.get(color_calibration_rotation_matrix_length)
-            color_calibration_rotation_matrix = struct.unpack('9d', color_calibration_rotation_matrix_bytes)
+        #     # Read/Write as raw bytes array    
+        #     color_calibration_rotation_matrix_length = features.ColorCalibration_RotationMatrix.length
+        #     color_calibration_rotation_matrix_bytes = features.ColorCalibration_RotationMatrix.get(color_calibration_rotation_matrix_length)
+        #     color_calibration_rotation_matrix = struct.unpack('9d', color_calibration_rotation_matrix_bytes)
             
-            # `X`, `Y` or `Z`
-            color_calibration_translation_vector_selector = features.ColorCalibration_TranslationVectorSelector.value
-            features.ColorCalibration_TranslationVectorSelector.value = "Y"
+        #     # `X`, `Y` or `Z`
+        #     color_calibration_translation_vector_selector = features.ColorCalibration_TranslationVectorSelector.value
+        #     features.ColorCalibration_TranslationVectorSelector.value = "Y"
             
-            # ReadOnly
-            color_calibration_translation_vector_value = features.ColorCalibration_TranslationVectorSelector.value
+        #     # ReadOnly
+        #     color_calibration_translation_vector_value = features.ColorCalibration_TranslationVectorSelector.value
             
-            # Read/Write as raw bytes array    
-            color_calibration_translation_vector_length = features.ColorCalibration_TranslationVector.length
-            color_calibration_translation_vector_bytes = features.ColorCalibration_TranslationVector.get(color_calibration_translation_vector_length)
-            color_calibration_translation_vector = struct.unpack('3d', color_calibration_translation_vector_bytes)
+        #     # Read/Write as raw bytes array    
+        #     color_calibration_translation_vector_length = features.ColorCalibration_TranslationVector.length
+        #     color_calibration_translation_vector_bytes = features.ColorCalibration_TranslationVector.get(color_calibration_translation_vector_length)
+        #     color_calibration_translation_vector = struct.unpack('3d', color_calibration_translation_vector_bytes)
 
-            color_calibration_camera_resolution_width = features.ColorCalibration_CameraResolutionWidth.value
-            color_calibration_camera_resolution_height = features.ColorCalibration_CameraResolutionHeight.value
+        #     color_calibration_camera_resolution_width = features.ColorCalibration_CameraResolutionWidth.value
+        #     color_calibration_camera_resolution_height = features.ColorCalibration_CameraResolutionHeight.value
 
 #################################################### COLOR SETTINGS #####################################################################################
 
