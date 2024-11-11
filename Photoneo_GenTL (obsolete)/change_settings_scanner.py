@@ -32,7 +32,8 @@ with Harvester() as h:
     with h.create({'id_': device_id}) as ia:
         features = ia.remote_device.node_map
 
-        ## General settings
+################################################################ GENERAL SETTINGS #####################################################################################
+
         # ReadOnly
         is_phoxi_control_running = features.IsPhoXiControlRunning.value
         api_version = features.PhotoneoAPIVersion.value
@@ -47,6 +48,7 @@ with Harvester() as h:
         if type != "PhoXi3DScanner":
             print("Device is not a PhoXi3DScanner!")
             sys.exit(0)
+
 
         # `Freerun` or `Software`
         trigger_mode = features.PhotoneoTriggerMode.value
@@ -64,8 +66,8 @@ with Harvester() as h:
         stop_acquisition_after_disconnect = features.StopAcquisitionAfterDisconnect.value
         features.StopAcquisitionAfterDisconnect.value = False
 
+################################################################## CAPTURE SETTINGS #######################################################################################
 
-        ## Capturing settings
         # <1, 20>
         shutter_multiplier = features.ShutterMultiplier.value
         features.ShutterMultiplier.value = 5
@@ -115,8 +117,8 @@ with Harvester() as h:
         hardware_trigger_signal = features.HardwareTriggerSignal.value
         features.HardwareTriggerSignal.value = 'Both'
 
+############################################################## PROCESSING SETTINGS #########################################################################################
 
-        ## Processing settings
         # <0.0, 100.0>
         max_inaccuracy = features.MaxInaccuracy.value
         features.MaxInaccuracy.value = 3.5
@@ -166,8 +168,9 @@ with Harvester() as h:
         signal_contrast_threshold = features.SignalContrastThreshold.value
         features.SignalContrastThreshold.value = 2000.50
 
+############################################################################## COORDINATES SETTINGS ###############################################################################
 
-        ## Coordinates settings
+
         # `CameraSpace`, `MarkerSpace`, `RobotSpace` or `CustomSpace`
         camera_space = features.CoordinateSpace.value
         features.CoordinateSpace.value = 'MarkerSpace'
@@ -222,6 +225,7 @@ with Harvester() as h:
         marker_scale_height = features.MarkerScaleHeight
         features.MarkerScaleHeight.value = 0.50
 
+############################################################ CALIBRATION SETTINGS #########################################################################################
 
         ## Calibration settings
         # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
@@ -247,8 +251,8 @@ with Harvester() as h:
         pixel_length_width = features.PixelSizeWidth.value
         pixel_length_height = features.PixelSizeHeight.value
 
+################################################### FRAME-OUPUT SETTINGS ################################################################################################
 
-        ## FrameOutput settings
         # Enable/Disable transfer of spefific images (True or False)
         features.SendPointCloud.value = True
         features.SendNormalMap.value = True
