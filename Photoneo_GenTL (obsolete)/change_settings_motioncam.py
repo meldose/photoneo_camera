@@ -105,7 +105,7 @@ with Harvester() as h: # consider h as Harvester
         
         # <1, 4095>
         led_power = features.LEDPower.value
-        features.LEDPower.value = 2000
+        features.LEDPower.value = 4095
         
         # True or False
         hardware_trigger = features.HardwareTrigger.value
