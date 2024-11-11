@@ -1,8 +1,8 @@
-import numpy as np
-import open3d as o3d
-import cv2
-import os
-import sys
+import numpy as np # imported numpy as np 
+import open3d as o3d # imported open3d module as o3d
+import cv2 # imported module cv2
+import os # imported os module
+import sys # imported sys module
 from sys import platform
 from harvesters.core import Harvester
 import torch
@@ -13,15 +13,15 @@ model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)
 # Object classes for specific shapes and other objects of interest
 classNames = ["rectangle", "square", "circle", "oval", "triangle", "polygon", "person", "car"]
 
-def display_texture_if_available(texture_component):
-    if texture_component.width == 0 or texture_component.height == 0:
-        print("Texture is empty!")
-        return
+def display_texture_if_available(texture_component): # defining an function for displaying texture 
+    if texture_component.width == 0 or texture_component.height == 0: # if texture component width and height is zero 
+        print("Texture is empty!") # print texture is empty
+        return 
 
-def detect_shapes_with_opencv(color_image):
+def detect_shapes_with_opencv(color_image): # defining an function for detecting shapes with opencv
     # Ensure the image is an 8-bit grayscale image
-    gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
-    if gray.dtype != np.uint8:
+    gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY) 
+    if gray.dtype != np.uint8: 
         gray = cv2.normalize(gray, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
 
     blurred = cv2.GaussianBlur(gray, (5, 5), 0)

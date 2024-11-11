@@ -165,6 +165,22 @@
 #                     display_color_image_if_available(texture_rgb_component, "TextureRGB")
 #                     color_image_component = payload.components[7]
 #                     display_color_image_if_available(color_image_component, "ColorCameraImage")
+                    
+#                     point_cloud_component = payload.components[2]
+#                     norm_component = payload.components[3]
+#                     display_pointcloud_if_available(point_cloud_component, norm_component, texture_component, texture_rgb_component)
+
+#                 if cv2.waitKey(1) & 0xFF == ord('q'):
+#                     print("Exiting capture loop.")
+#                     cv2.destroyAllWindows()
+#                     break
+
+#             ia.stop()
+            
+# software_trigger()
+
+################################################# CODE FOR SPECIFIC OBJECTS ################################################################################################
+
 import numpy as np
 import open3d as o3d
 import cv2
@@ -359,7 +375,7 @@ def software_trigger():
                     texture_rgb_component = payload.components[1]
                     display_color_image_if_available(texture_rgb_component, "TextureRGB")
                     color_image_component = payload.components[7]
-                    display_color_image_if_available(color_image_component, "
+                    display_color_image_if_available(color_image_component, "ColorCameraImage")
 
                     point_cloud_component = payload.components[2]
                     norm_component = payload.components[3]
@@ -373,4 +389,3 @@ def software_trigger():
             ia.stop()
             
 software_trigger()
-

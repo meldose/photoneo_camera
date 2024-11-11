@@ -16,7 +16,7 @@ def display_texture_if_available(texture_component): # defined the function for 
     texture_screen = cv2.normalize(texture, dst=None, alpha=0, beta=65535, norm_type=cv2.NORM_MINMAX) # converted image of 2d array
 
     cv2.imshow("Texture", texture_screen) # Show image
-    return
+    return 
 
 def display_color_image_if_available(color_component, name): # defined function display_color_image_if_available
     if color_component.width == 0 or color_component.height == 0: # if the texture is zero then
