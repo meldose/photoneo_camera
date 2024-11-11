@@ -109,7 +109,7 @@ with Harvester() as h: # consider h as Harvester
         
         # True or False
         hardware_trigger = features.HardwareTrigger.value
-        features.HardwareTrigger.value = False
+        features.HardwareTrigger.value = True
         
         # `Falling`, `Rising` or `Both`
         hardware_trigger_signal = features.HardwareTriggerSignal.value
@@ -146,7 +146,7 @@ with Harvester() as h: # consider h as Harvester
 
         # <0.0, 100.0>
         max_inaccuracy = features.MaxInaccuracy.value
-        features.MaxInaccuracy.value = 3.5
+        features.MaxInaccuracy.value = 50
         
         # `MinX`, `MinY`, `MinZ`, `MaxX`, `MaxY` or `MaxZ`
         camera_space_selector = features.CameraSpaceSelector.value
