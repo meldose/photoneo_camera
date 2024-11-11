@@ -348,52 +348,52 @@ with Harvester() as h: # consider h as Harvester
 
 #################################################### COLOR SETTINGS #####################################################################################
 
-            # Choose ISO value from supported ISO values
-            if features.ColorSettings_SupportedISOsSize.value > 0:
-                # Select via selector supported value in range [0, listSize - 1]
-                features.ColorSettings_SupportedISOsSelector.value = 0
-                # Set selected value to the settings
-                features.ColorSettings_ISO.value = features.ColorSettings_SupportedISO.value
+#             # Choose ISO value from supported ISO values
+#         if features.ColorSettings_SupportedISOsSize.value > 0:
+#                 # Select via selector supported value in range [0, listSize - 1]
+#             features.ColorSettings_SupportedISOsSelector.value = 0
+#                 # Set selected value to the settings
+#             features.ColorSettings_ISO.value = features.ColorSettings_SupportedISO.value
 
-            # Choose exposure value from supported exposure values
-            if features.ColorSettings_SupportedExposuresSize.value > 0:
-                # Select using selector supported value in range [0, listSize - 1]
-                features.ColorSettings_SupportedExposuresSelector.value = 0
-                # Set selected value to the settings
-                features.ColorSettings_Exposure.value = features.ColorSettings_SupportedExposure.value
+#             # Choose exposure value from supported exposure values
+#         if features.ColorSettings_SupportedExposuresSize.value > 0:
+#                 # Select using selector supported value in range [0, listSize - 1]
+#             features.ColorSettings_SupportedExposuresSelector.value = 0
+#                 # Set selected value to the settings
+#             features.ColorSettings_Exposure.value = features.ColorSettings_SupportedExposure.value
 
-            # Choose value of camera resolution from supported capturing modes
-            if features.ColorSettings_SupportedCapturingModesSize.value > 0:
-                # Select via selector supported value in range [0, listSize - 1]
-                features.ColorSettings_SupportedCapturingModesSelector.value = 0
-                # Get selected values
-                color_settings_capturing_mode_resolution_width = features.ColorSettings_SupportedCapturingModeResolutionWidth.value
-                color_settings_capturing_mode_resolution_height = features.ColorSettings_SupportedCapturingModeResolutionHeight.value
+#             # Choose value of camera resolution from supported capturing modes
+#         if features.ColorSettings_SupportedCapturingModesSize.value > 0:
+#                 # Select via selector supported value in range [0, listSize - 1]
+#             features.ColorSettings_SupportedCapturingModesSelector.value = 0
+#                 # Get selected values
+#             color_settings_capturing_mode_resolution_width = features.ColorSettings_SupportedCapturingModeResolutionWidth.value
+#             color_settings_capturing_mode_resolution_height = features.ColorSettings_SupportedCapturingModeResolutionHeight.value
 
-            # `Res_3864_2192`, `Res_1932_1096` or `Res_1288_730`
-            resolution = features.ColorSettings_Resolution.value
-            features.ColorSettings_Resolution.value = 'Res_1932_1096'
+#             # `Res_3864_2192`, `Res_1932_1096` or `Res_1288_730`
+#             resolution = features.ColorSettings_Resolution.value
+#             features.ColorSettings_Resolution.value = 'Res_1932_1096'
 
-            # Set required gamma value in range [0.0, 1.0]
-            features.ColorSettings_Gamma.value = 1.0
+#             # Set required gamma value in range [0.0, 1.0]
+#             features.ColorSettings_Gamma.value = 1.0
 
-            # Enable white balance if required (True, False)
-            features.ColorSettings_WhiteBalanceEnabled.value = True
-            # Set required white balance coefficients if required in range [0.0, 1.0]
-            features.ColorSettings_WhiteBalanceR.value = 1.0
-            features.ColorSettings_WhiteBalanceG.value = 1.0
-            features.ColorSettings_WhiteBalanceB.value = 1.0
+#             # Enable white balance if required (True, False)
+#             features.ColorSettings_WhiteBalanceEnabled.value = True
+#             # Set required white balance coefficients if required in range [0.0, 1.0]
+#             features.ColorSettings_WhiteBalanceR.value = 1.0
+#             features.ColorSettings_WhiteBalanceG.value = 1.0
+#             features.ColorSettings_WhiteBalanceB.value = 1.0
 
-##########################################################'FRAMEOUTPUT SETTINGS#################################################################################
+# ##########################################################'FRAMEOUTPUT SETTINGS#################################################################################
 
-        # Enable/Disable transfer of spefific images (True or False)
-        features.SendPointCloud.value = True
-        features.SendNormalMap.value = True
-        features.SendDepthMap.value = True
-        features.SendConfidenceMap.value = True
-        features.SendEventMap.value = True
-        features.SendTexture.value = True
-        features.SendColorCameraImage.value = True # Available only with "MotionCam-3D Color" variant
+#         # Enable/Disable transfer of spefific images (True or False)
+#         features.SendPointCloud.value = True
+#         features.SendNormalMap.value = True
+#         features.SendDepthMap.value = True
+#         features.SendConfidenceMap.value = True
+#         features.SendEventMap.value = True
+#         features.SendTexture.value = True
+#         features.SendColorCameraImage.value = True # Available only with "MotionCam-3D Color" variant
 
         # The ia object will automatically call the destroy method
         # once it goes out of the block.
