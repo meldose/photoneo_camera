@@ -8,7 +8,7 @@ from harvesters.core import Harvester
 import logging # imported logging module
 import json # imported json module
 import yaml # imported yaml module
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt # imported matplotlib module as plt
 
 # ==================== Configuration ====================
 
@@ -64,37 +64,37 @@ object_info_list = []
 
 # ==================== Function Definitions ====================
 
-def display_pointcloud_with_matplotlib(pointcloud):
+def display_pointcloud_with_matplotlib(pointcloud): # defining the function that display pointcloud with matplotlib
     """
     Visualize the point cloud using Matplotlib.
     Note: For real-time applications, Open3D visualization is recommended.
     """
     plt.ion()  # Enable interactive mode
-    fig = plt.figure(figsize=(8, 6))
+    fig = plt.figure(figsize=(8, 6)) # plotting the figure_size
     ax = fig.add_subplot(111, projection='3d')
     scatter = ax.scatter(pointcloud[:, 0], pointcloud[:, 1], pointcloud[:, 2],
                          s=1, c=pointcloud[:, 2], cmap='viridis')
-    ax.set_xlabel("X axis")
-    ax.set_ylabel("Y axis")
-    ax.set_zlabel("Z axis")
+    ax.set_xlabel("X axis") # setting the X axis
+    ax.set_ylabel("Y axis") # setting the Y axis
+    ax.set_zlabel("Z axis") # setting the Z axis
     ax.view_init(elev=30, azim=120)
-    plt.draw()
+    plt.draw() # plotting the figure
     plt.pause(0.001)
     plt.clf()
 
 
-def display_texture_if_available(texture_component): 
+def display_texture_if_available(texture_component): # defining the function texture_if_available
     """Display texture if available and dimensions match expectations."""
-    if texture_component.width == 0 or texture_component.height == 0:
-        logging.warning("Texture is empty!")
+    if texture_component.width == 0 or texture_component.height == 0: # if the texture component width and height is zero then
+        logging.warning("Texture is empty!") # print texture is empty
         return
 
-    expected_size = texture_component.height * texture_component.width
+    expected_size = texture_component.height * texture_component.width # setting the expected_size
     if texture_component.data.size != expected_size:
         logging.error("Mismatch in texture dimensions!")
         return
 
-    texture = texture_component.data.reshape(texture_component.height, texture_component.width, 1).copy()
+    texture = texture_component.data.reshape(texture_component.height, texture_component.width, 1).copy() # setting the 1D size array figure
     
     # Improved contrast for better visualization
     texture_screen = cv2.normalize(texture, dst=None, alpha=50, beta=200, norm_type=cv2.NORM_MINMAX).astype(np.uint8)
@@ -102,23 +102,23 @@ def display_texture_if_available(texture_component):
     # Noise reduction
     texture_screen = cv2.fastNlMeansDenoising(texture_screen, None, 10, 7, 21)
 
-    cv2.imshow("Texture", texture_screen) 
+    cv2.imshow("Texture", texture_screen) # show the Texture file
     cv2.waitKey(1)
     return
 
 
-def display_color_image_if_available(color_component, name): 
+def display_color_image_if_available(color_component, name): # defining the function if the color_image_is_available or not 
     """Display color image if available and dimensions match expectations."""
-    if color_component.width == 0 or color_component.height == 0:
-        logging.warning(f"{name} is empty!")
+    if color_component.width == 0 or color_component.height == 0: # if the texture component width and height is zero then
+        logging.warning(f"{name} is empty!") # print texture is empty
         return
 
-    expected_size = color_component.height * color_component.width * 3
-    if color_component.data.size != expected_size:
-        logging.error(f"Mismatch in {name} dimensions!")
+    expected_size = color_component.height * color_component.width * 3 # setting the size to be 3 times
+    if color_component.data.size != expected_size: # if the size of the color_component is not as expected then
+        logging.error(f"Mismatch in {name} dimensions!")# mismatch happening
         return
 
-    color_image = color_component.data.reshape(color_component.height, color_component.width, 3).copy()
+    color_image = color_component.data.reshape(color_component.height, color_component.width, 3).copy() # creating an 3D array
     
     # Convert color_image to 8-bit if it's not already
     if color_image.dtype != np.uint8:
@@ -139,7 +139,7 @@ def display_color_image_if_available(color_component, name):
     return
 
 
-def detect_shapes_from_edges(edges, color_image):
+def detect_shapes_from_edges(edges, color_image): # defining an function that detect the shapes_from_edges
     """Detect and annotate geometric shapes based on edge detection."""
     contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     for cnt in contours:
@@ -150,6 +150,7 @@ def detect_shapes_from_edges(edges, color_image):
         approx = cv2.approxPolyDP(cnt, epsilon, True)
         
         x, y, w, h = cv2.boundingRect(approx)
+########################## checking the shape of the objects #################################################################       
         shape_name = "Unknown"
         if len(approx) == 3:
             shape_name = "Triangle"
@@ -171,18 +172,18 @@ def detect_shapes_from_edges(edges, color_image):
         cv2.putText(color_image, shape_name, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 
                     0.5, (0, 255, 0), 2)
 
-
-def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, texture_rgb_comp):
+####################################################################################################################################
+def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, texture_rgb_comp): # defining the function that display_point_lcoud_is_available or not
     """Process and visualize point cloud data, including segmentation, clustering, and bounding boxes."""
-    if pointcloud_comp.width == 0 or pointcloud_comp.height == 0:
-        logging.warning("PointCloud is empty!")
+    if pointcloud_comp.width == 0 or pointcloud_comp.height == 0: # checking if the texture is empty or not 
+        logging.warning("PointCloud is empty!") # print the pointcloud is empty
         return
 
     pointcloud = pointcloud_comp.data.reshape(pointcloud_comp.height * pointcloud_comp.width, 3).copy()
     pcd = o3d.geometry.PointCloud()
     pcd.points = o3d.utility.Vector3dVector(pointcloud)
 
-    if normal_comp.width > 0 and normal_comp.height > 0:
+    if normal_comp.width > 0 and normal_comp.height > 0: # checking if the component width and height is greater than zero
         norm_map = normal_comp.data.reshape(normal_comp.height * normal_comp.width, 3).copy()
         pcd.normals = o3d.utility.Vector3dVector(norm_map)
 
@@ -201,7 +202,7 @@ def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, 
         logging.info(f"Object {idx+1} size (X: {size['AABB_Size']['X']:.2f}, "
                      f"Y: {size['AABB_Size']['Y']:.2f}, Z: {size['AABB_Size']['Z']:.2f})")
 
-    # Process texture RGB
+ ############################################################ Process texture RGB ######################################################################################
     texture_rgb = np.zeros((pointcloud_comp.height * pointcloud_comp.width, 3))
     if texture_comp.width > 0 and texture_comp.height > 0:
         texture = texture_comp.data.reshape(texture_comp.height, texture_comp.width, 1).copy()
@@ -224,8 +225,9 @@ def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, 
     o3d.visualization.draw_geometries([pcd], width=1024, height=768)
     return
 
+########################################################################################################################################################################
 
-def segment_pointcloud(pcd):
+def segment_pointcloud(pcd): # defining the function for segment_pointcloud 
     """Segment the plane (e.g., table) from the point cloud to isolate objects."""
     plane_model, inliers = pcd.segment_plane(distance_threshold=config["pointcloud_processing"]["plane_distance_threshold"],
                                              ransac_n=config["pointcloud_processing"]["ransac_n"],
@@ -235,7 +237,7 @@ def segment_pointcloud(pcd):
     return object_cloud
 
 
-def cluster_objects(pcd):
+def cluster_objects(pcd): # defining an function for cluster_objects
     """Cluster the segmented point cloud to identify distinct objects."""
     labels = np.array(pcd.cluster_dbscan(eps=config["pointcloud_processing"]["dbscan_eps"],
                                         min_points=config["pointcloud_processing"]["dbscan_min_points"],
@@ -250,7 +252,7 @@ def cluster_objects(pcd):
     return clusters
 
 
-def calculate_bounding_box(cluster, cluster_id):
+def calculate_bounding_box(cluster, cluster_id): # defining an function for calculating the bounding box
     """Calculate and visualize the bounding box for a given cluster."""
     if not cluster.has_points():
         logging.warning(f"Cluster {cluster_id+1} has no points.")
@@ -304,7 +306,7 @@ def calculate_bounding_box(cluster, cluster_id):
     return object_info
 
 
-def save_object_info():
+def save_object_info(): # defining the function for save_object_info
     """Save the collected object information to a JSON file."""
     output_file = config["output"]["object_info_file"]
     try:
@@ -315,14 +317,14 @@ def save_object_info():
         logging.error(f"Failed to save object information: {e}")
 
 
-def software_trigger():
+def software_trigger(): # defining the function called software trigger.
     """Main function to configure the camera, capture data, and process frames."""
     device_id = config["camera"]["device_id"]
     if len(sys.argv) == 2:
         device_id = "PhotoneoTL_DEV_" + sys.argv[1]
     logging.info(f"--> device_id: {device_id}")
 
-    phoxi_control_path = os.getenv('PHOXI_CONTROL_PATH')
+    phoxi_control_path = os.getenv('PHOXI_CONTROL_PATH') # setting the phoxi_control_path 
     if not phoxi_control_path:
         logging.error("Environment variable 'PHOXI_CONTROL_PATH' is not set.")
         sys.exit(1)
@@ -331,13 +333,13 @@ def software_trigger():
     cti_file_path = os.path.join(phoxi_control_path, cti_file_path_suffix)
     logging.info(f"--> cti_file_path: {cti_file_path}")
 
-    if not os.path.isfile(cti_file_path):
+    if not os.path.isfile(cti_file_path): # if the path file is not there then:
         logging.error(f"CTI file not found at: {cti_file_path}")
         sys.exit(1)
 
-    with Harvester() as h:
-        h.add_file(cti_file_path, True, True)
-        h.update()
+    with Harvester() as h: # creating the harvester a h 
+        h.add_file(cti_file_path, True, True) # adding the file in the file path
+        h.update() # update the harvester
 
         logging.info("Name : ID")
         logging.info("---------")
@@ -361,7 +363,7 @@ def software_trigger():
                 features.SendDepthMap.value = config["camera"]["send_data"]["depth_map"]
                 features.SendConfidenceMap.value = config["camera"]["send_data"]["confidence_map"]
 
-                ia.start()
+                ia.start() # start the harvester
 
                 logging.info("Camera started. Press 'q' in any OpenCV window to exit.")
 
@@ -373,8 +375,8 @@ def software_trigger():
 
                         # Verify payload has enough components
                         expected_components = 8  # Adjust based on actual components used
-                        if len(payload.components) < expected_components:
-                            logging.error(f"Expected at least {expected_components} components, got {len(payload.components)}")
+                        if len(payload.components) < expected_components: # if the length of the payload_component is less than the expected components
+                            logging.error(f"Expected at least {expected_components} components, got {len(payload.components)}") # expected to be at least this much and got this much.
                             continue
 
                         # Display point cloud with Matplotlib (optional)
@@ -410,14 +412,14 @@ def software_trigger():
         finally:
             # Ensure that resources are released properly
             try:
-                ia.stop()
+                ia.stop() # stopping the harvester
             except:
                 pass
             save_object_info()
-            cv2.destroyAllWindows()
+            cv2.destroyAllWindows() # destroy all the windows
 
 
 # ==================== Main Execution ====================
 
 if __name__ == "__main__":
-    software_trigger()
+    software_trigger() # calling the function software trigger
