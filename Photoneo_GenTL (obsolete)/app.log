@@ -35,3 +35,472 @@
 2024-11-13 14:14:42,630 [INFO] YOLOv5 model loaded successfully.
 2024-11-13 14:19:36,071 [INFO] Loading YOLOv5 model...
 2024-11-13 14:19:38,350 [INFO] YOLOv5 model loaded successfully.
+2024-11-13 15:52:33,670 [INFO] --> device_id: PhotoneoTL_DEV_TER-008
+2024-11-13 15:52:33,670 [INFO] --> cti_file_path: /opt/Photoneo/PhoXiControl-1.13.4/API/lib/photoneo.cti
+2024-11-13 15:52:33,780 [INFO] Name : ID
+2024-11-13 15:52:33,780 [INFO] ---------
+2024-11-13 15:52:33,781 [INFO] [MotionCam-3D]-(TER-008) : PhotoneoTL_DEV_TER-008
+2024-11-13 15:52:33,781 [INFO] [MotionCam-3D]-(InstalledExamples-color-example) : PhotoneoTL_DEV_InstalledExamples-color-example
+2024-11-13 15:52:33,781 [INFO] [PhoXi3DScan]-(InstalledExamples-basic-example) : PhotoneoTL_DEV_InstalledExamples-basic-example
+2024-11-13 15:52:33,781 [INFO] 
+2024-11-13 15:52:40,912 [ERROR] An unexpected error occurred: GenTL exception: Unspecified runtime exception. (Message from the source: Internal error: device is not connected!) (ID: -1001)
+Traceback (most recent call last):
+  File "image_processing.py", line 376, in software_trigger
+    logging.info(f"TriggerMode BEFORE: {features.PhotoneoTriggerMode.value}")
+  File "/home/midhun.eldose@nad.neura-robotics.com/Desktop/photoneo_camera/.venv/lib/python3.8/site-packages/genicam/genapi.py", line 2700, in _get_value
+    return self._primary_get_value()
+  File "/home/midhun.eldose@nad.neura-robotics.com/Desktop/photoneo_camera/.venv/lib/python3.8/site-packages/genicam/genapi.py", line 2688, in _primary_get_value
+    return _genapi.IEnumeration__primary_get_value(self, verify, ignore_cache)
+  File "/home/midhun.eldose@nad.neura-robotics.com/Desktop/photoneo_camera/.venv/lib/python3.8/site-packages/harvesters/_private/core/port.py", line 57, in read
+    buffer = self.port.read(address, length)
+  File "/home/midhun.eldose@nad.neura-robotics.com/Desktop/photoneo_camera/.venv/lib/python3.8/site-packages/genicam/gentl.py", line 5003, in read
+    return _gentl.Port_read(self, address, buffer)
+_gentl.ErrorException: GenTL exception: Unspecified runtime exception. (Message from the source: Internal error: device is not connected!) (ID: -1001)
+2024-11-13 15:52:40,914 [INFO] Saved object information to object_info.json
+2024-11-13 15:53:07,984 [INFO] --> device_id: PhotoneoTL_DEV_TER-008
+2024-11-13 15:53:07,985 [INFO] --> cti_file_path: /opt/Photoneo/PhoXiControl-1.13.4/API/lib/photoneo.cti
+2024-11-13 15:53:08,095 [INFO] Name : ID
+2024-11-13 15:53:08,095 [INFO] ---------
+2024-11-13 15:53:08,095 [INFO] [MotionCam-3D]-(TER-008) : PhotoneoTL_DEV_TER-008
+2024-11-13 15:53:08,096 [INFO] [MotionCam-3D]-(InstalledExamples-color-example) : PhotoneoTL_DEV_InstalledExamples-color-example
+2024-11-13 15:53:08,096 [INFO] [PhoXi3DScan]-(InstalledExamples-basic-example) : PhotoneoTL_DEV_InstalledExamples-basic-example
+2024-11-13 15:53:08,096 [INFO] 
+2024-11-13 15:53:10,650 [INFO] TriggerMode BEFORE: Software
+2024-11-13 15:53:10,654 [INFO] TriggerMode AFTER: Software
+2024-11-13 15:53:11,064 [INFO] Camera started. Press 'q' in any OpenCV window to exit.
+2024-11-13 15:53:11,064 [INFO] 
+-- Capturing frame --
+2024-11-13 15:53:20,606 [WARNING] Texture is empty!
+2024-11-13 15:53:21,282 [INFO] Detected 13-sided Polygon at (X: 473, Y: 786) with area: 4.50 and circularity: 0.03
+2024-11-13 15:53:21,283 [INFO] Detected Circle at (X: 496, Y: 777) with area: 3.50 and circularity: 0.80
+2024-11-13 15:53:21,283 [INFO] Detected 11-sided Polygon at (X: 103, Y: 780) with area: 5.50 and circularity: 0.06
+2024-11-13 15:53:21,283 [INFO] Detected 9-sided Polygon at (X: 112, Y: 776) with area: 6.00 and circularity: 0.01
+2024-11-13 15:53:21,283 [INFO] Detected Circle at (X: 63, Y: 769) with area: 3.50 and circularity: 0.80
+2024-11-13 15:53:21,283 [INFO] Detected 14-sided Polygon at (X: 70, Y: 775) with area: 0.50 and circularity: 0.00
+2024-11-13 15:53:21,283 [INFO] Detected 12-sided Polygon at (X: 64, Y: 760) with area: 9.00 and circularity: 0.11
+2024-11-13 15:53:21,283 [INFO] Detected 12-sided Polygon at (X: 64, Y: 753) with area: 8.50 and circularity: 0.29
+2024-11-13 15:53:21,283 [INFO] Detected 5-sided Polygon at (X: 495, Y: 765) with area: 10.00 and circularity: 0.02
+2024-11-13 15:53:21,284 [INFO] Detected Quadrilateral at (X: 474, Y: 760) with area: 3.50 and circularity: 0.00
+2024-11-13 15:53:21,284 [INFO] Detected Quadrilateral at (X: 487, Y: 747) with area: 1.00 and circularity: 0.02
+2024-11-13 15:53:21,284 [INFO] Detected 5-sided Polygon at (X: 66, Y: 746) with area: 1.00 and circularity: 0.27
+2024-11-13 15:53:21,284 [INFO] Detected 13-sided Polygon at (X: 193, Y: 750) with area: 6.50 and circularity: 0.04
+2024-11-13 15:53:21,284 [INFO] Detected 6-sided Polygon at (X: 67, Y: 741) with area: 1.00 and circularity: 0.16
+2024-11-13 15:53:21,284 [INFO] Detected Circle at (X: 184, Y: 739) with area: 3.00 and circularity: 0.81
+2024-11-13 15:53:21,284 [INFO] Detected 11-sided Polygon at (X: 474, Y: 741) with area: 9.00 and circularity: 0.46
+2024-11-13 15:53:21,284 [INFO] Detected 12-sided Polygon at (X: 200, Y: 743) with area: 100.00 and circularity: 0.12
+2024-11-13 15:53:21,285 [INFO] Detected 12-sided Polygon at (X: 170, Y: 742) with area: 1.50 and circularity: 0.00
+2024-11-13 15:53:21,285 [INFO] Detected 13-sided Polygon at (X: 480, Y: 732) with area: 2.50 and circularity: 0.07
+2024-11-13 15:53:21,285 [INFO] Detected 6-sided Polygon at (X: 88, Y: 756) with area: 1592.50 and circularity: 0.63
+2024-11-13 15:53:21,285 [INFO] Detected 12-sided Polygon at (X: 475, Y: 729) with area: 2.00 and circularity: 0.02
+2024-11-13 15:53:21,285 [INFO] Detected 14-sided Polygon at (X: 168, Y: 729) with area: 3.00 and circularity: 0.01
+2024-11-13 15:53:21,285 [INFO] Detected 10-sided Polygon at (X: 89, Y: 723) with area: 2.50 and circularity: 0.01
+2024-11-13 15:53:21,285 [INFO] Detected Quadrilateral at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:53:21,285 [INFO] Detected 5-sided Polygon at (X: 467, Y: 736) with area: 0.50 and circularity: 0.00
+2024-11-13 15:53:21,285 [INFO] Detected 7-sided Polygon at (X: 172, Y: 719) with area: 1.00 and circularity: 0.06
+2024-11-13 15:53:21,286 [INFO] Detected 6-sided Polygon at (X: 104, Y: 719) with area: 1.50 and circularity: 0.02
+2024-11-13 15:53:21,286 [INFO] Detected 13-sided Polygon at (X: 502, Y: 714) with area: 6.00 and circularity: 0.09
+2024-11-13 15:53:21,286 [INFO] Detected 12-sided Polygon at (X: 180, Y: 715) with area: 1.50 and circularity: 0.05
+2024-11-13 15:53:21,286 [INFO] Detected 11-sided Polygon at (X: 171, Y: 712) with area: 6.50 and circularity: 0.05
+2024-11-13 15:53:21,286 [INFO] Detected 7-sided Polygon at (X: 68, Y: 711) with area: 11.00 and circularity: 0.63
+2024-11-13 15:53:21,286 [INFO] Detected 7-sided Polygon at (X: 482, Y: 707) with area: 1.00 and circularity: 0.11
+2024-11-13 15:53:21,286 [INFO] Detected 7-sided Polygon at (X: 524, Y: 703) with area: 1.00 and circularity: 0.08
+2024-11-13 15:53:21,287 [INFO] Detected Circle at (X: 66, Y: 703) with area: 5.00 and circularity: 0.81
+2024-11-13 15:53:21,287 [INFO] Detected 10-sided Polygon at (X: 508, Y: 698) with area: 2.50 and circularity: 0.01
+2024-11-13 15:53:21,287 [INFO] Detected 5-sided Polygon at (X: 67, Y: 697) with area: 0.50 and circularity: 0.11
+2024-11-13 15:53:21,287 [INFO] Detected Circle at (X: 503, Y: 696) with area: 8.00 and circularity: 0.86
+2024-11-13 15:53:21,287 [INFO] Detected 8-sided Polygon at (X: 475, Y: 715) with area: 4.00 and circularity: 0.01
+2024-11-13 15:53:21,287 [INFO] Detected 9-sided Polygon at (X: 64, Y: 696) with area: 0.50 and circularity: 0.04
+2024-11-13 15:53:21,287 [INFO] Detected 9-sided Polygon at (X: 498, Y: 695) with area: 2.00 and circularity: 0.13
+2024-11-13 15:53:21,287 [INFO] Detected 11-sided Polygon at (X: 518, Y: 714) with area: 18.00 and circularity: 0.01
+2024-11-13 15:53:21,287 [INFO] Detected 8-sided Polygon at (X: 68, Y: 691) with area: 12.00 and circularity: 0.69
+2024-11-13 15:53:21,288 [INFO] Detected 10-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:53:21,288 [INFO] Detected 5-sided Polygon at (X: 175, Y: 687) with area: 0.50 and circularity: 0.11
+2024-11-13 15:53:21,288 [INFO] Detected Circle at (X: 90, Y: 686) with area: 4.00 and circularity: 0.86
+2024-11-13 15:53:21,288 [INFO] Detected 10-sided Polygon at (X: 109, Y: 701) with area: 23.00 and circularity: 0.02
+2024-11-13 15:53:21,288 [INFO] Detected 15-sided Polygon at (X: 525, Y: 687) with area: 1.50 and circularity: 0.01
+2024-11-13 15:53:21,288 [INFO] Detected 6-sided Polygon at (X: 488, Y: 744) with area: 39.00 and circularity: 0.00
+2024-11-13 15:53:21,288 [INFO] Detected Quadrilateral at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:53:21,289 [INFO] Detected 7-sided Polygon at (X: 69, Y: 683) with area: 1.00 and circularity: 0.02
+2024-11-13 15:53:21,289 [INFO] Detected 9-sided Polygon at (X: 178, Y: 677) with area: 5.00 and circularity: 0.18
+2024-11-13 15:53:21,289 [INFO] Detected Quadrilateral at (X: 477, Y: 678) with area: 10.50 and circularity: 0.01
+2024-11-13 15:53:21,289 [INFO] Detected 6-sided Polygon at (X: 278, Y: 675) with area: 1.00 and circularity: 0.06
+2024-11-13 15:53:21,289 [INFO] Detected 12-sided Polygon at (X: 171, Y: 688) with area: 14.50 and circularity: 0.01
+2024-11-13 15:53:21,290 [INFO] Detected 11-sided Polygon at (X: 65, Y: 674) with area: 0.50 and circularity: 0.01
+2024-11-13 15:53:21,290 [INFO] Detected 8-sided Polygon at (X: 78, Y: 688) with area: 62.50 and circularity: 0.01
+2024-11-13 15:53:21,290 [INFO] Detected 5-sided Polygon at (X: 195, Y: 675) with area: 194.00 and circularity: 0.72
+2024-11-13 15:53:21,290 [INFO] Detected 7-sided Polygon at (X: 179, Y: 669) with area: 1.50 and circularity: 0.03
+2024-11-13 15:53:21,290 [INFO] Detected 10-sided Polygon at (X: 169, Y: 667) with area: 23.00 and circularity: 0.48
+2024-11-13 15:53:21,291 [INFO] Detected Unknown at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:53:21,291 [INFO] Detected Quadrilateral at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:53:21,291 [INFO] Detected Triangle at (X: 469, Y: 735) with area: 15.50 and circularity: 0.00
+2024-11-13 15:53:21,291 [INFO] Detected 12-sided Polygon at (X: 484, Y: 654) with area: 2.50 and circularity: 0.03
+2024-11-13 15:53:21,291 [INFO] Detected 5-sided Polygon at (X: 478, Y: 651) with area: 1.00 and circularity: 0.27
+2024-11-13 15:53:21,292 [INFO] Detected 6-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:53:21,292 [INFO] Detected 6-sided Polygon at (X: 478, Y: 644) with area: 1.00 and circularity: 0.16
+2024-11-13 15:53:21,292 [INFO] Detected 8-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:53:21,292 [INFO] Detected 10-sided Polygon at (X: 526, Y: 633) with area: 7.50 and circularity: 0.01
+2024-11-13 15:53:21,292 [INFO] Detected 7-sided Polygon at (X: 480, Y: 636) with area: 1.00 and circularity: 0.00
+2024-11-13 15:53:21,292 [INFO] Detected 7-sided Polygon at (X: 470, Y: 649) with area: 3.00 and circularity: 0.00
+2024-11-13 15:53:21,293 [INFO] Detected 14-sided Polygon at (X: 171, Y: 618) with area: 85.00 and circularity: 0.06
+2024-11-13 15:53:21,293 [INFO] Detected 7-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:53:21,293 [INFO] Detected 8-sided Polygon at (X: 192, Y: 597) with area: 0.50 and circularity: 0.06
+2024-11-13 15:53:21,293 [INFO] Detected 7-sided Polygon at (X: 190, Y: 588) with area: 14.00 and circularity: 0.62
+2024-11-13 15:53:21,293 [INFO] Detected 5-sided Polygon at (X: 481, Y: 588) with area: 15.50 and circularity: 0.52
+2024-11-13 15:53:21,294 [INFO] Detected 10-sided Polygon at (X: 482, Y: 580) with area: 1.00 and circularity: 0.03
+2024-11-13 15:53:21,294 [INFO] Detected 5-sided Polygon at (X: 482, Y: 571) with area: 1.00 and circularity: 0.27
+2024-11-13 15:53:21,294 [INFO] Detected 10-sided Polygon at (X: 187, Y: 572) with area: 2.50 and circularity: 0.03
+2024-11-13 15:53:21,294 [INFO] Detected 11-sided Polygon at (X: 199, Y: 565) with area: 6.00 and circularity: 0.00
+2024-11-13 15:53:21,295 [INFO] Detected 7-sided Polygon at (X: 483, Y: 553) with area: 9.50 and circularity: 0.05
+2024-11-13 15:53:21,295 [INFO] Detected 6-sided Polygon at (X: 282, Y: 553) with area: 1.00 and circularity: 0.06
+2024-11-13 15:53:21,295 [INFO] Detected 11-sided Polygon at (X: 200, Y: 551) with area: 0.50 and circularity: 0.04
+2024-11-13 15:53:21,295 [INFO] Detected 11-sided Polygon at (X: 176, Y: 587) with area: 67.50 and circularity: 0.00
+2024-11-13 15:53:21,295 [INFO] Detected 10-sided Polygon at (X: 183, Y: 546) with area: 8.50 and circularity: 0.63
+2024-11-13 15:53:21,296 [INFO] Detected 8-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:53:21,296 [INFO] Detected 11-sided Polygon at (X: 537, Y: 542) with area: 10.50 and circularity: 0.22
+2024-11-13 15:53:21,296 [INFO] Detected 5-sided Polygon at (X: 475, Y: 537) with area: 1.00 and circularity: 0.27
+2024-11-13 15:53:21,296 [INFO] Detected 9-sided Polygon at (X: 188, Y: 536) with area: 0.50 and circularity: 0.03
+2024-11-13 15:53:21,297 [INFO] Detected Unknown at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:53:21,297 [INFO] Detected 12-sided Polygon at (X: 209, Y: 535) with area: 18.50 and circularity: 0.00
+2024-11-13 15:53:21,297 [INFO] Detected 5-sided Polygon at (X: 101, Y: 529) with area: 20.00 and circularity: 0.00
+2024-11-13 15:53:21,297 [INFO] Detected Triangle at (X: 317, Y: 519) with area: 44.50 and circularity: 0.01
+2024-11-13 15:53:21,297 [INFO] Detected 6-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:53:21,297 [INFO] Detected Unknown at (X: 475, Y: 545) with area: 5.00 and circularity: 0.00
+2024-11-13 15:53:21,298 [INFO] Detected 6-sided Polygon at (X: 285, Y: 670) with area: 58.50 and circularity: 0.00
+2024-11-13 15:53:21,298 [INFO] Detected Unknown at (X: 423, Y: 506) with area: 12.00 and circularity: 0.00
+2024-11-13 15:53:21,298 [INFO] Detected Circle at (X: 132, Y: 489) with area: 3.00 and circularity: 0.81
+2024-11-13 15:53:21,298 [INFO] Detected 11-sided Polygon at (X: 148, Y: 486) with area: 2.00 and circularity: 0.01
+2024-11-13 15:53:21,298 [INFO] Detected Quadrilateral at (X: 526, Y: 498) with area: 18.00 and circularity: 0.00
+2024-11-13 15:53:21,299 [INFO] Detected 13-sided Polygon at (X: 481, Y: 488) with area: 4.50 and circularity: 0.01
+2024-11-13 15:53:21,299 [INFO] Detected Unknown at (X: 109, Y: 483) with area: 7.50 and circularity: 0.01
+2024-11-13 15:53:21,299 [INFO] Detected 8-sided Polygon at (X: 179, Y: 483) with area: 17.50 and circularity: 0.01
+2024-11-13 15:53:21,300 [INFO] Detected 6-sided Polygon at (X: 200, Y: 456) with area: 1.00 and circularity: 0.06
+2024-11-13 15:53:21,300 [INFO] Detected 6-sided Polygon at (X: 257, Y: 465) with area: 12.50 and circularity: 0.00
+2024-11-13 15:53:21,300 [INFO] Detected 15-sided Polygon at (X: 88, Y: 453) with area: 3.00 and circularity: 0.04
+2024-11-13 15:53:21,300 [INFO] Detected 6-sided Polygon at (X: 154, Y: 455) with area: 5.50 and circularity: 0.00
+2024-11-13 15:53:21,301 [INFO] Detected 11-sided Polygon at (X: 117, Y: 453) with area: 38.50 and circularity: 0.09
+2024-11-13 15:53:21,301 [INFO] Detected 6-sided Polygon at (X: 60, Y: 453) with area: 42.00 and circularity: 0.01
+2024-11-13 15:53:21,301 [INFO] Detected Unknown at (X: 182, Y: 449) with area: 6.00 and circularity: 0.00
+2024-11-13 15:53:21,301 [INFO] Detected Unknown at (X: 211, Y: 425) with area: 8.50 and circularity: 0.00
+2024-11-13 15:53:21,301 [INFO] Detected 5-sided Polygon at (X: 722, Y: 377) with area: 1.00 and circularity: 0.27
+2024-11-13 15:53:21,301 [INFO] Detected 9-sided Polygon at (X: 100, Y: 385) with area: 354.00 and circularity: 0.80
+2024-11-13 15:53:21,302 [INFO] Detected 5-sided Polygon at (X: 722, Y: 373) with area: 1.00 and circularity: 0.27
+2024-11-13 15:53:21,302 [INFO] Detected 5-sided Polygon at (X: 210, Y: 343) with area: 12.00 and circularity: 0.00
+2024-11-13 15:53:21,302 [INFO] Detected Unknown at (X: 71, Y: 326) with area: 4.00 and circularity: 0.00
+2024-11-13 15:53:21,302 [INFO] Detected 6-sided Polygon at (X: 52, Y: 405) with area: 11.00 and circularity: 0.00
+2024-11-13 15:53:21,302 [INFO] Detected 13-sided Polygon at (X: 219, Y: 324) with area: 17.50 and circularity: 0.03
+2024-11-13 15:53:21,302 [INFO] Detected 11-sided Polygon at (X: 190, Y: 318) with area: 1.00 and circularity: 0.00
+2024-11-13 15:53:21,302 [INFO] Detected 12-sided Polygon at (X: 79, Y: 311) with area: 6.00 and circularity: 0.01
+2024-11-13 15:53:21,302 [INFO] Detected 14-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:53:21,303 [INFO] Detected 14-sided Polygon at (X: 207, Y: 309) with area: 22.00 and circularity: 0.00
+2024-11-13 15:53:21,303 [INFO] Detected 12-sided Polygon at (X: 190, Y: 281) with area: 0.50 and circularity: 0.00
+2024-11-13 15:53:21,303 [INFO] Detected 10-sided Polygon at (X: 206, Y: 271) with area: 1.00 and circularity: 0.01
+2024-11-13 15:53:21,304 [INFO] Detected 6-sided Polygon at (X: 31, Y: 302) with area: 1.00 and circularity: 0.00
+2024-11-13 15:53:21,304 [INFO] Detected 12-sided Polygon at (X: 198, Y: 283) with area: 38.50 and circularity: 0.01
+2024-11-13 15:53:21,304 [INFO] Detected 8-sided Polygon at (X: 199, Y: 267) with area: 1.00 and circularity: 0.05
+2024-11-13 15:53:21,304 [INFO] Detected 14-sided Polygon at (X: 215, Y: 265) with area: 8.00 and circularity: 0.01
+2024-11-13 15:53:21,304 [INFO] Detected 5-sided Polygon at (X: 81, Y: 254) with area: 1.00 and circularity: 0.27
+2024-11-13 15:53:21,305 [INFO] Detected 5-sided Polygon at (X: 185, Y: 248) with area: 1.00 and circularity: 0.27
+2024-11-13 15:53:21,305 [INFO] Detected 14-sided Polygon at (X: 201, Y: 265) with area: 29.00 and circularity: 0.01
+2024-11-13 15:53:21,305 [INFO] Detected 10-sided Polygon at (X: 32, Y: 256) with area: 1.50 and circularity: 0.00
+2024-11-13 15:53:21,306 [INFO] Detected 9-sided Polygon at (X: 194, Y: 238) with area: 2.50 and circularity: 0.01
+2024-11-13 15:53:21,306 [INFO] Detected Quadrilateral at (X: 79, Y: 260) with area: 18.00 and circularity: 0.00
+2024-11-13 15:53:21,306 [INFO] Detected 11-sided Polygon at (X: 187, Y: 221) with area: 3.00 and circularity: 0.05
+2024-11-13 15:53:21,306 [INFO] Detected 8-sided Polygon at (X: 48, Y: 223) with area: 26.50 and circularity: 0.03
+2024-11-13 15:53:21,307 [INFO] Detected 12-sided Polygon at (X: 210, Y: 231) with area: 320.50 and circularity: 0.06
+2024-11-13 15:53:21,307 [INFO] Detected 5-sided Polygon at (X: 717, Y: 210) with area: 1.00 and circularity: 0.27
+2024-11-13 15:53:21,307 [INFO] Detected 10-sided Polygon at (X: 185, Y: 199) with area: 0.50 and circularity: 0.01
+2024-11-13 15:53:21,307 [INFO] Detected 6-sided Polygon at (X: 818, Y: 594) with area: 53.50 and circularity: 0.00
+2024-11-13 15:53:21,308 [INFO] Detected Quadrilateral at (X: 183, Y: 184) with area: 3.00 and circularity: 0.00
+2024-11-13 15:53:21,308 [INFO] Detected 11-sided Polygon at (X: 197, Y: 185) with area: 18.00 and circularity: 0.01
+2024-11-13 15:53:21,308 [INFO] Detected 17-sided Polygon at (X: 213, Y: 175) with area: 1.50 and circularity: 0.01
+2024-11-13 15:53:21,308 [INFO] Detected 14-sided Polygon at (X: 188, Y: 173) with area: 72.50 and circularity: 0.10
+2024-11-13 15:53:21,309 [INFO] Detected 8-sided Polygon at (X: 152, Y: 214) with area: 48.50 and circularity: 0.00
+2024-11-13 15:53:21,309 [INFO] Detected 10-sided Polygon at (X: 201, Y: 165) with area: 18.00 and circularity: 0.01
+2024-11-13 15:53:21,309 [INFO] Detected 6-sided Polygon at (X: 800, Y: 241) with area: 56.00 and circularity: 0.00
+2024-11-13 15:53:21,505 [WARNING] ColorCameraImage is empty!
+2024-11-13 15:53:22,609 [INFO] Plane model: [ 5.36849897e-01 -1.18192737e-02  8.43594981e-01 -1.54018931e+03], Number of inliers: 1884
+2024-11-13 15:53:22,845 [INFO] No clusters detected.
+2024-11-13 15:53:27,010 [INFO] 
+-- Capturing frame --
+2024-11-13 15:53:36,741 [WARNING] Texture is empty!
+2024-11-13 15:53:37,351 [INFO] Detected 7-sided Polygon at (X: 473, Y: 787) with area: 1.00 and circularity: 0.06
+2024-11-13 15:53:37,351 [INFO] Detected 6-sided Polygon at (X: 73, Y: 780) with area: 1.00 and circularity: 0.16
+2024-11-13 15:53:37,351 [INFO] Detected 13-sided Polygon at (X: 481, Y: 782) with area: 6.50 and circularity: 0.01
+2024-11-13 15:53:37,351 [INFO] Detected 7-sided Polygon at (X: 477, Y: 778) with area: 1.00 and circularity: 0.06
+2024-11-13 15:53:37,351 [INFO] Detected 8-sided Polygon at (X: 106, Y: 783) with area: 7.50 and circularity: 0.01
+2024-11-13 15:53:37,351 [INFO] Detected 11-sided Polygon at (X: 70, Y: 774) with area: 4.50 and circularity: 0.10
+2024-11-13 15:53:37,352 [INFO] Detected 12-sided Polygon at (X: 108, Y: 774) with area: 0.50 and circularity: 0.01
+2024-11-13 15:53:37,352 [INFO] Detected 5-sided Polygon at (X: 276, Y: 753) with area: 1.00 and circularity: 0.27
+2024-11-13 15:53:37,352 [INFO] Detected 6-sided Polygon at (X: 61, Y: 753) with area: 1.00 and circularity: 0.16
+2024-11-13 15:53:37,352 [INFO] Detected 15-sided Polygon at (X: 172, Y: 758) with area: 8.00 and circularity: 0.00
+2024-11-13 15:53:37,352 [INFO] Detected 10-sided Polygon at (X: 481, Y: 738) with area: 1.50 and circularity: 0.06
+2024-11-13 15:53:37,352 [INFO] Detected Unknown at (X: 493, Y: 773) with area: 3.50 and circularity: 0.00
+2024-11-13 15:53:37,352 [INFO] Detected 8-sided Polygon at (X: 476, Y: 757) with area: 20.00 and circularity: 0.02
+2024-11-13 15:53:37,353 [INFO] Detected 6-sided Polygon at (X: 489, Y: 734) with area: 1.50 and circularity: 0.01
+2024-11-13 15:53:37,353 [INFO] Detected 8-sided Polygon at (X: 87, Y: 750) with area: 40.50 and circularity: 0.00
+2024-11-13 15:53:37,353 [INFO] Detected 8-sided Polygon at (X: 92, Y: 723) with area: 1.00 and circularity: 0.01
+2024-11-13 15:53:37,353 [INFO] Detected 10-sided Polygon at (X: 170, Y: 725) with area: 1.50 and circularity: 0.01
+2024-11-13 15:53:37,353 [INFO] Detected 11-sided Polygon at (X: 475, Y: 728) with area: 10.00 and circularity: 0.02
+2024-11-13 15:53:37,353 [INFO] Detected 7-sided Polygon at (X: 482, Y: 708) with area: 1.00 and circularity: 0.11
+2024-11-13 15:53:37,353 [INFO] Detected 12-sided Polygon at (X: 187, Y: 709) with area: 6.00 and circularity: 0.08
+2024-11-13 15:53:37,354 [INFO] Detected 8-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:53:37,354 [INFO] Detected 14-sided Polygon at (X: 172, Y: 723) with area: 7.50 and circularity: 0.00
+2024-11-13 15:53:37,354 [INFO] Detected 6-sided Polygon at (X: 507, Y: 711) with area: 4.50 and circularity: 0.01
+2024-11-13 15:53:37,354 [INFO] Detected 6-sided Polygon at (X: 482, Y: 701) with area: 0.50 and circularity: 0.06
+2024-11-13 15:53:37,354 [INFO] Detected 13-sided Polygon at (X: 109, Y: 711) with area: 6.50 and circularity: 0.01
+2024-11-13 15:53:37,354 [INFO] Detected 16-sided Polygon at (X: 511, Y: 701) with area: 24.00 and circularity: 0.01
+2024-11-13 15:53:37,354 [INFO] Detected 6-sided Polygon at (X: 529, Y: 692) with area: 0.50 and circularity: 0.09
+2024-11-13 15:53:37,355 [INFO] Detected 12-sided Polygon at (X: 107, Y: 693) with area: 3.00 and circularity: 0.02
+2024-11-13 15:53:37,355 [INFO] Detected 12-sided Polygon at (X: 68, Y: 692) with area: 31.00 and circularity: 0.25
+2024-11-13 15:53:37,355 [INFO] Detected 6-sided Polygon at (X: 530, Y: 687) with area: 1.50 and circularity: 0.28
+2024-11-13 15:53:37,355 [INFO] Detected 8-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:53:37,355 [INFO] Detected 5-sided Polygon at (X: 90, Y: 686) with area: 1.00 and circularity: 0.27
+2024-11-13 15:53:37,355 [INFO] Detected 7-sided Polygon at (X: 487, Y: 706) with area: 53.50 and circularity: 0.00
+2024-11-13 15:53:37,355 [INFO] Detected 7-sided Polygon at (X: 184, Y: 678) with area: 1.00 and circularity: 0.06
+2024-11-13 15:53:37,355 [INFO] Detected 5-sided Polygon at (X: 101, Y: 684) with area: 8.50 and circularity: 0.01
+2024-11-13 15:53:37,356 [INFO] Detected 12-sided Polygon at (X: 68, Y: 677) with area: 6.00 and circularity: 0.09
+2024-11-13 15:53:37,356 [INFO] Detected 12-sided Polygon at (X: 172, Y: 691) with area: 11.00 and circularity: 0.02
+2024-11-13 15:53:37,356 [INFO] Detected 11-sided Polygon at (X: 477, Y: 677) with area: 6.00 and circularity: 0.05
+2024-11-13 15:53:37,356 [INFO] Detected 8-sided Polygon at (X: 174, Y: 669) with area: 0.50 and circularity: 0.03
+2024-11-13 15:53:37,356 [INFO] Detected 8-sided Polygon at (X: 88, Y: 693) with area: 20.00 and circularity: 0.00
+2024-11-13 15:53:37,356 [INFO] Detected 13-sided Polygon at (X: 202, Y: 679) with area: 9.00 and circularity: 0.00
+2024-11-13 15:53:37,356 [INFO] Detected 5-sided Polygon at (X: 278, Y: 665) with area: 1.00 and circularity: 0.27
+2024-11-13 15:53:37,356 [INFO] Detected 6-sided Polygon at (X: 169, Y: 670) with area: 53.50 and circularity: 0.32
+2024-11-13 15:53:37,357 [INFO] Detected Unknown at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:53:37,357 [INFO] Detected Unknown at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:53:37,357 [INFO] Detected 5-sided Polygon at (X: 484, Y: 647) with area: 1.00 and circularity: 0.27
+2024-11-13 15:53:37,357 [INFO] Detected 8-sided Polygon at (X: 478, Y: 651) with area: 14.00 and circularity: 0.46
+2024-11-13 15:53:37,357 [INFO] Detected 5-sided Polygon at (X: 477, Y: 643) with area: 0.50 and circularity: 0.11
+2024-11-13 15:53:37,357 [INFO] Detected 5-sided Polygon at (X: 469, Y: 641) with area: 0.50 and circularity: 0.09
+2024-11-13 15:53:37,357 [INFO] Detected 14-sided Polygon at (X: 172, Y: 652) with area: 12.00 and circularity: 0.01
+2024-11-13 15:53:37,357 [INFO] Detected 6-sided Polygon at (X: 434, Y: 698) with area: 47.00 and circularity: 0.00
+2024-11-13 15:53:37,358 [INFO] Detected 5-sided Polygon at (X: 480, Y: 605) with area: 1.00 and circularity: 0.00
+2024-11-13 15:53:37,358 [INFO] Detected 16-sided Polygon at (X: 172, Y: 616) with area: 11.50 and circularity: 0.01
+2024-11-13 15:53:37,358 [INFO] Detected 6-sided Polygon at (X: 190, Y: 599) with area: 1.00 and circularity: 0.16
+2024-11-13 15:53:37,358 [INFO] Detected Circle at (X: 484, Y: 597) with area: 3.50 and circularity: 0.80
+2024-11-13 15:53:37,358 [INFO] Detected 8-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:53:37,358 [INFO] Detected 10-sided Polygon at (X: 183, Y: 601) with area: 12.00 and circularity: 0.01
+2024-11-13 15:53:37,358 [INFO] Detected 7-sided Polygon at (X: 482, Y: 590) with area: 1.00 and circularity: 0.01
+2024-11-13 15:53:37,358 [INFO] Detected 10-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:53:37,358 [INFO] Detected 7-sided Polygon at (X: 178, Y: 572) with area: 1.00 and circularity: 0.11
+2024-11-13 15:53:37,359 [INFO] Detected 10-sided Polygon at (X: 188, Y: 567) with area: 5.00 and circularity: 0.34
+2024-11-13 15:53:37,359 [INFO] Detected 10-sided Polygon at (X: 183, Y: 561) with area: 4.00 and circularity: 0.21
+2024-11-13 15:53:37,359 [INFO] Detected 10-sided Polygon at (X: 172, Y: 573) with area: 7.00 and circularity: 0.00
+2024-11-13 15:53:37,359 [INFO] Detected 10-sided Polygon at (X: 526, Y: 612) with area: 21.50 and circularity: 0.00
+2024-11-13 15:53:37,359 [INFO] Detected 11-sided Polygon at (X: 483, Y: 558) with area: 7.00 and circularity: 0.07
+2024-11-13 15:53:37,359 [INFO] Detected 8-sided Polygon at (X: 186, Y: 547) with area: 1.00 and circularity: 0.09
+2024-11-13 15:53:37,359 [INFO] Detected 14-sided Polygon at (X: 204, Y: 544) with area: 23.00 and circularity: 0.07
+2024-11-13 15:53:37,359 [INFO] Detected 5-sided Polygon at (X: 170, Y: 537) with area: 0.50 and circularity: 0.11
+2024-11-13 15:53:37,360 [INFO] Detected Unknown at (X: 475, Y: 540) with area: 3.50 and circularity: 0.00
+2024-11-13 15:53:37,360 [INFO] Detected 14-sided Polygon at (X: 192, Y: 537) with area: 10.00 and circularity: 0.01
+2024-11-13 15:53:37,360 [INFO] Detected Unknown at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:53:37,360 [INFO] Detected 8-sided Polygon at (X: 168, Y: 538) with area: 33.50 and circularity: 0.00
+2024-11-13 15:53:37,360 [INFO] Detected 12-sided Polygon at (X: 310, Y: 521) with area: 15.00 and circularity: 0.01
+2024-11-13 15:53:37,360 [INFO] Detected 9-sided Polygon at (X: 299, Y: 518) with area: 24.00 and circularity: 0.39
+2024-11-13 15:53:37,360 [INFO] Detected 11-sided Polygon at (X: 331, Y: 517) with area: 1.50 and circularity: 0.01
+2024-11-13 15:53:37,360 [INFO] Detected Circle at (X: 342, Y: 515) with area: 3.50 and circularity: 0.80
+2024-11-13 15:53:37,360 [INFO] Detected 8-sided Polygon at (X: 345, Y: 511) with area: 2.00 and circularity: 0.13
+2024-11-13 15:53:37,361 [INFO] Detected Unknown at (X: 478, Y: 530) with area: 1.00 and circularity: 0.00
+2024-11-13 15:53:37,361 [INFO] Detected Quadrilateral at (X: 280, Y: 601) with area: 79.00 and circularity: 0.00
+2024-11-13 15:53:37,361 [INFO] Detected Unknown at (X: 392, Y: 509) with area: 28.50 and circularity: 0.01
+2024-11-13 15:53:37,361 [INFO] Detected 9-sided Polygon at (X: 112, Y: 489) with area: 1.50 and circularity: 0.06
+2024-11-13 15:53:37,361 [INFO] Detected 6-sided Polygon at (X: 503, Y: 492) with area: 28.50 and circularity: 0.00
+2024-11-13 15:53:37,361 [INFO] Detected 13-sided Polygon at (X: 160, Y: 484) with area: 2.50 and circularity: 0.01
+2024-11-13 15:53:37,361 [INFO] Detected 11-sided Polygon at (X: 196, Y: 482) with area: 7.00 and circularity: 0.02
+2024-11-13 15:53:37,361 [INFO] Detected Quadrilateral at (X: 87, Y: 482) with area: 24.50 and circularity: 0.00
+2024-11-13 15:53:37,361 [INFO] Detected 11-sided Polygon at (X: 251, Y: 472) with area: 10.50 and circularity: 0.01
+2024-11-13 15:53:37,362 [INFO] Detected 9-sided Polygon at (X: 205, Y: 455) with area: 1.50 and circularity: 0.02
+2024-11-13 15:53:37,362 [INFO] Detected Unknown at (X: 144, Y: 454) with area: 2.50 and circularity: 0.00
+2024-11-13 15:53:37,362 [INFO] Detected 11-sided Polygon at (X: 103, Y: 453) with area: 1.50 and circularity: 0.03
+2024-11-13 15:53:37,362 [INFO] Detected 14-sided Polygon at (X: 88, Y: 453) with area: 3.00 and circularity: 0.04
+2024-11-13 15:53:37,362 [INFO] Detected 5-sided Polygon at (X: 108, Y: 454) with area: 1.00 and circularity: 0.00
+2024-11-13 15:53:37,362 [INFO] Detected 12-sided Polygon at (X: 73, Y: 453) with area: 25.50 and circularity: 0.14
+2024-11-13 15:53:37,362 [INFO] Detected 6-sided Polygon at (X: 46, Y: 459) with area: 13.50 and circularity: 0.00
+2024-11-13 15:53:37,362 [INFO] Detected 5-sided Polygon at (X: 722, Y: 377) with area: 1.00 and circularity: 0.27
+2024-11-13 15:53:37,363 [INFO] Detected 8-sided Polygon at (X: 100, Y: 385) with area: 359.00 and circularity: 0.79
+2024-11-13 15:53:37,363 [INFO] Detected Circle at (X: 722, Y: 373) with area: 3.00 and circularity: 0.81
+2024-11-13 15:53:37,363 [INFO] Detected Unknown at (X: 94, Y: 327) with area: 4.00 and circularity: 0.00
+2024-11-13 15:53:37,363 [INFO] Detected 9-sided Polygon at (X: 196, Y: 353) with area: 182.00 and circularity: 0.00
+2024-11-13 15:53:37,363 [INFO] Detected 10-sided Polygon at (X: 137, Y: 323) with area: 2.00 and circularity: 0.03
+2024-11-13 15:53:37,363 [INFO] Detected 10-sided Polygon at (X: 198, Y: 315) with area: 23.50 and circularity: 0.57
+2024-11-13 15:53:37,363 [INFO] Detected 13-sided Polygon at (X: 189, Y: 306) with area: 12.00 and circularity: 0.03
+2024-11-13 15:53:37,363 [INFO] Detected 16-sided Polygon at (X: 213, Y: 306) with area: 33.00 and circularity: 0.03
+2024-11-13 15:53:37,364 [INFO] Detected 12-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:53:37,364 [INFO] Detected 7-sided Polygon at (X: 188, Y: 286) with area: 13.00 and circularity: 0.74
+2024-11-13 15:53:37,364 [INFO] Detected 15-sided Polygon at (X: 205, Y: 286) with area: 166.50 and circularity: 0.13
+2024-11-13 15:53:37,364 [INFO] Detected 16-sided Polygon at (X: 219, Y: 273) with area: 18.00 and circularity: 0.05
+2024-11-13 15:53:37,364 [INFO] Detected 5-sided Polygon at (X: 31, Y: 285) with area: 106.50 and circularity: 0.23
+2024-11-13 15:53:37,364 [INFO] Detected 12-sided Polygon at (X: 216, Y: 262) with area: 3.50 and circularity: 0.02
+2024-11-13 15:53:37,364 [INFO] Detected Unknown at (X: 136, Y: 290) with area: 22.50 and circularity: 0.02
+2024-11-13 15:53:37,364 [INFO] Detected 11-sided Polygon at (X: 190, Y: 268) with area: 30.50 and circularity: 0.00
+2024-11-13 15:53:37,364 [INFO] Detected 9-sided Polygon at (X: 79, Y: 265) with area: 24.50 and circularity: 0.00
+2024-11-13 15:53:37,365 [INFO] Detected 6-sided Polygon at (X: 77, Y: 235) with area: 1.00 and circularity: 0.16
+2024-11-13 15:53:37,365 [INFO] Detected 10-sided Polygon at (X: 222, Y: 230) with area: 1.50 and circularity: 0.04
+2024-11-13 15:53:37,365 [INFO] Detected 13-sided Polygon at (X: 189, Y: 230) with area: 21.50 and circularity: 0.04
+2024-11-13 15:53:37,365 [INFO] Detected 12-sided Polygon at (X: 223, Y: 224) with area: 5.00 and circularity: 0.14
+2024-11-13 15:53:37,365 [INFO] Detected 7-sided Polygon at (X: 219, Y: 220) with area: 1.50 and circularity: 0.18
+2024-11-13 15:53:37,365 [INFO] Detected 8-sided Polygon at (X: 58, Y: 226) with area: 47.50 and circularity: 0.01
+2024-11-13 15:53:37,365 [INFO] Detected 13-sided Polygon at (X: 210, Y: 222) with area: 32.00 and circularity: 0.03
+2024-11-13 15:53:37,365 [INFO] Detected 9-sided Polygon at (X: 192, Y: 211) with area: 1.50 and circularity: 0.01
+2024-11-13 15:53:37,366 [INFO] Detected 9-sided Polygon at (X: 187, Y: 211) with area: 6.50 and circularity: 0.01
+2024-11-13 15:53:37,366 [INFO] Detected 16-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:53:37,366 [INFO] Detected 6-sided Polygon at (X: 184, Y: 183) with area: 1.50 and circularity: 0.00
+2024-11-13 15:53:37,366 [INFO] Detected 10-sided Polygon at (X: 164, Y: 180) with area: 19.50 and circularity: 0.30
+2024-11-13 15:53:37,366 [INFO] Detected Quadrilateral at (X: 146, Y: 205) with area: 28.50 and circularity: 0.01
+2024-11-13 15:53:37,366 [INFO] Detected 11-sided Polygon at (X: 214, Y: 160) with area: 1.00 and circularity: 0.05
+2024-11-13 15:53:37,366 [INFO] Detected 16-sided Polygon at (X: 210, Y: 178) with area: 40.00 and circularity: 0.01
+2024-11-13 15:53:37,366 [INFO] Detected 11-sided Polygon at (X: 189, Y: 171) with area: 22.50 and circularity: 0.01
+2024-11-13 15:53:37,367 [INFO] Detected 10-sided Polygon at (X: 794, Y: 456) with area: 116.50 and circularity: 0.00
+2024-11-13 15:53:37,367 [WARNING] ColorCameraImage is empty!
+2024-11-13 15:53:38,560 [INFO] Plane model: [ 5.37564092e-01 -1.10357574e-02  8.43150674e-01 -1.53958146e+03], Number of inliers: 1937
+2024-11-13 15:53:38,831 [INFO] No clusters detected.
+2024-11-13 15:55:00,432 [INFO] --> device_id: PhotoneoTL_DEV_TER-008
+2024-11-13 15:55:00,432 [INFO] --> cti_file_path: /opt/Photoneo/PhoXiControl-1.13.4/API/lib/photoneo.cti
+2024-11-13 15:55:00,450 [INFO] Name : ID
+2024-11-13 15:55:00,450 [INFO] ---------
+2024-11-13 15:55:00,450 [INFO] [MotionCam-3D]-(TER-008) : PhotoneoTL_DEV_TER-008
+2024-11-13 15:55:00,450 [INFO] [MotionCam-3D]-(InstalledExamples-color-example) : PhotoneoTL_DEV_InstalledExamples-color-example
+2024-11-13 15:55:00,450 [INFO] [PhoXi3DScan]-(InstalledExamples-basic-example) : PhotoneoTL_DEV_InstalledExamples-basic-example
+2024-11-13 15:55:00,450 [INFO] 
+2024-11-13 15:55:03,016 [INFO] TriggerMode BEFORE: Software
+2024-11-13 15:55:03,020 [INFO] TriggerMode AFTER: Software
+2024-11-13 15:55:03,374 [INFO] Camera started. Press 'q' in any OpenCV window to exit.
+2024-11-13 15:55:03,374 [INFO] 
+-- Capturing frame --
+2024-11-13 15:55:13,324 [WARNING] Texture is empty!
+2024-11-13 15:55:14,014 [INFO] Detected 6-sided Polygon at (X: 473, Y: 787) with area: 1.00 and circularity: 0.16
+2024-11-13 15:55:14,014 [INFO] Detected Circle at (X: 498, Y: 783) with area: 20.00 and circularity: 0.81
+2024-11-13 15:55:14,015 [INFO] Detected 11-sided Polygon at (X: 71, Y: 780) with area: 16.50 and circularity: 0.62
+2024-11-13 15:55:14,015 [INFO] Detected 8-sided Polygon at (X: 107, Y: 781) with area: 138.00 and circularity: 0.56
+2024-11-13 15:55:14,015 [INFO] Detected 6-sided Polygon at (X: 64, Y: 767) with area: 1.00 and circularity: 0.16
+2024-11-13 15:55:14,015 [INFO] Detected 13-sided Polygon at (X: 74, Y: 772) with area: 5.00 and circularity: 0.00
+2024-11-13 15:55:14,015 [INFO] Detected 8-sided Polygon at (X: 67, Y: 757) with area: 1.00 and circularity: 0.09
+2024-11-13 15:55:14,015 [INFO] Detected 5-sided Polygon at (X: 480, Y: 750) with area: 1.00 and circularity: 0.27
+2024-11-13 15:55:14,016 [INFO] Detected Circle at (X: 189, Y: 750) with area: 8.50 and circularity: 0.82
+2024-11-13 15:55:14,016 [INFO] Detected 6-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:55:14,016 [INFO] Detected 10-sided Polygon at (X: 508, Y: 739) with area: 1.00 and circularity: 0.05
+2024-11-13 15:55:14,016 [INFO] Detected 10-sided Polygon at (X: 201, Y: 743) with area: 127.00 and circularity: 0.39
+2024-11-13 15:55:14,016 [INFO] Detected 11-sided Polygon at (X: 474, Y: 739) with area: 4.00 and circularity: 0.06
+2024-11-13 15:55:14,016 [INFO] Detected 9-sided Polygon at (X: 183, Y: 737) with area: 2.00 and circularity: 0.05
+2024-11-13 15:55:14,016 [INFO] Detected 8-sided Polygon at (X: 497, Y: 734) with area: 4.00 and circularity: 0.23
+2024-11-13 15:55:14,017 [INFO] Detected 11-sided Polygon at (X: 66, Y: 733) with area: 4.50 and circularity: 0.10
+2024-11-13 15:55:14,017 [INFO] Detected 6-sided Polygon at (X: 87, Y: 747) with area: 62.50 and circularity: 0.01
+2024-11-13 15:55:14,017 [INFO] Detected 8-sided Polygon at (X: 501, Y: 728) with area: 8.00 and circularity: 0.54
+2024-11-13 15:55:14,017 [INFO] Detected 9-sided Polygon at (X: 174, Y: 747) with area: 49.00 and circularity: 0.00
+2024-11-13 15:55:14,017 [INFO] Detected 7-sided Polygon at (X: 497, Y: 725) with area: 1.50 and circularity: 0.09
+2024-11-13 15:55:14,017 [INFO] Detected 13-sided Polygon at (X: 89, Y: 723) with area: 3.00 and circularity: 0.02
+2024-11-13 15:55:14,017 [INFO] Detected 9-sided Polygon at (X: 513, Y: 716) with area: 12.50 and circularity: 0.69
+2024-11-13 15:55:14,017 [INFO] Detected 14-sided Polygon at (X: 170, Y: 718) with area: 0.50 and circularity: 0.00
+2024-11-13 15:55:14,018 [INFO] Detected 5-sided Polygon at (X: 180, Y: 712) with area: 1.00 and circularity: 0.21
+2024-11-13 15:55:14,018 [INFO] Detected Quadrilateral at (X: 499, Y: 743) with area: 14.50 and circularity: 0.00
+2024-11-13 15:55:14,018 [INFO] Detected 6-sided Polygon at (X: 475, Y: 720) with area: 46.00 and circularity: 0.07
+2024-11-13 15:55:14,018 [INFO] Detected 6-sided Polygon at (X: 68, Y: 703) with area: 1.00 and circularity: 0.16
+2024-11-13 15:55:14,018 [INFO] Detected 7-sided Polygon at (X: 507, Y: 698) with area: 3.50 and circularity: 0.06
+2024-11-13 15:55:14,018 [INFO] Detected 15-sided Polygon at (X: 67, Y: 696) with area: 2.00 and circularity: 0.01
+2024-11-13 15:55:14,018 [INFO] Detected 9-sided Polygon at (X: 476, Y: 695) with area: 4.00 and circularity: 0.02
+2024-11-13 15:55:14,019 [INFO] Detected 6-sided Polygon at (X: 106, Y: 690) with area: 1.00 and circularity: 0.06
+2024-11-13 15:55:14,019 [INFO] Detected 11-sided Polygon at (X: 67, Y: 688) with area: 1.50 and circularity: 0.06
+2024-11-13 15:55:14,019 [INFO] Detected Circle at (X: 90, Y: 686) with area: 4.00 and circularity: 0.86
+2024-11-13 15:55:14,019 [INFO] Detected 12-sided Polygon at (X: 497, Y: 719) with area: 68.00 and circularity: 0.00
+2024-11-13 15:55:14,019 [INFO] Detected 10-sided Polygon at (X: 185, Y: 679) with area: 4.00 and circularity: 0.27
+2024-11-13 15:55:14,019 [INFO] Detected 10-sided Polygon at (X: 68, Y: 678) with area: 2.00 and circularity: 0.02
+2024-11-13 15:55:14,019 [INFO] Detected 15-sided Polygon at (X: 181, Y: 676) with area: 2.50 and circularity: 0.07
+2024-11-13 15:55:14,019 [INFO] Detected 16-sided Polygon at (X: 525, Y: 684) with area: 4.50 and circularity: 0.01
+2024-11-13 15:55:14,020 [INFO] Detected 10-sided Polygon at (X: 93, Y: 697) with area: 30.00 and circularity: 0.00
+2024-11-13 15:55:14,020 [INFO] Detected 8-sided Polygon at (X: 195, Y: 676) with area: 224.50 and circularity: 0.55
+2024-11-13 15:55:14,020 [INFO] Detected 6-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:55:14,020 [INFO] Detected Quadrilateral at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:55:14,020 [INFO] Detected 12-sided Polygon at (X: 184, Y: 666) with area: 6.50 and circularity: 0.06
+2024-11-13 15:55:14,020 [INFO] Detected Triangle at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:55:14,021 [INFO] Detected Unknown at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:55:14,021 [INFO] Detected 12-sided Polygon at (X: 484, Y: 657) with area: 3.00 and circularity: 0.09
+2024-11-13 15:55:14,021 [INFO] Detected 6-sided Polygon at (X: 478, Y: 652) with area: 6.50 and circularity: 0.78
+2024-11-13 15:55:14,021 [INFO] Detected 5-sided Polygon at (X: 478, Y: 645) with area: 1.00 and circularity: 0.27
+2024-11-13 15:55:14,021 [INFO] Detected 6-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:55:14,021 [INFO] Detected 14-sided Polygon at (X: 169, Y: 667) with area: 22.50 and circularity: 0.00
+2024-11-13 15:55:14,021 [INFO] Detected 12-sided Polygon at (X: 182, Y: 632) with area: 4.50 and circularity: 0.01
+2024-11-13 15:55:14,021 [INFO] Detected Triangle at (X: 479, Y: 628) with area: 40.00 and circularity: 0.23
+2024-11-13 15:55:14,021 [INFO] Detected 6-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:55:14,022 [INFO] Detected 9-sided Polygon at (X: 481, Y: 603) with area: 8.00 and circularity: 0.03
+2024-11-13 15:55:14,022 [INFO] Detected 7-sided Polygon at (X: 481, Y: 587) with area: 0.50 and circularity: 0.00
+2024-11-13 15:55:14,022 [INFO] Detected 5-sided Polygon at (X: 485, Y: 583) with area: 0.50 and circularity: 0.11
+2024-11-13 15:55:14,022 [INFO] Detected 9-sided Polygon at (X: 482, Y: 575) with area: 17.00 and circularity: 0.38
+2024-11-13 15:55:14,022 [INFO] Detected 9-sided Polygon at (X: 487, Y: 568) with area: 0.50 and circularity: 0.02
+2024-11-13 15:55:14,022 [INFO] Detected Circle at (X: 183, Y: 562) with area: 7.50 and circularity: 0.90
+2024-11-13 15:55:14,022 [INFO] Detected 11-sided Polygon at (X: 177, Y: 592) with area: 36.00 and circularity: 0.00
+2024-11-13 15:55:14,022 [INFO] Detected Circle at (X: 198, Y: 555) with area: 3.00 and circularity: 0.81
+2024-11-13 15:55:14,022 [INFO] Detected 7-sided Polygon at (X: 202, Y: 554) with area: 9.00 and circularity: 0.69
+2024-11-13 15:55:14,023 [INFO] Detected 7-sided Polygon at (X: 179, Y: 550) with area: 9.00 and circularity: 0.69
+2024-11-13 15:55:14,023 [INFO] Detected 7-sided Polygon at (X: 202, Y: 546) with area: 0.50 and circularity: 0.03
+2024-11-13 15:55:14,023 [INFO] Detected Circle at (X: 204, Y: 538) with area: 9.00 and circularity: 0.83
+2024-11-13 15:55:14,023 [INFO] Detected 5-sided Polygon at (X: 199, Y: 537) with area: 1.00 and circularity: 0.27
+2024-11-13 15:55:14,023 [INFO] Detected Circle at (X: 218, Y: 536) with area: 3.00 and circularity: 0.81
+2024-11-13 15:55:14,023 [INFO] Detected 8-sided Polygon at (X: 200, Y: 533) with area: 3.00 and circularity: 0.40
+2024-11-13 15:55:14,023 [INFO] Detected Unknown at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:55:14,023 [INFO] Detected 10-sided Polygon at (X: 212, Y: 550) with area: 53.50 and circularity: 0.01
+2024-11-13 15:55:14,023 [INFO] Detected Quadrilateral at (X: 92, Y: 530) with area: 7.50 and circularity: 0.00
+2024-11-13 15:55:14,024 [INFO] Detected 14-sided Polygon at (X: 308, Y: 517) with area: 39.50 and circularity: 0.02
+2024-11-13 15:55:14,024 [INFO] Detected 15-sided Polygon at (X: 337, Y: 515) with area: 9.00 and circularity: 0.00
+2024-11-13 15:55:14,024 [INFO] Detected 6-sided Polygon at (X: 374, Y: 508) with area: 0.50 and circularity: 0.06
+2024-11-13 15:55:14,024 [INFO] Detected 10-sided Polygon at (X: 420, Y: 711) with area: 66.00 and circularity: 0.00
+2024-11-13 15:55:14,024 [INFO] Detected Unknown at (X: 423, Y: 506) with area: 8.00 and circularity: 0.00
+2024-11-13 15:55:14,024 [INFO] Detected Unknown at (X: 529, Y: 589) with area: 25.00 and circularity: 0.00
+2024-11-13 15:55:14,024 [INFO] Detected Quadrilateral at (X: 494, Y: 485) with area: 17.50 and circularity: 0.01
+2024-11-13 15:55:14,024 [INFO] Detected 14-sided Polygon at (X: 168, Y: 484) with area: 8.50 and circularity: 0.01
+2024-11-13 15:55:14,025 [INFO] Detected Unknown at (X: 122, Y: 485) with area: 17.50 and circularity: 0.00
+2024-11-13 15:55:14,025 [INFO] Detected 6-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:55:14,025 [INFO] Detected 6-sided Polygon at (X: 173, Y: 455) with area: 1.00 and circularity: 0.16
+2024-11-13 15:55:14,025 [INFO] Detected 7-sided Polygon at (X: 258, Y: 460) with area: 23.00 and circularity: 0.01
+2024-11-13 15:55:14,025 [INFO] Detected 9-sided Polygon at (X: 103, Y: 453) with area: 9.50 and circularity: 0.36
+2024-11-13 15:55:14,025 [INFO] Detected Unknown at (X: 148, Y: 454) with area: 3.00 and circularity: 0.00
+2024-11-13 15:55:14,025 [INFO] Detected 11-sided Polygon at (X: 121, Y: 454) with area: 2.00 and circularity: 0.02
+2024-11-13 15:55:14,025 [INFO] Detected 15-sided Polygon at (X: 87, Y: 453) with area: 3.50 and circularity: 0.04
+2024-11-13 15:55:14,025 [INFO] Detected 11-sided Polygon at (X: 32, Y: 474) with area: 6.50 and circularity: 0.01
+2024-11-13 15:55:14,026 [INFO] Detected 5-sided Polygon at (X: 64, Y: 452) with area: 37.50 and circularity: 0.01
+2024-11-13 15:55:14,026 [INFO] Detected 6-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:55:14,026 [INFO] Detected Circle at (X: 100, Y: 385) with area: 369.50 and circularity: 0.84
+2024-11-13 15:55:14,026 [INFO] Detected 6-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:55:14,026 [INFO] Detected 7-sided Polygon at (X: 185, Y: 321) with area: 8.00 and circularity: 0.74
+2024-11-13 15:55:14,026 [INFO] Detected 8-sided Polygon at (X: 185, Y: 310) with area: 8.00 and circularity: 0.61
+2024-11-13 15:55:14,026 [INFO] Detected 6-sided Polygon at (X: 80, Y: 306) with area: 1.50 and circularity: 0.28
+2024-11-13 15:55:14,026 [INFO] Detected 12-sided Polygon at (X: 204, Y: 305) with area: 0.50 and circularity: 0.01
+2024-11-13 15:55:14,026 [INFO] Detected 10-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:55:14,027 [INFO] Detected Circle at (X: 217, Y: 297) with area: 3.00 and circularity: 0.81
+2024-11-13 15:55:14,027 [INFO] Detected 12-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:55:14,027 [INFO] Detected 9-sided Polygon at (X: 100, Y: 332) with area: 424.00 and circularity: 0.00
+2024-11-13 15:55:14,027 [INFO] Detected 13-sided Polygon at (X: 204, Y: 281) with area: 13.00 and circularity: 0.01
+2024-11-13 15:55:14,027 [INFO] Detected 15-sided Polygon at (X: 207, Y: 275) with area: 7.00 and circularity: 0.01
+2024-11-13 15:55:14,027 [INFO] Detected 6-sided Polygon at (X: 31, Y: 293) with area: 2.00 and circularity: 0.00
+2024-11-13 15:55:14,027 [INFO] Detected 6-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:55:14,027 [INFO] Detected 13-sided Polygon at (X: 188, Y: 281) with area: 41.50 and circularity: 0.05
+2024-11-13 15:55:14,028 [INFO] Detected 6-sided Polygon at (X: 81, Y: 284) with area: 17.50 and circularity: 0.01
+2024-11-13 15:55:14,028 [INFO] Detected 12-sided Polygon at (X: 209, Y: 262) with area: 10.50 and circularity: 0.07
+2024-11-13 15:55:14,028 [INFO] Detected 12-sided Polygon at (X: 81, Y: 258) with area: 4.00 and circularity: 0.02
+2024-11-13 15:55:14,028 [INFO] Detected 7-sided Polygon at (X: 192, Y: 242) with area: 1.00 and circularity: 0.06
+2024-11-13 15:55:14,028 [INFO] Detected Circle at (X: 86, Y: 235) with area: 3.50 and circularity: 0.80
+2024-11-13 15:55:14,028 [INFO] Detected Circle at (X: 187, Y: 223) with area: 3.00 and circularity: 0.81
+2024-11-13 15:55:14,028 [INFO] Detected 5-sided Polygon at (X: 40, Y: 221) with area: 1.00 and circularity: 0.27
+2024-11-13 15:55:14,028 [INFO] Detected 17-sided Polygon at (X: 209, Y: 224) with area: 3.00 and circularity: 0.01
+2024-11-13 15:55:14,029 [INFO] Detected 6-sided Polygon at (X: 50, Y: 239) with area: 30.00 and circularity: 0.00
+2024-11-13 15:55:14,029 [INFO] Detected 5-sided Polygon at (X: 55, Y: 215) with area: 1.00 and circularity: 0.27
+2024-11-13 15:55:14,029 [INFO] Detected 5-sided Polygon at (X: 717, Y: 210) with area: 1.00 and circularity: 0.27
+2024-11-13 15:55:14,029 [INFO] Detected 6-sided Polygon at (X: 191, Y: 195) with area: 8.00 and circularity: 0.74
+2024-11-13 15:55:14,029 [INFO] Detected Unknown at (X: 181, Y: 185) with area: 1.00 and circularity: 0.00
+2024-11-13 15:55:14,029 [INFO] Detected 12-sided Polygon at (X: 192, Y: 230) with area: 34.00 and circularity: 0.00
+2024-11-13 15:55:14,029 [INFO] Detected 5-sided Polygon at (X: 184, Y: 182) with area: 5.50 and circularity: 0.78
+2024-11-13 15:55:14,030 [INFO] Detected 6-sided Polygon at (X: 159, Y: 181) with area: 1.00 and circularity: 0.11
+2024-11-13 15:55:14,030 [INFO] Detected Quadrilateral at (X: 140, Y: 236) with area: 30.00 and circularity: 0.00
+2024-11-13 15:55:14,030 [INFO] Detected 13-sided Polygon at (X: 166, Y: 173) with area: 1.00 and circularity: 0.04
+2024-11-13 15:55:14,030 [INFO] Detected 5-sided Polygon at (X: 175, Y: 170) with area: 0.50 and circularity: 0.11
+2024-11-13 15:55:14,030 [INFO] Detected 8-sided Polygon at (X: 0, Y: 0) with area: 0.00 and circularity: 0.00
+2024-11-13 15:55:14,030 [INFO] Detected 12-sided Polygon at (X: 180, Y: 176) with area: 41.50 and circularity: 0.02
+2024-11-13 15:55:14,030 [INFO] Detected 11-sided Polygon at (X: 174, Y: 164) with area: 4.50 and circularity: 0.17
+2024-11-13 15:55:14,031 [INFO] Detected 11-sided Polygon at (X: 190, Y: 164) with area: 24.00 and circularity: 0.04
+2024-11-13 15:55:14,031 [INFO] Detected 11-sided Polygon at (X: 212, Y: 175) with area: 119.50 and circularity: 0.03
+2024-11-13 15:55:14,031 [INFO] Detected 10-sided Polygon at (X: 795, Y: 402) with area: 112.00 and circularity: 0.00
+2024-11-13 15:55:14,230 [WARNING] ColorCameraImage is empty!
+2024-11-13 15:55:15,564 [INFO] Plane model: [ 5.36952773e-01 -1.09756141e-02  8.43540903e-01 -1.53978882e+03], Number of inliers: 1989
+2024-11-13 15:55:15,823 [INFO] No clusters detected.
+2024-11-13 15:55:19,532 [INFO] 
+-- Capturing frame --
+2024-11-13 15:55:28,450 [WARNING] Texture is empty!
