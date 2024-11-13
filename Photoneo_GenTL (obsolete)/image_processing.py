@@ -1,5 +1,5 @@
 import numpy as np # imported an module numpy as np
-import open3d as o3d
+import open3d as o3d 
 import cv2 # imported cv2 module
 import os # imported os module
 import sys # imported sys module
@@ -8,7 +8,7 @@ from harvesters.core import Harvester
 import logging # imported logging module
 import json # imported json module
 import yaml # imported yaml module
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt 
 
 # ==================== Configuration ====================
 
@@ -83,7 +83,7 @@ def display_pointcloud_with_matplotlib(pointcloud):
     plt.clf()
 
 
-def display_texture_if_available(texture_component):
+def display_texture_if_available(texture_component): 
     """Display texture if available and dimensions match expectations."""
     if texture_component.width == 0 or texture_component.height == 0:
         logging.warning("Texture is empty!")
@@ -102,12 +102,12 @@ def display_texture_if_available(texture_component):
     # Noise reduction
     texture_screen = cv2.fastNlMeansDenoising(texture_screen, None, 10, 7, 21)
 
-    cv2.imshow("Texture", texture_screen)
+    cv2.imshow("Texture", texture_screen) 
     cv2.waitKey(1)
     return
 
 
-def display_color_image_if_available(color_component, name):
+def display_color_image_if_available(color_component, name): 
     """Display color image if available and dimensions match expectations."""
     if color_component.width == 0 or color_component.height == 0:
         logging.warning(f"{name} is empty!")

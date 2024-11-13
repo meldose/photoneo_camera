@@ -5,7 +5,7 @@ import os # imported os module
 import sys # imported sys module
 from sys import platform
 from harvesters.core import Harvester
-import torch
+import torch 
 
 # Load YOLO model
 model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)

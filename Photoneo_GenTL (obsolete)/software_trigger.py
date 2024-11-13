@@ -100,18 +100,6 @@ def software_trigger(iterations=100): # defining the number of time it take the 
             features.PhotoneoTriggerMode.value = "Software"
             print("TriggerMode AFTER: ", features.PhotoneoTriggerMode.value)
 
-            # Order is fixed on the selected output structure. Disabled fields are shown as empty components.
-            # Individual structures can enabled/disabled by the following features:
-            # SendTexture, SendPointCloud, SendNormalMap, SendDepthMap, SendConfidenceMap, SendEventMap, SendColorCameraImage
-            # payload.components[#]
-            # [0] Texture
-            # [1] TextureRGB
-            # [2] PointCloud [X,Y,Z,...]
-            # [3] NormalMap [X,Y,Z,...]
-            # [4] DepthMap
-            # [5] ConfidenceMap
-            # [6] EventMap
-            # [7] ColorCameraImage
 
             # Send every output structure
             features.SendTexture.value = True
