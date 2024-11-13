@@ -3,350 +3,421 @@ import open3d as o3d
 import cv2
 import os
 import sys
-import torch
-import argparse
-import logging
-from harvesters.core import Harvester
-from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.pyplot as plt
 from sys import platform
+from harvesters.core import Harvester
+import logging
+import json
+import yaml
+import matplotlib.pyplot as plt
 
-# Configure logging
+# ==================== Configuration ====================
+
+# Define a configuration dictionary
+config = {
+    "camera": {
+        "device_id": "PhotoneoTL_DEV_TER-008",  # Default device ID
+        "cti_file_suffix": "/API/lib/photoneo.cti",
+        "trigger_mode": "Software",
+        "send_data": {
+            "texture": True,
+            "point_cloud": True,
+            "normal_map": True,
+            "depth_map": True,
+            "confidence_map": True
+        }
+    },
+    "image_processing": {
+        "canny_threshold1": 50,
+        "canny_threshold2": 150,
+        "contour_area_min": 100,
+        "shape_approx_epsilon": 0.02
+    },
+    "pointcloud_processing": {
+        "plane_distance_threshold": 0.01,
+        "ransac_n": 3,
+        "ransac_iterations": 1000,
+        "dbscan_eps": 0.02,
+        "dbscan_min_points": 10,
+        "voxel_size": 0.005  # For downsampling
+    },
+    "logging": {
+        "level": "INFO",
+        "format": "%(asctime)s [%(levelname)s] %(message)s"
+    },
+    "output": {
+        "object_info_file": "object_info.json"
+    }
+}
+
+# ==================== Logging Setup ====================
+
+# Configure logging based on the configuration
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s [%(levelname)s] %(message)s',
-    handlers=[
-        logging.StreamHandler(sys.stdout),
-        logging.FileHandler("app.log")  # Optional: Logs to a file named app.log
-    ]
+    level=getattr(logging, config["logging"]["level"].upper(), logging.INFO),
+    format=config["logging"]["format"]
 )
-logger = logging.getLogger(__name__)
 
-# Load YOLO model
-try:
-    logger.info("Loading YOLOv5 model...")
-    model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)
-    logger.info("YOLOv5 model loaded successfully.")
-except Exception as e:
-    logger.error(f"Error loading YOLOv5 model: {e}")
-    sys.exit(1)
+# ==================== Object Information Storage ====================
 
-# Object classes for specific objects of interest
-CLASS_NAMES = ["person", "car"]
+# Initialize a list to store object information
+object_info_list = []
 
-def get_texture_image(texture_component):
+# ==================== Function Definitions ====================
+
+def display_pointcloud_with_matplotlib(pointcloud):
     """
-    Process and retrieve the texture image from the texture component.
+    Visualize the point cloud using Matplotlib.
+    Note: For real-time applications, Open3D visualization is recommended.
     """
+    plt.ion()  # Enable interactive mode
+    fig = plt.figure(figsize=(8, 6))
+    ax = fig.add_subplot(111, projection='3d')
+    scatter = ax.scatter(pointcloud[:, 0], pointcloud[:, 1], pointcloud[:, 2],
+                         s=1, c=pointcloud[:, 2], cmap='viridis')
+    ax.set_xlabel("X axis")
+    ax.set_ylabel("Y axis")
+    ax.set_zlabel("Z axis")
+    ax.view_init(elev=30, azim=120)
+    plt.draw()
+    plt.pause(0.001)
+    plt.clf()
+
+
+def display_texture_if_available(texture_component):
+    """Display texture if available and dimensions match expectations."""
     if texture_component.width == 0 or texture_component.height == 0:
-        logger.warning("Texture component is empty or unavailable!")
-        return None
-
-    try:
-        logger.debug(f"Texture component data size: {texture_component.data.size}")
-        logger.debug(f"Texture component data type: {texture_component.data.dtype}")
-
-        # Check if data can be reshaped into an image
-        expected_size = texture_component.height * texture_component.width * 3  # Assuming 3 channels (RGB)
-        if texture_component.data.size != expected_size:
-            logger.error(f"Unexpected data size. Expected {expected_size}, got {texture_component.data.size}")
-            return None
-
-        # Reshape the data
-        texture_image = texture_component.data.reshape(texture_component.height, texture_component.width, 3)
-        logger.debug(f"Texture image shape after reshaping: {texture_image.shape}")
-
-        # Normalize and convert to 8-bit if necessary
-        if texture_image.dtype != np.uint8:
-            texture_image = cv2.normalize(texture_image, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
-            logger.debug(f"Texture image data type after normalization: {texture_image.dtype}")
-
-        # Convert color format if needed (OpenCV uses BGR by default)
-        if texture_component.data_format.upper() == 'RGB8':
-            texture_image = cv2.cvtColor(texture_image, cv2.COLOR_RGB2BGR)
-
-        return texture_image
-
-    except Exception as e:
-        logger.error(f"Error processing texture image: {e}")
-        return None
-
-def display_color_image_with_detection(color_image, window_name):
-    """
-    Display the color image with YOLOv5 object detection overlays.
-    """
-    if color_image is None or color_image.size == 0:
-        logger.warning(f"{window_name} is empty!")
+        logging.warning("Texture is empty!")
         return
 
-    try:
-        image_copy = color_image.copy()  # Preserve original image
-
-        # Run YOLO detection on the image
-        results = model(image_copy)
-        detections = results.pandas().xyxy[0]
-        detections = detections[detections['name'].isin(CLASS_NAMES)]
-
-        # Display bounding boxes and labels
-        for idx, row in detections.iterrows():
-            x_min, y_min, x_max, y_max = int(row['xmin']), int(row['ymin']), int(row['xmax']), int(row['ymax'])
-            width = x_max - x_min
-            height = y_max - y_min
-            label = f"{row['name']} {row['confidence']:.2f}"
-            dimensions_label = f"W:{width}px H:{height}px"
-
-            # Draw rectangle and labels on the copied image
-            cv2.rectangle(image_copy, (x_min, y_min), (x_max, y_max), (0, 255, 0), 2)
-            cv2.putText(image_copy, label, (x_min, y_min - 20), cv2.FONT_HERSHEY_SIMPLEX, 
-                        0.5, (0, 255, 0), 2)
-            cv2.putText(image_copy, dimensions_label, (x_min, y_min - 5), cv2.FONT_HERSHEY_SIMPLEX, 
-                        0.5, (0, 255, 0), 2)
-            logger.info(f"Detected {label} at {(x_min, y_min)} with dimensions {width}px x {height}px")
-
-        # Display the image using OpenCV
-        cv2.imshow(window_name, image_copy)
-
-    except Exception as e:
-        logger.error(f"Error during object detection: {e}")
-
-def create_point_cloud_from_component(point_cloud_component):
-    """
-    Create an Open3D point cloud from the point cloud component.
-    """
-    if point_cloud_component.data.size == 0:
-        logger.warning("Point cloud component is empty!")
-        return None
-
-    try:
-        # Ensure the data is in the expected format
-        points = np.array(point_cloud_component.data, copy=False)
-        num_points = points.size // 3
-        if points.size % 3 != 0:
-            logger.error(f"Point cloud data size is not a multiple of 3: {points.size}")
-            return None
-
-        points = points.reshape(-1, 3)
-        point_cloud = o3d.geometry.PointCloud()
-        point_cloud.points = o3d.utility.Vector3dVector(points)
-        logger.debug("Point cloud created successfully.")
-
-        return point_cloud
-
-    except Exception as e:
-        logger.error(f"Error creating point cloud: {e}")
-        return None
-
-def display_and_detect_objects_in_point_cloud(point_cloud, open3d_visualizer):
-    """
-    Process the point cloud to detect clusters and display with bounding boxes.
-    """
-    if point_cloud is None or len(point_cloud.points) == 0:
-        logger.warning("Point cloud is empty or has no points.")
+    expected_size = texture_component.height * texture_component.width
+    if texture_component.data.size != expected_size:
+        logging.error("Mismatch in texture dimensions!")
         return
 
+    texture = texture_component.data.reshape(texture_component.height, texture_component.width, 1).copy()
+    
+    # Improved contrast for better visualization
+    texture_screen = cv2.normalize(texture, dst=None, alpha=50, beta=200, norm_type=cv2.NORM_MINMAX).astype(np.uint8)
+    
+    # Noise reduction
+    texture_screen = cv2.fastNlMeansDenoising(texture_screen, None, 10, 7, 21)
+
+    cv2.imshow("Texture", texture_screen)
+    cv2.waitKey(1)
+    return
+
+
+def display_color_image_if_available(color_component, name):
+    """Display color image if available and dimensions match expectations."""
+    if color_component.width == 0 or color_component.height == 0:
+        logging.warning(f"{name} is empty!")
+        return
+
+    expected_size = color_component.height * color_component.width * 3
+    if color_component.data.size != expected_size:
+        logging.error(f"Mismatch in {name} dimensions!")
+        return
+
+    color_image = color_component.data.reshape(color_component.height, color_component.width, 3).copy()
+    
+    # Convert color_image to 8-bit if it's not already
+    if color_image.dtype != np.uint8:
+        color_image = cv2.normalize(color_image, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+
+    color_image = cv2.cvtColor(color_image, cv2.COLOR_RGB2BGR)
+
+    # Apply denoising for clearer image
+    color_image = cv2.fastNlMeansDenoisingColored(color_image, None, 10, 10, 7, 21)
+    
+    # Shape detection
+    edges = cv2.Canny(cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY), 
+                      threshold1=config["image_processing"]["canny_threshold1"], 
+                      threshold2=config["image_processing"]["canny_threshold2"])
+    detect_shapes_from_edges(edges, color_image)
+    
+    cv2.imshow(name, color_image)
+    return
+
+
+def detect_shapes_from_edges(edges, color_image):
+    """Detect and annotate geometric shapes based on edge detection."""
+    contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    for cnt in contours:
+        if cv2.contourArea(cnt) < config["image_processing"]["contour_area_min"]:
+            continue  # Filter out small contours
+
+        epsilon = config["image_processing"]["shape_approx_epsilon"] * cv2.arcLength(cnt, True)
+        approx = cv2.approxPolyDP(cnt, epsilon, True)
+        
+        x, y, w, h = cv2.boundingRect(approx)
+        shape_name = "Unknown"
+        if len(approx) == 3:
+            shape_name = "Triangle"
+        elif len(approx) == 4:
+            aspect_ratio = float(w) / h
+            shape_name = "Square" if 0.95 < aspect_ratio < 1.05 else "Rectangle"
+        elif len(approx) > 4:
+            # Use HoughCircles for better circle detection
+            roi = edges[y:y+h, x:x+w]
+            circles = cv2.HoughCircles(roi, cv2.HOUGH_GRADIENT, dp=1.2, minDist=20,
+                                       param1=50, param2=30, minRadius=10, maxRadius=0)
+            if circles is not None:
+                shape_name = "Circle"
+            else:
+                shape_name = "Polygon"
+        
+        logging.info(f"Detected {shape_name} with dimensions (w: {w}, h: {h})")
+        cv2.drawContours(color_image, [approx], -1, (0, 255, 0), 2)
+        cv2.putText(color_image, shape_name, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 
+                    0.5, (0, 255, 0), 2)
+
+
+def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, texture_rgb_comp):
+    """Process and visualize point cloud data, including segmentation, clustering, and bounding boxes."""
+    if pointcloud_comp.width == 0 or pointcloud_comp.height == 0:
+        logging.warning("PointCloud is empty!")
+        return
+
+    pointcloud = pointcloud_comp.data.reshape(pointcloud_comp.height * pointcloud_comp.width, 3).copy()
+    pcd = o3d.geometry.PointCloud()
+    pcd.points = o3d.utility.Vector3dVector(pointcloud)
+
+    if normal_comp.width > 0 and normal_comp.height > 0:
+        norm_map = normal_comp.data.reshape(normal_comp.height * normal_comp.width, 3).copy()
+        pcd.normals = o3d.utility.Vector3dVector(norm_map)
+
+    # Downsample the point cloud for performance
+    voxel_size = config["pointcloud_processing"]["voxel_size"]
+    pcd = pcd.voxel_down_sample(voxel_size=voxel_size)
+    logging.debug(f"PointCloud downsampled with voxel size: {voxel_size}")
+
+    # Shape and size detection in point cloud
+    object_cloud = segment_pointcloud(pcd)
+    clusters = cluster_objects(object_cloud)
+    if not clusters:
+        logging.info("No clusters detected.")
+    for idx, cluster in enumerate(clusters):
+        size = calculate_bounding_box(cluster, idx)
+        logging.info(f"Object {idx+1} size (X: {size['AABB_Size']['X']:.2f}, "
+                     f"Y: {size['AABB_Size']['Y']:.2f}, Z: {size['AABB_Size']['Z']:.2f})")
+
+    # Process texture RGB
+    texture_rgb = np.zeros((pointcloud_comp.height * pointcloud_comp.width, 3))
+    if texture_comp.width > 0 and texture_comp.height > 0:
+        texture = texture_comp.data.reshape(texture_comp.height, texture_comp.width, 1).copy()
+        texture_rgb[:, 0] = np.reshape(1 / 65535 * texture, -1)
+        texture_rgb[:, 1] = np.reshape(1 / 65535 * texture, -1)
+        texture_rgb[:, 2] = np.reshape(1 / 65535 * texture, -1)
+    elif texture_rgb_comp.width > 0 and texture_rgb_comp.height > 0:
+        texture = texture_rgb_comp.data.reshape(texture_rgb_comp.height, texture_rgb_comp.width, 3).copy()
+        texture_rgb[:, 0] = np.reshape(1 / 65535 * texture[:, :, 0], -1)
+        texture_rgb[:, 1] = np.reshape(1 / 65535 * texture[:, :, 1], -1)
+        texture_rgb[:, 2] = np.reshape(1 / 65535 * texture[:, :, 2], -1)
+    else:
+        logging.error("Texture and TextureRGB are empty!")
+        return
+    
+    texture_rgb = cv2.normalize(texture_rgb, dst=None, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX)
+    pcd.colors = o3d.utility.Vector3dVector(texture_rgb)
+    
+    # Visualize point cloud with Open3D
+    o3d.visualization.draw_geometries([pcd], width=1024, height=768)
+    return
+
+
+def segment_pointcloud(pcd):
+    """Segment the plane (e.g., table) from the point cloud to isolate objects."""
+    plane_model, inliers = pcd.segment_plane(distance_threshold=config["pointcloud_processing"]["plane_distance_threshold"],
+                                             ransac_n=config["pointcloud_processing"]["ransac_n"],
+                                             num_iterations=config["pointcloud_processing"]["ransac_iterations"])
+    logging.info(f"Plane model: {plane_model}, Number of inliers: {len(inliers)}")
+    object_cloud = pcd.select_by_index(inliers, invert=True)
+    return object_cloud
+
+
+def cluster_objects(pcd):
+    """Cluster the segmented point cloud to identify distinct objects."""
+    labels = np.array(pcd.cluster_dbscan(eps=config["pointcloud_processing"]["dbscan_eps"],
+                                        min_points=config["pointcloud_processing"]["dbscan_min_points"],
+                                        print_progress=True))
+    if labels.size == 0:
+        return []
+    max_label = labels.max()
+    if max_label == -1:
+        return []
+    clusters = [pcd.select_by_index(np.where(labels == i)[0]) for i in range(max_label + 1)]
+    logging.info(f"Detected {len(clusters)} clusters.")
+    return clusters
+
+
+def calculate_bounding_box(cluster, cluster_id):
+    """Calculate and visualize the bounding box for a given cluster."""
+    if not cluster.has_points():
+        logging.warning(f"Cluster {cluster_id+1} has no points.")
+        return {"AABB_Size": {"X": 0, "Y": 0, "Z": 0}}
+
+    # Axis-Aligned Bounding Box
+    aabb = cluster.get_axis_aligned_bounding_box()
+    aabb.color = (1, 0, 0)  # Red color
+    aabb_size = aabb.get_extent()
+
+    # Oriented Bounding Box
+    obb = cluster.get_oriented_bounding_box()
+    obb.color = (0, 1, 0)  # Green color
+    obb_size = obb.get_extent()
+    obb_center = obb.get_center()
+
+    # Centroid
+    centroid = aabb.get_center()
+
+    # Visualize bounding boxes
+    o3d.visualization.draw_geometries(
+        [cluster, aabb, obb],
+        window_name=f"Cluster {cluster_id+1}",
+        width=800,
+        height=600
+    )
+
+    # Prepare object information
+    object_info = {
+        "Object_ID": cluster_id + 1,
+        "AABB_Size": {
+            "X": aabb_size[0],
+            "Y": aabb_size[1],
+            "Z": aabb_size[2]
+        },
+        "Centroid": {
+            "X": centroid[0],
+            "Y": centroid[1],
+            "Z": centroid[2]
+        },
+        "OBB_Size": {
+            "X": obb_size[0],
+            "Y": obb_size[1],
+            "Z": obb_size[2]
+        },
+        "OBB_Orientation": obb.R.tolist()
+    }
+
+    object_info_list.append(object_info)
+
+    return object_info
+
+
+def save_object_info():
+    """Save the collected object information to a JSON file."""
+    output_file = config["output"]["object_info_file"]
     try:
-        # Clustering parameters
-        eps = 0.02  # Distance threshold
-        min_points = 10  # Minimum number of points to form a cluster
-
-        logger.info("Clustering point cloud using DBSCAN...")
-        labels = np.array(point_cloud.cluster_dbscan(eps=eps, min_points=min_points, print_progress=False))
-        if labels.size == 0:
-            logger.warning("No clusters detected in point cloud.")
-            return
-
-        max_label = labels.max()
-        logger.info(f"Point cloud has {max_label + 1} clusters.")
-
-        # Assign colors to each cluster
-        colors = plt.get_cmap("tab20")(labels / (max_label + 1 if max_label > 0 else 1))
-        colors[labels < 0] = 0  # Noise points
-        point_cloud.colors = o3d.utility.Vector3dVector(colors[:, :3])
-
-        # Update the visualizer
-        open3d_visualizer.clear_geometries()
-        open3d_visualizer.add_geometry(point_cloud)
-        open3d_visualizer.poll_events()
-        open3d_visualizer.update_renderer()
-
-        # Calculate and display bounding boxes
-        for i in range(max_label + 1):
-            cluster = point_cloud.select_by_index(np.where(labels == i)[0])
-            bbox = cluster.get_axis_aligned_bounding_box()
-            bbox.color = (1, 0, 0)  # Red bounding box
-            open3d_visualizer.add_geometry(bbox)
-
-            size = bbox.get_extent()
-            logger.info(f"Cluster {i}: Size (X: {size[0]:.2f}, Y: {size[1]:.2f}, Z: {size[2]:.2f})")
-
-        open3d_visualizer.poll_events()
-        open3d_visualizer.update_renderer()
-
+        with open(output_file, "w") as f:
+            json.dump(object_info_list, f, indent=4)
+        logging.info(f"Saved object information to {output_file}")
     except Exception as e:
-        logger.error(f"Error in point cloud processing: {e}")
+        logging.error(f"Failed to save object information: {e}")
 
-def initialize_open3d_visualizer():
-    """
-    Initialize the Open3D visualizer for real-time point cloud display.
-    """
-    vis = o3d.visualization.Visualizer()
-    vis.create_window(window_name='Point Cloud', width=1024, height=768)
-    logger.info("Open3D visualizer initialized.")
-    return vis
 
-def software_trigger(cti_file_path, device_id):
-    """
-    Set up the camera, configure settings, and manage the capture loop.
-    """
-    logger.info(f"Device ID: {device_id}")
-    logger.info(f"CTI File Path: {cti_file_path}")
+def software_trigger():
+    """Main function to configure the camera, capture data, and process frames."""
+    device_id = config["camera"]["device_id"]
+    if len(sys.argv) == 2:
+        device_id = "PhotoneoTL_DEV_" + sys.argv[1]
+    logging.info(f"--> device_id: {device_id}")
+
+    phoxi_control_path = os.getenv('PHOXI_CONTROL_PATH')
+    if not phoxi_control_path:
+        logging.error("Environment variable 'PHOXI_CONTROL_PATH' is not set.")
+        sys.exit(1)
+
+    cti_file_path_suffix = config["camera"]["cti_file_suffix"].lstrip('/\\')  # Remove leading slashes
+    cti_file_path = os.path.join(phoxi_control_path, cti_file_path_suffix)
+    logging.info(f"--> cti_file_path: {cti_file_path}")
 
     if not os.path.isfile(cti_file_path):
-        logger.error(f"CTI file not found at {cti_file_path}. Please ensure that the path is correct.")
+        logging.error(f"CTI file not found at: {cti_file_path}")
         sys.exit(1)
 
     with Harvester() as h:
+        h.add_file(cti_file_path, True, True)
+        h.update()
+
+        logging.info("Name : ID")
+        logging.info("---------")
+        for item in h.device_info_list:
+            serial_number = item.property_dict.get('serial_number', 'Unknown')
+            device_id_found = item.property_dict.get('id_', 'Unknown')
+            logging.info(f"{serial_number} : {device_id_found}")
+        logging.info("")
+
         try:
-            h.add_file(cti_file_path, check_validity=True)
-            h.update()
-
-            if not h.device_info_list:
-                logger.error("No devices found.")
-                sys.exit(1)
-
-            logger.info("\nAvailable devices:")
-            logger.info("Serial Number : ID")
-            logger.info("---------")
-            device_ids = []
-            for item in h.device_info_list:
-                serial = item.property_dict.get('serial_number', 'Unknown')
-                dev_id = item.property_dict.get('id_', 'Unknown')
-                device_ids.append(dev_id)
-                logger.info(f"{serial} : {dev_id}")
-            logger.info("")
-
-            if device_id not in device_ids:
-                logger.error(f"Device ID '{device_id}' not found among available devices.")
-                sys.exit(1)
-
             with h.create({'id_': device_id}) as ia:
                 features = ia.remote_device.node_map
 
-                # Enable necessary features
-                for feature in ['SendTexture', 'SendPointCloud', 'SendNormalMap', 'SendDepthMap', 'SendConfidenceMap']:
-                    if hasattr(features, feature):
-                        setattr(features, feature, True)
-                        logger.info(f"Enabled feature: {feature}")
-                    else:
-                        logger.warning(f"{feature} feature not available on this device.")
+                logging.info(f"TriggerMode BEFORE: {features.PhotoneoTriggerMode.value}")
+                features.PhotoneoTriggerMode.value = config["camera"]["trigger_mode"]
+                logging.info(f"TriggerMode AFTER: {features.PhotoneoTriggerMode.value}")
 
-                # Set trigger mode to software
-                if hasattr(features, 'PhotoneoTriggerMode'):
-                    logger.info(f"TriggerMode BEFORE: {features.PhotoneoTriggerMode.value}")
-                    features.PhotoneoTriggerMode.value = "Software"
-                    logger.info(f"TriggerMode AFTER: {features.PhotoneoTriggerMode.value}")
-                else:
-                    logger.warning("PhotoneoTriggerMode feature not available on this device.")
+                features.SendTexture.value = config["camera"]["send_data"]["texture"]
+                features.SendPointCloud.value = config["camera"]["send_data"]["point_cloud"]
+                features.SendNormalMap.value = config["camera"]["send_data"]["normal_map"]
+                features.SendDepthMap.value = config["camera"]["send_data"]["depth_map"]
+                features.SendConfidenceMap.value = config["camera"]["send_data"]["confidence_map"]
 
-                # Start the camera interface
                 ia.start()
-                logger.info("Camera interface started.")
 
-                # Initialize Open3D visualizer
-                vis = initialize_open3d_visualizer()
+                logging.info("Camera started. Press 'q' in any OpenCV window to exit.")
 
-                try:
-                    while True:
-                        logger.info("\n-- Capturing frame --")
-                        features.TriggerFrame.execute()
+                while True:
+                    logging.info("\n-- Capturing frame --")
+                    features.TriggerFrame.execute()
+                    with ia.fetch(timeout=3.0) as buffer:
+                        payload = buffer.payload
 
-                        with ia.fetch(timeout=10.0) as buffer:
-                            payload = buffer.payload
-                            logger.debug("Fetched new frame.")
+                        # Verify payload has enough components
+                        expected_components = 8  # Adjust based on actual components used
+                        if len(payload.components) < expected_components:
+                            logging.error(f"Expected at least {expected_components} components, got {len(payload.components)}")
+                            continue
 
-                            logger.info("Available components in payload:")
-                            for i, component in enumerate(payload.components):
-                                logger.info(f"Component {i}: width={component.width}, height={component.height}, "
-                                            f"data size={component.data.size}, data format={component.data_format}")
+                        # Display point cloud with Matplotlib (optional)
+                        point_cloud_component = payload.components[2]
+                        pointcloud_data = point_cloud_component.data.reshape(point_cloud_component.height * point_cloud_component.width, 3).copy()
+                        display_pointcloud_with_matplotlib(pointcloud_data)
 
-                            # Process Texture Component
-                            texture_component = None
-                            for component in payload.components:
-                                if component.data_format.upper() in ['RGB8', 'BGR8']:
-                                    texture_component = component
-                                    logger.info(f"Texture component found with data format: {component.data_format}")
-                                    break
+                        # Display texture
+                        texture_component = payload.components[0]
+                        display_texture_if_available(texture_component)
 
-                            if texture_component:
-                                texture_image = get_texture_image(texture_component)
-                                if texture_image is not None:
-                                    # Save the texture image
-                                    cv2.imwrite("TextureRGB.png", texture_image)
-                                    logger.info("Texture RGB image saved as TextureRGB.png")
+                        # Display texture RGB
+                        texture_rgb_component = payload.components[1]
+                        display_color_image_if_available(texture_rgb_component, "TextureRGB")
 
-                                    # Display with object detection
-                                    display_color_image_with_detection(texture_image, "TextureRGB")
-                            else:
-                                logger.warning("Texture component not found in payload components.")
+                        # Display color camera image
+                        color_image_component = payload.components[7]
+                        display_color_image_if_available(color_image_component, "ColorCameraImage")
 
-                            # Process Point Cloud Component
-                            point_cloud_component = None
-                            for component in payload.components:
-                                if component.data_format.upper() == 'COORD3D_ABC32F':
-                                    point_cloud_component = component
-                                    logger.info("Point cloud component found.")
-                                    break
+                        # Display and process point cloud
+                        norm_component = payload.components[3]
+                        display_pointcloud_if_available(point_cloud_component, norm_component, texture_component, texture_rgb_component)
 
-                            if point_cloud_component:
-                                point_cloud = create_point_cloud_from_component(point_cloud_component)
-                                display_and_detect_objects_in_point_cloud(point_cloud, vis)
-                            else:
-                                logger.warning("Point cloud component not found in payload components.")
+                    # Check for 'q' key press to exit
+                    if cv2.waitKey(1) & 0xFF == ord('q'):
+                        logging.info("Exiting capture loop.")
+                        break
 
-                        # Handle key events
-                        if cv2.waitKey(1) & 0xFF == ord('q'):
-                            logger.info("Exiting capture loop.")
-                            break
-
-                except KeyboardInterrupt:
-                    logger.info("Capture loop interrupted by user.")
-                except Exception as e:
-                    logger.error(f"An error occurred: {type(e).__name__}: {e}")
-                finally:
-                    ia.stop()
-                    vis.destroy_window()
-                    cv2.destroyAllWindows()
-                    logger.info("Camera interface stopped and resources released.")
-
+        except KeyboardInterrupt:
+            logging.info("Interrupted by user. Exiting.")
         except Exception as e:
-            logger.error(f"An error occurred during camera setup: {type(e).__name__}: {e}")
-            sys.exit(1)
+            logging.exception(f"An unexpected error occurred: {e}")
+        finally:
+            # Ensure that resources are released properly
+            try:
+                ia.stop()
+            except:
+                pass
+            save_object_info()
+            cv2.destroyAllWindows()
 
-def main():
-    parser = argparse.ArgumentParser(description="Photoneo Camera Capture and Processing")
-    parser.add_argument('--device_id', type=str, default="TER-008", help='Device ID of the Photoneo camera')
-    parser.add_argument('--cti_path', type=str, help='Path to the photoneo.cti file')
-    args = parser.parse_args()
 
-    # Determine the CTI file path
-    if args.cti_path:
-        cti_file_path = args.cti_path
-    else:
-        # Check if PHOXI_CONTROL_PATH is set
-        cti_base_path = os.getenv('PHOXI_CONTROL_PATH')
-        if not cti_base_path:
-            logger.error("Environment variable 'PHOXI_CONTROL_PATH' is not set and --cti_path was not provided.")
-            sys.exit(1)
-        
-        # Construct the default CTI file path
-        cti_file_path = os.path.join(cti_base_path, "API/lib/photoneo.cti")
-
-    # Verify that the CTI file exists
-    if not os.path.isfile(cti_file_path):
-        logger.error(f"CTI file not found at {cti_file_path}. Please ensure that the path is correct.")
-        sys.exit(1)
-
-    software_trigger(cti_file_path, args.device_id)
+# ==================== Main Execution ====================
 
 if __name__ == "__main__":
-    main()
+    software_trigger()
