@@ -1,13 +1,13 @@
-import numpy as np
+import numpy as np # imported an module numpy as np
 import open3d as o3d
-import cv2
-import os
-import sys
+import cv2 # imported cv2 module
+import os # imported os module
+import sys # imported sys module
 from sys import platform
 from harvesters.core import Harvester
-import logging
-import json
-import yaml
+import logging # imported logging module
+import json # imported json module
+import yaml # imported yaml module
 import matplotlib.pyplot as plt
 
 # ==================== Configuration ====================
@@ -164,7 +164,7 @@ def detect_shapes_from_edges(edges, color_image):
             if circles is not None:
                 shape_name = "Circle"
             else:
-                shape_name = "Polygon"
+                shape_name = "Not defined"
         
         logging.info(f"Detected {shape_name} with dimensions (w: {w}, h: {h})")
         cv2.drawContours(color_image, [approx], -1, (0, 255, 0), 2)
@@ -368,7 +368,7 @@ def software_trigger():
                 while True:
                     logging.info("\n-- Capturing frame --")
                     features.TriggerFrame.execute()
-                    with ia.fetch(timeout=3.0) as buffer:
+                    with ia.fetch(timeout=1.0) as buffer:
                         payload = buffer.payload
 
                         # Verify payload has enough components
