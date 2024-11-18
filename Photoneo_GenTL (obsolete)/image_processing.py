@@ -164,8 +164,8 @@ def detect_shapes_from_edges(edges, color_image): # defining an function that de
                                        param1=50, param2=30, minRadius=10, maxRadius=0)
             if circles is not None:
                 shape_name = "Circle"
-            else:
-                shape_name = "Not defined"
+            # else:
+            #     shape_name = "Not defined"
         
         logging.info(f"Detected {shape_name} with dimensions (w: {w}, h: {h})")
         cv2.drawContours(color_image, [approx], -1, (0, 255, 0), 2)
@@ -279,8 +279,8 @@ def calculate_bounding_box(cluster, cluster_id): # defining an function for calc
         width=800,
         height=600
     )
+############################################# PREPARE OBJECT INFORMATION ##############################################################################
 
-    # Prepare object information
     object_info = {
         "Object_ID": cluster_id + 1,
         "AABB_Size": {
