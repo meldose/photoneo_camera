@@ -423,3 +423,5 @@ def software_trigger(): # defining the function called software trigger.
 
 if __name__ == "__main__":
     software_trigger() # calling the function software trigger
+
+

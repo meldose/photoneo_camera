@@ -504,3 +504,73 @@ _gentl.ErrorException: GenTL exception: Unspecified runtime exception. (Message 
 2024-11-13 15:55:19,532 [INFO] 
 -- Capturing frame --
 2024-11-13 15:55:28,450 [WARNING] Texture is empty!
+2024-11-18 13:02:23,302 [INFO] --> device_id: PhotoneoTL_DEV_TER-008
+2024-11-18 13:02:23,303 [INFO] --> cti_file_path: /opt/Photoneo/PhoXiControl-1.13.4/API/lib/photoneo.cti
+2024-11-18 13:02:23,413 [INFO] Name : ID
+2024-11-18 13:02:23,413 [INFO] ---------
+2024-11-18 13:02:23,413 [INFO] [MotionCam-3D]-(InstalledExamples-color-example) : PhotoneoTL_DEV_InstalledExamples-color-example
+2024-11-18 13:02:23,413 [INFO] [PhoXi3DScan]-(InstalledExamples-basic-example) : PhotoneoTL_DEV_InstalledExamples-basic-example
+2024-11-18 13:02:23,413 [INFO] 
+2024-11-18 13:02:23,413 [ERROR] An unexpected error occurred: TER-008: TER-008
+Traceback (most recent call last):
+  File "image_processing.py", line 821, in software_trigger
+    with h.create({'id_': device_id}) as ia:
+  File "/home/midhun.eldose@nad.neura-robotics.com/Desktop/photoneo_camera/.venv/lib/python3.8/site-packages/harvesters/core.py", line 3077, in create
+    raise ValueError(compose_message(4, 4))
+ValueError: TER-008: TER-008
+2024-11-18 13:02:23,414 [INFO] Saved object information to object_info.json
+2024-11-18 13:02:49,838 [INFO] --> device_id: PhotoneoTL_DEV_TER-008
+2024-11-18 13:02:49,838 [INFO] --> cti_file_path: /opt/Photoneo/PhoXiControl-1.13.4/API/lib/photoneo.cti
+2024-11-18 13:02:49,856 [INFO] Name : ID
+2024-11-18 13:02:49,856 [INFO] ---------
+2024-11-18 13:02:49,856 [INFO] [MotionCam-3D]-(TER-008) : PhotoneoTL_DEV_TER-008
+2024-11-18 13:02:49,856 [INFO] [MotionCam-3D]-(InstalledExamples-color-example) : PhotoneoTL_DEV_InstalledExamples-color-example
+2024-11-18 13:02:49,856 [INFO] [PhoXi3DScan]-(InstalledExamples-basic-example) : PhotoneoTL_DEV_InstalledExamples-basic-example
+2024-11-18 13:02:49,856 [INFO] 
+2024-11-18 13:02:52,773 [INFO] TriggerMode BEFORE: Software
+2024-11-18 13:02:52,777 [INFO] TriggerMode AFTER: Software
+2024-11-18 13:02:53,005 [INFO] Camera started. Press 'q' in any OpenCV window to exit.
+2024-11-18 13:02:53,031 [ERROR] An unexpected error occurred: visualize_pointcloud() missing 1 required positional argument: 'pcd'
+Traceback (most recent call last):
+  File "image_processing.py", line 839, in software_trigger
+    visualize_pointcloud()
+TypeError: visualize_pointcloud() missing 1 required positional argument: 'pcd'
+2024-11-18 13:02:53,032 [INFO] Saved object information to object_info.json
+2024-11-18 13:07:29,857 [INFO] --> device_id: PhotoneoTL_DEV_TER-008
+2024-11-18 13:07:29,857 [INFO] --> cti_file_path: /opt/Photoneo/PhoXiControl-1.13.4/API/lib/photoneo.cti
+2024-11-18 13:07:29,880 [INFO] Name : ID
+2024-11-18 13:07:29,880 [INFO] ---------
+2024-11-18 13:07:29,881 [INFO] [MotionCam-3D]-(InstalledExamples-color-example) : PhotoneoTL_DEV_InstalledExamples-color-example
+2024-11-18 13:07:29,881 [INFO] [PhoXi3DScan]-(InstalledExamples-basic-example) : PhotoneoTL_DEV_InstalledExamples-basic-example
+2024-11-18 13:07:29,881 [INFO] 
+2024-11-18 13:07:29,882 [ERROR] An unexpected error occurred: TER-008: TER-008
+Traceback (most recent call last):
+  File "image_processing.py", line 825, in software_trigger
+    with h.create({'id_': device_id}) as ia_inner:
+  File "/home/midhun.eldose@nad.neura-robotics.com/Desktop/photoneo_camera/.venv/lib/python3.8/site-packages/harvesters/core.py", line 3077, in create
+    raise ValueError(compose_message(4, 4))
+ValueError: TER-008: TER-008
+2024-11-18 13:07:29,887 [INFO] Saved object information to object_info.json
+2024-11-18 13:08:06,622 [INFO] --> device_id: PhotoneoTL_DEV_TER-008
+2024-11-18 13:08:06,623 [INFO] --> cti_file_path: /opt/Photoneo/PhoXiControl-1.13.4/API/lib/photoneo.cti
+2024-11-18 13:08:06,655 [INFO] Name : ID
+2024-11-18 13:08:06,655 [INFO] ---------
+2024-11-18 13:08:06,656 [INFO] [MotionCam-3D]-(TER-008) : PhotoneoTL_DEV_TER-008
+2024-11-18 13:08:06,656 [INFO] [MotionCam-3D]-(InstalledExamples-color-example) : PhotoneoTL_DEV_InstalledExamples-color-example
+2024-11-18 13:08:06,656 [INFO] [PhoXi3DScan]-(InstalledExamples-basic-example) : PhotoneoTL_DEV_InstalledExamples-basic-example
+2024-11-18 13:08:06,657 [INFO] 
+2024-11-18 13:08:09,327 [INFO] TriggerMode BEFORE: Software
+2024-11-18 13:08:09,332 [INFO] TriggerMode AFTER: Software
+2024-11-18 13:08:09,538 [INFO] Camera started. Press 'q' in any OpenCV window to exit.
+2024-11-18 13:08:09,683 [INFO] 
+-- Capturing frame --
+2024-11-18 13:08:10,163 [ERROR] An unexpected error occurred: 'Component2DImage' object has no attribute 'type'
+Traceback (most recent call last):
+  File "image_processing.py", line 854, in software_trigger
+    components = {comp.type: comp for comp in payload.components}
+  File "image_processing.py", line 854, in <dictcomp>
+    components = {comp.type: comp for comp in payload.components}
+AttributeError: 'Component2DImage' object has no attribute 'type'
+2024-11-18 13:08:10,163 [INFO] Interface adapter stopped successfully.
+2024-11-18 13:08:10,164 [INFO] Saved object information to object_info.json
+2024-11-18 13:08:10,170 [INFO] Open3D visualizer window destroyed successfully.
