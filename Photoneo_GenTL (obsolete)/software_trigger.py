@@ -66,6 +66,8 @@ def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, 
     o3d.visualization.draw_geometries([pcd], width=800,height=600) # set the geometry for image
     return
 
+
+
 def software_trigger(iterations=100): # defining the number of time it take the pictures
     # PhotoneoTL_DEV_<ID>
     device_id = "TER-008" # defining the device id name
