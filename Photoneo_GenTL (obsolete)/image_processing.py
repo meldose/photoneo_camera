@@ -36,7 +36,7 @@ config = {
         "plane_distance_threshold": 0.01,
         "ransac_n": 3,
         "ransac_iterations": 1000,
-        "dbscan_eps": 0.02,
+        "dbscan_eps": 0.07,
         "dbscan_min_points": 10,
         "voxel_size": 0.005  # For downsampling
     },
@@ -421,7 +421,7 @@ def software_trigger(): # defining the function called software trigger.
 
 # ==================== Main Execution ====================
 
-if __name__ == "__main__":
+if __name__ == "__main__": 
     software_trigger() # calling the function software trigger
 
 
