@@ -1,27 +1,22 @@
-import numpy as np # imported numpy as np 
-import open3d as o3d # imported open3d module as o3d
-import cv2 # imported module cv2
-import os # imported os module
-import sys # imported sys module
+
+import numpy as np
+import cv2
+import os
 from sys import platform
 from harvesters.core import Harvester
-import torch 
-
-# Load YOLO model
-model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)
 
 # Object classes for specific shapes and other objects of interest
-classNames = ["rectangle", "square", "circle", "oval", "triangle", "polygon", "person", "car"]
+classNames = ["rectangle", "square", "circle", "oval", "triangle", "polygon"]
 
-def display_texture_if_available(texture_component): # defining an function for displaying texture 
-    if texture_component.width == 0 or texture_component.height == 0: # if texture component width and height is zero 
-        print("Texture is empty!") # print texture is empty
+def display_texture_if_available(texture_component):  # Display texture if available
+    if texture_component.width == 0 or texture_component.height == 0:
+        print("Texture is empty!")
         return 
 
-def detect_shapes_with_opencv(color_image): # defining an function for detecting shapes with opencv
+def detect_shapes_with_opencv(color_image):  # Detect shapes with OpenCV
     # Ensure the image is an 8-bit grayscale image
-    gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY) 
-    if gray.dtype != np.uint8: 
+    gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
+    if gray.dtype != np.uint8:
         gray = cv2.normalize(gray, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
 
     blurred = cv2.GaussianBlur(gray, (5, 5), 0)
@@ -48,7 +43,7 @@ def detect_shapes_with_opencv(color_image): # defining an function for detecting
             cv2.putText(color_image, dimension_label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
             print(f"Detected {shape_name} at {(x, y)} with dimensions {w}px x {h}px")
 
-def display_color_image_with_detection(color_component, name):
+def display_color_image_with_detection(color_component, name):  # Display and detect shapes
     if color_component.width == 0 or color_component.height == 0:
         print(name + " is empty!")
         return
@@ -56,23 +51,6 @@ def display_color_image_with_detection(color_component, name):
     color_image = color_component.data.reshape(color_component.height, color_component.width, 3).copy()
     color_image = cv2.normalize(color_image, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
     color_image = cv2.cvtColor(color_image, cv2.COLOR_RGB2BGR)
-
-    # Run YOLO detection on the image
-    results = model(color_image)
-    detections = results.pandas().xyxy[0]
-    
-    # Display bounding boxes and dimensions for YOLO-detected objects
-    for idx, row in detections.iterrows():
-        x_min, y_min, x_max, y_max = int(row['xmin']), int(row['ymin']), int(row['xmax']), int(row['ymax'])
-        width = x_max - x_min
-        height = y_max - y_min
-        label = f"{row['name']} {row['confidence']:.2f}"
-        dimensions_label = f"W:{width}px H:{height}px"
-
-        cv2.rectangle(color_image, (x_min, y_min), (x_max, y_max), (0, 255, 0), 2)
-        cv2.putText(color_image, label, (x_min, y_min - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-        cv2.putText(color_image, dimensions_label, (x_min, y_min - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-        print(f"Detected {label} at {(x_min, y_min)} with dimensions {width}px x {height}px")
 
     # Detect shapes within the image using OpenCV
     detect_shapes_with_opencv(color_image)
@@ -137,4 +115,5 @@ def software_trigger():
 # Run the software trigger function
 if __name__ == "__main__":
     software_trigger()
+
 
