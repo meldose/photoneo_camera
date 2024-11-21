@@ -1,18 +1,20 @@
 
-import numpy as np
-import cv2
-import os
-from sys import platform
+import numpy as np # imported numpy as np   
+import cv2 # imported cv2 module
+import os # imported os module
+from sys import platform # imported sys module
 from harvesters.core import Harvester
 
 # Object classes for specific shapes and other objects of interest
 classNames = ["rectangle", "square", "circle", "oval", "triangle", "polygon"]
-
+################################################################################################################
 def display_texture_if_available(texture_component):  # Display texture if available
-    if texture_component.width == 0 or texture_component.height == 0:
+    if texture_component.width == 0 or texture_component.height == 0: 
         print("Texture is empty!")
         return 
+########################################################################################################################
 
+#######################################################################################################################
 def detect_shapes_with_opencv(color_image):  # Detect shapes with OpenCV
     gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
     if gray.dtype != np.uint8:
@@ -40,8 +42,10 @@ def detect_shapes_with_opencv(color_image):  # Detect shapes with OpenCV
             dimension_label = f"{shape_name} W:{w}px H:{h}px"
             cv2.putText(color_image, dimension_label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
             print(f"Detected {shape_name} at {(x, y)} with dimensions {w}px x {h}px")
+######################################################################################################################################
 
-def display_color_image_with_detection(color_component, name):  # Display and detect shapes (RGB)
+#######################################################################################################################################
+def display_color_image_with_detection(color_component, name):  # Display and detect shapes
     if color_component.width == 0 or color_component.height == 0:
         print(name + " is empty!")
         return
@@ -53,7 +57,9 @@ def display_color_image_with_detection(color_component, name):  # Display and de
     detect_shapes_with_opencv(color_image)
 
     cv2.imshow(name, color_image)
+#######################################################################################################################################
 
+######################################################################################################################################
 def save_point_cloud(point_cloud_component, file_name="point_cloud.ply"):
     """
     Save the point cloud data to a PLY file.
@@ -83,8 +89,10 @@ def save_point_cloud(point_cloud_component, file_name="point_cloud.ply"):
             ply_file.write(f"{x} {y} {z}\n")
     print(f"Point cloud saved to {file_name}")
 
+#########################################################################################################################################
+
+#########################################################################################################################################
 def software_trigger_with_pointcloud():
-    
     device_id = "PhotoneoTL_DEV_TER-008"
     print("--> device_id: ", device_id)
 
@@ -106,7 +114,6 @@ def software_trigger_with_pointcloud():
 
         with h.create({'id_': device_id}) as ia:
             features = ia.remote_device.node_map
-
             features.PhotoneoTriggerMode.value = "Software"
             features.SendTexture.value = True
             features.SendPointCloud.value = True
@@ -137,7 +144,7 @@ def software_trigger_with_pointcloud():
                         break
             finally:
                 ia.stop()
-
+###################################################################################################################################
 # Run the updated software trigger function
 if __name__ == "__main__":
     software_trigger_with_pointcloud()
