@@ -13,8 +13,6 @@ def display_texture_if_available(texture_component):  # Display texture if avail
         print("Texture is empty!")
         return 
 ########################################################################################################################
-
-#######################################################################################################################
 def detect_shapes_with_opencv(color_image):  # Detect shapes with OpenCV
     gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
     if gray.dtype != np.uint8:
@@ -44,7 +42,6 @@ def detect_shapes_with_opencv(color_image):  # Detect shapes with OpenCV
             print(f"Detected {shape_name} at {(x, y)} with dimensions {w}px x {h}px")
 ######################################################################################################################################
 
-#######################################################################################################################################
 def display_color_image_with_detection(color_component, name):  # Display and detect shapes
     if color_component.width == 0 or color_component.height == 0:
         print(name + " is empty!")
@@ -57,7 +54,6 @@ def display_color_image_with_detection(color_component, name):  # Display and de
     detect_shapes_with_opencv(color_image)
 
     cv2.imshow(name, color_image)
-#######################################################################################################################################
 
 ######################################################################################################################################
 def save_point_cloud(point_cloud_component, file_name="point_cloud.ply"):
@@ -91,7 +87,6 @@ def save_point_cloud(point_cloud_component, file_name="point_cloud.ply"):
 
 #########################################################################################################################################
 
-#########################################################################################################################################
 def software_trigger_with_pointcloud():
     device_id = "PhotoneoTL_DEV_TER-008"
     print("--> device_id: ", device_id)
