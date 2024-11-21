@@ -134,13 +134,12 @@ def software_trigger_with_pointcloud():
                         break
             finally:
                 ia.stop()
-###################################################################################################################################
-# Run the updated software trigger function
+
 if __name__ == "__main__":
     software_trigger_with_pointcloud()
 
 
-##################################### REMOVED VISUALIZATION PART #####################################################
+############################################# calling script #########################################################################################################
 # import numpy as np
 # import cv2
 # import os
@@ -150,7 +149,14 @@ if __name__ == "__main__":
 # # Object classes for specific shapes and other objects of interest
 # classNames = ["rectangle", "square", "circle", "oval", "triangle", "polygon"]
 
-# def detect_shapes_with_opencv(color_image):  # Detect shapes with OpenCV
+# def display_texture_if_available(texture_component):
+#     """ Display texture if available. """
+#     if texture_component.width == 0 or texture_component.height == 0:
+#         print("Texture is empty!")
+#         return
+
+# def detect_shapes_with_opencv(color_image):
+#     """ Detect shapes in the image using OpenCV. """
 #     gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
 #     if gray.dtype != np.uint8:
 #         gray = cv2.normalize(gray, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
@@ -183,12 +189,7 @@ if __name__ == "__main__":
 #     return shape_data
 
 # def save_point_cloud(point_cloud_component, file_name="point_cloud.ply"):
-#     """
-#     Save the point cloud data to a PLY file.
-#     Args:
-#         point_cloud_component: Component containing point cloud data.
-#         file_name (str): The name of the output PLY file.
-#     """
+#     """ Save the point cloud data to a PLY file. """
 #     if point_cloud_component.width == 0 or point_cloud_component.height == 0:
 #         print("Point cloud is empty!")
 #         return
@@ -211,8 +212,21 @@ if __name__ == "__main__":
 #             ply_file.write(f"{x} {y} {z}\n")
 #     print(f"Point cloud saved to {file_name}")
 
+# def trigger_process(image_component, point_cloud_component, image_callback, point_cloud_callback):
+#     """ Trigger the processing of image and point cloud data. """
+#     # Trigger image processing
+#     if image_component and image_component.width > 0 and image_component.height > 0:
+#         color_image = image_component.data.reshape(image_component.height, image_component.width, 3).copy()
+#         color_image = cv2.normalize(color_image, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+#         color_image = cv2.cvtColor(color_image, cv2.COLOR_RGB2BGR)
+#         image_callback(color_image)
+
+#     # Trigger point cloud saving
+#     if point_cloud_component and point_cloud_component.width > 0 and point_cloud_component.height > 0:
+#         save_point_cloud(point_cloud_component)
+
 # def software_trigger_with_pointcloud():
-    
+#     """ Main function to trigger software capture and process data. """
 #     device_id = "PhotoneoTL_DEV_TER-008"
 #     print("--> device_id: ", device_id)
 
@@ -252,23 +266,17 @@ if __name__ == "__main__":
 #                         payload = buffer.payload
 
 #                         texture_component = payload.components[0]
-#                         if texture_component.width == 0 or texture_component.height == 0:
-#                             print("Texture is empty!")
-
 #                         texture_rgb_component = payload.components[1]
-#                         if texture_rgb_component.width > 0 and texture_rgb_component.height > 0:
-#                             color_image = texture_rgb_component.data.reshape(texture_rgb_component.height, texture_rgb_component.width, 3).copy()
-#                             color_image = cv2.normalize(color_image, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
-#                             color_image = cv2.cvtColor(color_image, cv2.COLOR_RGB2BGR)
-#                             detect_shapes_with_opencv(color_image)
-
 #                         point_cloud_component = payload.components[2]
-#                         save_point_cloud(point_cloud_component, "output_point_cloud.ply")
 
+#                         # Trigger the processing using callbacks
+#                         trigger_process(texture_rgb_component, point_cloud_component, detect_shapes_with_opencv, save_point_cloud)
+
+#                     if cv2.waitKey(1) & 0xFF == ord('q'):
+#                         print("Exiting capture loop.")
+#                         break
 #             finally:
 #                 ia.stop()
 
-# # Run the updated software trigger function
 # if __name__ == "__main__":
 #     software_trigger_with_pointcloud()
-
