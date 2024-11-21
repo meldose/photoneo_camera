@@ -80,9 +80,8 @@ def display_color_image_with_detection(color_component, name):
     cv2.imshow(name, color_image)
 
 def software_trigger():
-    device_id = "TER-008"
-    if len(sys.argv) == 2:
-        device_id = "PhotoneoTL_DEV_" + sys.argv[1]
+    ####################
+    device_id = "PhotoneoTL_DEV_TER-008"
     print("--> device_id: ", device_id)
 
     if platform == "linux":

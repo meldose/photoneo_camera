@@ -320,8 +320,7 @@ def save_object_info(): # defining the function for save_object_info
 def software_trigger(): # defining the function called software trigger.
     """Main function to configure the camera, capture data, and process frames."""
     device_id = config["camera"]["device_id"]
-    if len(sys.argv) == 2:
-        device_id = "PhotoneoTL_DEV_" + sys.argv[1]
+    device_id = "PhotoneoTL_DEV_TER-008"
     logging.info(f"--> device_id: {device_id}")
 
     phoxi_control_path = os.getenv('PHOXI_CONTROL_PATH') # setting the phoxi_control_path 

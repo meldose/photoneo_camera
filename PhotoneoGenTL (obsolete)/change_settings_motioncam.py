@@ -5,9 +5,8 @@ from harvesters.core import Harvester # imported module Harvester from harvester
 import struct # imported struct module
 
 # PhotoneoTL_DEV_<ID>
-device_id = "TER-008" # set device id
-if len(sys.argv) == 2: #setting the length of the argument to 2
-    device_id = "PhotoneoTL_DEV_" + sys.argv[1]
+#################### #setting the length of the argument to 2
+device_id = "PhotoneoTL_DEV_TER-008"
 print("--> device_id: ", device_id) # printing the device id
 
 if platform == "linux": # if the platform is linux

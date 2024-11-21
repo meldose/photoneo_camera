@@ -118,9 +118,8 @@ def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, 
 
 def freerun():
     # PhotoneoTL_DEV_<ID>
-    device_id = "TER-008"
-    if len(sys.argv) == 2:
-        device_id = "PhotoneoTL_DEV_" + sys.argv[1]
+    ####################
+    device_id = "PhotoneoTL_DEV_TER-008" 
     print("--> device_id: ", device_id)
 
     if platform == "linux":
