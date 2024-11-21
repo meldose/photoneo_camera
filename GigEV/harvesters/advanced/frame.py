@@ -1,5 +1,5 @@
 
-################CAMERA FPS TEST#############################
+################CAMERA FPS TEST#########
 
 import cv2 # imported cv2 module
 import time # imported time module
@@ -37,7 +37,7 @@ def measure_fps(camera_index=0, num_frames=100): # defining the function measure
 
 measure_fps() # Call the function to measure FPS
 
-##############TEST WITH HARDWARE TRIGGER########################
+##############TEST WITH HARDWARE TRIGGER####
 
 import sys # imported module sys
 import time # imported time module

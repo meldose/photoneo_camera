@@ -6,7 +6,7 @@ import struct # imported struct module
 
 # PhotoneoTL_DEV_<ID>
 
-#################### # checking if the length of the argument is 2
+ # checking if the length of the argument is 2
 device_id = "PhotoneoTL_DEV_TER-008"# assigning the device id to the argument value
 print("--> device_id: ", device_id) # printing the device id
 

@@ -5,7 +5,7 @@ from harvesters.core import Harvester # imported module Harvester from harvester
 import struct # imported struct module
 
 # PhotoneoTL_DEV_<ID> 
-#################### #setting the length of the argument to 2
+ #setting the length of the argument to 2
     device_id = "PhotoneoTL_DEV_TER-008"
 print("--> device_id: ", device_id) # printing the device id
 
@@ -31,7 +31,7 @@ with Harvester() as h: # consider h as Harvester
     with h.create({'id_': device_id}) as ia: # creating the device id
         features = ia.remote_device.node_map # assigning the features as ia.remote_device.node_map
 
-################################## GENERAL SETTINGS ##################################################################################################
+############## GENERAL SETTINGS ##################
 
         # ReadOnly
         is_phoxi_control_running = features.IsPhoXiControlRunning.value 
@@ -68,7 +68,7 @@ with Harvester() as h: # consider h as Harvester
         stop_acquisition_after_disconnect = features.StopAcquisitionAfterDisconnect.value
         features.StopAcquisitionAfterDisconnect.value = False
 
-################################################## CAPTURE  SETTINGS####################################################################
+########## CAPTURE  SETTINGS########
 
         # <1, 20>
         shutter_multiplier = features.ShutterMultiplier.value
@@ -141,7 +141,7 @@ with Harvester() as h: # consider h as Harvester
         camera_texture_source = features.CameraTextureSource.value
         features.CameraTextureSource.value = 'Laser'
 
-##################################### PROCESSING SETTINGS #####################################################################################################
+################# PROCESSING SETTINGS #
 
         # <0.0, 100.0>
         max_inaccuracy = features.MaxInaccuracy.value
@@ -191,7 +191,7 @@ with Harvester() as h: # consider h as Harvester
         normals_estimation_radius = features.NormalsEstimationRadius.value
         features.NormalsEstimationRadius.value = 1
 
-####################################################### COORDINATES SETTINGS #############################################################################################
+############### COORDINATES SETTINGS #############
 
 
         # `CameraSpace`, `MarkerSpace`, `RobotSpace` or `CustomSpace`
@@ -258,7 +258,7 @@ with Harvester() as h: # consider h as Harvester
         marker_scale_height = features.MarkerScaleHeight
         features.MarkerScaleHeight.value = 0.50
 
-##############################################' CALIBRATION SETTINGS ###########################################################################################
+######' CALIBRATION SETTINGS ###########
 
         # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
         camera_matrix_selector = features.CameraMatrixSelector.value
@@ -345,7 +345,7 @@ with Harvester() as h: # consider h as Harvester
             color_calibration_camera_resolution_width = features.ColorCalibration_CameraResolutionWidth.value
             color_calibration_camera_resolution_height = features.ColorCalibration_CameraResolutionHeight.value
 
-#################################################### COLOR SETTINGS #####################################################################################
+############ COLOR SETTINGS #####
 
             # Choose ISO value from supported ISO values
         if features.ColorSettings_SupportedISOsSize.value > 0:
@@ -383,7 +383,7 @@ with Harvester() as h: # consider h as Harvester
             features.ColorSettings_WhiteBalanceG.value = 1.0
             features.ColorSettings_WhiteBalanceB.value = 1.0
 
-# ##########################################################'FRAMEOUTPUT SETTINGS#################################################################################
+# ##################'FRAMEOUTPUT SETTINGS#
 
         # Enable/Disable transfer of spefific images (True or False)
         features.SendPointCloud.value = True

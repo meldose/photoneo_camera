@@ -68,7 +68,7 @@ def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, 
 
 def software_trigger(): # defined function software_trigger
     # PhotoneoTL_DEV_<ID>
-    #################### # if the length of the sys.argv is 2
+     # if the length of the sys.argv is 2
     device_id = "PhotoneoTL_DEV_TER-008"
     print("--> device_id: ", device_id) # print the device_id
 

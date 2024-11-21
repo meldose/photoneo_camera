@@ -5,7 +5,7 @@ from harvesters.core import Harvester # imported harvesters module
 import struct # imported struct module
 
 # PhotoneoTL_DEV_<ID>
-####################
+
 device_id = "PhotoneoTL_DEV_" + sys.argv[1]
 print("--> device_id: ", device_id)
 

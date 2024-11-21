@@ -5,7 +5,7 @@ from harvesters.core import Harvester
 import struct
 
 # PhotoneoTL_DEV_<ID>
-####################
+
 device_id = "PhotoneoTL_DEV_TER-008"
 print("--> device_id: ", device_id)
 
@@ -31,7 +31,7 @@ with Harvester() as h:
     with h.create({'id_': device_id}) as ia:
         features = ia.remote_device.node_map
 
-################################################################ GENERAL SETTINGS #####################################################################################
+#### GENERAL SETTINGS #####
 
         # ReadOnly
         is_phoxi_control_running = features.IsPhoXiControlRunning.value
@@ -44,7 +44,7 @@ with Harvester() as h:
         device_variant = features.PhotoneoDeviceVariant.value
         device_features = features.PhotoneoDeviceFeatures.value
 
-        print("################################################################")
+        print("####")
 
         if type != "PhoXi3DScanner":
             print("Device is not a PhoXi3DScanner!")
@@ -71,7 +71,7 @@ with Harvester() as h:
         stop_acquisition_after_disconnect = features.StopAcquisitionAfterDisconnect.value
         features.StopAcquisitionAfterDisconnect.value = False
 
-################################################################## CAPTURE SETTINGS #######################################################################################
+###### CAPTURE SETTINGS #######
 
         # <1, 20>
         shutter_multiplier = features.ShutterMultiplier.value
@@ -137,7 +137,7 @@ with Harvester() as h:
         hardware_trigger_signal = features.HardwareTriggerSignal.value
         features.HardwareTriggerSignal.value = 'Both'
 
-############################################################## PROCESSING SETTINGS #########################################################################################
+## PROCESSING SETTINGS #########
 
         # <0.0, 100.0>
         max_inaccuracy = features.MaxInaccuracy.value
@@ -203,7 +203,7 @@ with Harvester() as h:
         signal_contrast_threshold = features.SignalContrastThreshold.value
         features.SignalContrastThreshold.value = 2000.50
 
-############################################################################## COORDINATES SETTINGS ###############################################################################
+################## COORDINATES SETTINGS ###################
 
 
         # `CameraSpace`, `MarkerSpace`, `RobotSpace` or `CustomSpace`
@@ -270,7 +270,7 @@ with Harvester() as h:
         marker_scale_height = features.MarkerScaleHeight
         features.MarkerScaleHeight.value = 0.50
 
-############################################################ CALIBRATION SETTINGS #########################################################################################
+ CALIBRATION SETTINGS #########
 
         ## Calibration settings
         # `Row0Col0`, `Row0Col1`, `Row0Col2`, `Row1Col0`, .. , `Row2Col2`
@@ -301,7 +301,7 @@ with Harvester() as h:
         pixel_length_width = features.PixelSizeWidth.value
         pixel_length_height = features.PixelSizeHeight.value
 
-################################################### FRAME-OUPUT SETTINGS ################################################################################################
+########### FRAME-OUPUT SETTINGS ################
 
         # Enable/Disable transfer of spefific images (True or False)
         features.SendPointCloud.value = True

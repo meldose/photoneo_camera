@@ -67,7 +67,7 @@ def display_color_image_with_detection(color_component, name): # defined a funct
     cv2.imshow(name, color_image)
 
 def software_trigger(): # defined an function for software trigger 
-    ####################
+    
     device_id = "PhotoneoTL_DEV_TER-008"
     print("--> device_id: ", device_id)
 

@@ -118,7 +118,7 @@ def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, 
 
 def freerun(): # defined the main function
     # PhotoneoTL_DEV_<ID>
-    #################### # checking if the argument is available or not
+     # checking if the argument is available or not
     device_id = "PhotoneoTL_DEV_TER-008"
     print("--> device_id: ", device_id) # print the device id
 

@@ -70,7 +70,7 @@ def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, 
 
 def software_trigger(iterations=100): # defining the number of time it take the pictures
     # PhotoneoTL_DEV_<ID>
-    #################### # if the lenght of the argument is 2
+     # if the lenght of the argument is 2
     device_id = "PhotoneoTL_DEV_TER-008"
     print("--> device_id: ", device_id)
 

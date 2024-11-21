@@ -84,7 +84,7 @@ def save_point_cloud(point_cloud_component, file_name="point_cloud.ply"):
     print(f"Point cloud saved to {file_name}")
 
 def software_trigger_with_pointcloud():
-    ####################
+    
     device_id = "PhotoneoTL_DEV_TER-008"
     print("--> device_id: ", device_id)
 

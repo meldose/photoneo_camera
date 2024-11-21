@@ -150,7 +150,7 @@ def detect_shapes_from_edges(edges, color_image): # defining an function that de
         approx = cv2.approxPolyDP(cnt, epsilon, True)
         
         x, y, w, h = cv2.boundingRect(approx)
-########################## checking the shape of the objects #################################################################       
+###### checking the shape of the objects #####       
         shape_name = "Unknown"
         if len(approx) == 3:
             shape_name = "Triangle"
@@ -172,7 +172,7 @@ def detect_shapes_from_edges(edges, color_image): # defining an function that de
         cv2.putText(color_image, shape_name, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 
                     0.5, (0, 255, 0), 2)
 
-####################################################################################################################################
+############
 def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, texture_rgb_comp): # defining the function that display_point_lcoud_is_available or not
     """Process and visualize point cloud data, including segmentation, clustering, and bounding boxes."""
     if pointcloud_comp.width == 0 or pointcloud_comp.height == 0: # checking if the texture is empty or not 
@@ -202,7 +202,7 @@ def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, 
         logging.info(f"Object {idx+1} size (X: {size['AABB_Size']['X']:.2f}, "
                      f"Y: {size['AABB_Size']['Y']:.2f}, Z: {size['AABB_Size']['Z']:.2f})")
 
- ############################################################ Process texture RGB ######################################################################################
+  Process texture RGB ######
     texture_rgb = np.zeros((pointcloud_comp.height * pointcloud_comp.width, 3))
     if texture_comp.width > 0 and texture_comp.height > 0:
         texture = texture_comp.data.reshape(texture_comp.height, texture_comp.width, 1).copy()
@@ -225,7 +225,7 @@ def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, 
     o3d.visualization.draw_geometries([pcd], width=1024, height=768)
     return
 
-########################################################################################################################################################################
+########
 
 def segment_pointcloud(pcd): # defining the function for segment_pointcloud 
     """Segment the plane (e.g., table) from the point cloud to isolate objects."""
@@ -279,7 +279,7 @@ def calculate_bounding_box(cluster, cluster_id): # defining an function for calc
         width=800,
         height=600
     )
-############################################# PREPARE OBJECT INFORMATION ##############################################################################
+##### PREPARE OBJECT INFORMATION ##################
 
     object_info = {
         "Object_ID": cluster_id + 1,

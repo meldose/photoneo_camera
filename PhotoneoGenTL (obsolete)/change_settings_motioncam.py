@@ -5,7 +5,7 @@ from harvesters.core import Harvester # imported module Harvester from harvester
 import struct # imported struct module
 
 # PhotoneoTL_DEV_<ID>
-#################### #setting the length of the argument to 2
+ #setting the length of the argument to 2
 device_id = "PhotoneoTL_DEV_TER-008"
 print("--> device_id: ", device_id) # printing the device id
 
