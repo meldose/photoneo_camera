@@ -41,7 +41,7 @@ def detect_shapes_with_opencv(color_image):  # Detect shapes with OpenCV
             cv2.putText(color_image, dimension_label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
             print(f"Detected {shape_name} at {(x, y)} with dimensions {w}px x {h}px")
 
-def display_color_image_with_detection(color_component, name):  # Display and detect shapes
+def display_color_image_with_detection(color_component, name):  # Display and detect shapes (RGB)
     if color_component.width == 0 or color_component.height == 0:
         print(name + " is empty!")
         return
