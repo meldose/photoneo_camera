@@ -57,13 +57,8 @@ def display_color_image_with_detection(color_component, name):  # Display and de
 
 ######################################################################################################################################
 def save_point_cloud(point_cloud_component, file_name="point_cloud.ply"):
-    """
-    Save the point cloud data to a PLY file.
-    Args:
-        point_cloud_component: Component containing point cloud data.
-        file_name (str): The name of the output PLY file.
-    """
-    if point_cloud_component.width == 0 or point_cloud_component.height == 0:
+
+    if point_cloud_component.width == 0 or point_cloud_component.height == 0: # if the width and height of the point_cloud compoent is zero
         print("Point cloud is empty!")
         return
     
