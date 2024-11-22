@@ -19,7 +19,7 @@ config = {
         "cti_file_suffix": "/API/lib/photoneo.cti",
         "trigger_mode": "Software",
         "send_data": {
-            "texture": True,
+            "texture": True, # putiing texture as True
             "point_cloud": True,
             "normal_map": True,
             "depth_map": True,
