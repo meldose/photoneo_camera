@@ -6,7 +6,7 @@ import struct # imported struct module
 
 # PhotoneoTL_DEV_<ID> 
  #setting the length of the argument to 2
-    device_id = "PhotoneoTL_DEV_TER-008"
+device_id = "PhotoneoTL_DEV_TER-008"
 print("--> device_id: ", device_id) # printing the device id
 
 if platform == "linux": # if the platform is linux
@@ -96,7 +96,8 @@ with Harvester() as h: # consider h as Harvester
         
         # <0.0, 100.0>
         maximum_fps = features.MaximumFPS.value
-        features.MaximumFPS.value = 85
+        features.MaximumFPS.value = 100
+    
         
         # <1, 4095>
         laser_power = features.LaserPower.value
