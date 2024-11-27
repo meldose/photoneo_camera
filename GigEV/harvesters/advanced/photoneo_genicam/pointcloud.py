@@ -31,20 +31,20 @@ def construct_coordinate_map(
 def create_3d_vector(input_array_as_np: np.ndarray): # define the function for 3d vector 
     return o3d.utility.Vector3dVector(input_array_as_np.reshape(-1, 3).astype(np.float64))
 
-
 def map_texture(texture: Component2DImage) -> o3d.utility.Vector3dVector:
-    o3d point colors property expect (num_points, 3), range [0, 1] format
-    if texture.data_format == "BGR8": # consider texture.data_format == "BGR8"
+    # Open3D point colors property expects (num_points, 3) format with values in the range [0, 1]
+    if texture.data_format == "BGR8":  # Handle BGR8 format
         return o3d.utility.Vector3dVector(texture.data.reshape(-1, 3).astype(np.float64) / 255.0)
-    if texture.data_format == "Mono12": # consider texture.data_format == "Mono12"
+    if texture.data_format == "Mono12":  # Handle Mono12 format
         normalized = texture.data.reshape(-1, 1).astype(np.float64) / 4096.0
         return o3d.utility.Vector3dVector(np.repeat(normalized, 3, axis=-1))
-    if texture.data_format == "Mono16":# consider texture.data_format == "Mono16"
+    if texture.data_format == "Mono16":  # Handle Mono16 format
         normalized = texture.data.reshape(-1, 1).astype(np.float64) / 65536.0
         return o3d.utility.Vector3dVector(np.repeat(normalized, 3, axis=-1))
-    if texture.data_format == "Mono20": # consider texture.data_format == "Mono20"
+    if texture.data_format == "Mono20":  # Handle Mono20 format
         normalized = texture.data.reshape(-1, 1).astype(np.float64) / 1048576.0
         return o3d.utility.Vector3dVector(np.repeat(normalized, 3, axis=-1))
+
 
 
 @measure_time

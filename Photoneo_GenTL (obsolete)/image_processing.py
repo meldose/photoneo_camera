@@ -202,7 +202,7 @@ def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, 
         logging.info(f"Object {idx+1} size (X: {size['AABB_Size']['X']:.2f}, "
                      f"Y: {size['AABB_Size']['Y']:.2f}, Z: {size['AABB_Size']['Z']:.2f})")
 
-  Process texture RGB ######
+  #### Process texture RGB ######
     texture_rgb = np.zeros((pointcloud_comp.height * pointcloud_comp.width, 3))
     if texture_comp.width > 0 and texture_comp.height > 0:
         texture = texture_comp.data.reshape(texture_comp.height, texture_comp.width, 1).copy()
@@ -225,7 +225,7 @@ def display_pointcloud_if_available(pointcloud_comp, normal_comp, texture_comp, 
     o3d.visualization.draw_geometries([pcd], width=1024, height=768)
     return
 
-########
+
 
 def segment_pointcloud(pcd): # defining the function for segment_pointcloud 
     """Segment the plane (e.g., table) from the point cloud to isolate objects."""
