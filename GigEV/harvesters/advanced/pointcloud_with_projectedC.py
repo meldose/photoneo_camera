@@ -18,9 +18,9 @@ from photoneo_genicam.visualizer import RealTimePCLRenderer
 def main(device_sn: str): # define the main function
     with Harvester() as h: # consider h as Harvester
         h.add_file(str(producer_path), check_existence=True, check_validity=True) # add file to harvester
-        h.update() # 
+        h.update() 
 
-        with h.create({"serial_number": device_sn}) as ia: # connect to device
+        with h.create({"TER-008": device_sn}) as ia: # connect to device
             features: NodeMap = ia.remote_device.node_map
 
             load_default_user_set(features) #   load default user set
